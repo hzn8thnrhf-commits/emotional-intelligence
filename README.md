@@ -6,13 +6,13 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 ## What it does
 
-**Today** — a calm home screen: a 15-second mood check-in ("what's the weather in there?"), your next lesson, quick tools, and a daily line worth keeping (Gita, Marcus Aurelius, Frankl, Rumi).
+**Today** — a calm home screen: a 15-second mood check-in with a colour-coded emotion picker — 8 families (red for anger, amber for anxiety, blue for sadness…) expanding to ~70 named emotions, your next lesson, quick tools, and a daily line worth keeping (Gita, Marcus Aurelius, Frankl, Rumi).
 
 **Reset** — the app's signature move: a 60-second guided circuit-breaker for hard moments. Pick what's here right now — anger, frustration, helplessness, overwhelm, anxiety — and get three timed steps tuned to that exact state (ride the 90-second wave, name the boundary, choose the next move).
 
 **For right now** — after a difficult check-in, Today quietly surfaces the one or two tools built for that exact state (anger → Reset or thought record; anxiety → physiological sigh + worry parking; helplessness → the control map).
 
-**Learn** — seven courses, 32 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience, with a "Suggested for you" path driven by your profile and check-ins:
+**Learn** — seven courses, 33 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience, with a "Suggested for you" path driven by your profile and check-ins, a **Scenario Gym** (15 interactive scenarios about the people who press your buttons — boss, peers, team, clients, family, partner — each revealing the psychological mechanism behind your reaction), and **Test your knowledge** quizzes per course with tracked best scores:
 
 | Course | What it covers |
 |---|---|
@@ -30,7 +30,7 @@ Many lessons end with an interactive scenario — a realistic moment (an MD dism
 
 **Worth keeping** — light spaced repetition: one takeaway from your completed lessons resurfaces on Today each day, so lessons compound instead of fading.
 
-**Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided CBT thought record with intensity ratings and evidence weighing; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
+**Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided **CBT engine** — a seven-step thought-record wizard that detects likely cognitive distortions from your wording, asks targeted Socratic questions per distortion, and offers balanced-thought starters; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
 
 **Reflect** — your mood over the last 14 days, a cross-tool insight engine (your most frequent cognitive distortion with the lesson aimed at it, average intensity drop across thought records, what percentage of parked worries never happened, which emotion travels with which trigger), a private journal, and quiet milestones.
 

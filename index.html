@@ -129,6 +129,15 @@ input[type=range]{width:100%; accent-color:var(--teal);}
 .tabbar button.on{color:var(--teal);}
 .tabbar .ticon{display:block; margin:0 auto 3px;}
 .tabbar svg{width:23px; height:23px; display:block; margin:0 auto 3px;}
+.famhead{
+  display:flex; align-items:center; gap:9px; width:100%; text-align:left;
+  padding:10px 13px; border-radius:12px; background:var(--card);
+  border:1px solid var(--line); font-weight:600; font-size:14px;
+}
+.famdot{width:12px; height:12px; border-radius:50%; flex:none;}
+.famcount{color:var(--muted); font-size:12px; font-weight:500;}
+.famarrow{margin-left:auto; color:var(--faint);}
+.chip.emo{border:1px solid transparent;}
 .opt{
   width:100%; text-align:left; padding:11px 12px; border-radius:12px; background:var(--chip);
   margin-top:8px; font-size:14.5px; line-height:1.45;
@@ -187,8 +196,20 @@ const QUOTES=[
 ["The obstacle is the way.","Marcus Aurelius"],
 ["Slow is smooth, smooth is fast.","Old operator's maxim"]];
 
-const EMOTIONS=["Calm","Content","Energised","Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"];
-const DIFFICULT=new Set(["Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"]);
+// Emotion taxonomy: 8 colour-coded families expanding to ~70 named emotions.
+const EMOFAM=[
+ {name:"Anger",color:"#b3402e",list:["Angry","Frustrated","Irritated","Annoyed","Resentful","Furious","Bitter","Impatient","Contemptuous","Jealous","Betrayed","Disrespected"]},
+ {name:"Fear & anxiety",color:"#bf7a24",list:["Anxious","Worried","Stressed","Overwhelmed","Nervous","Pressured","Dreading","Panicked","Insecure","Uneasy","Fearful"]},
+ {name:"Sadness",color:"#3f6fa3",list:["Sad","Low","Disappointed","Hurt","Lonely","Discouraged","Homesick","Grieving","Melancholy","Rejected"]},
+ {name:"Shame & guilt",color:"#84508a",list:["Guilty","Ashamed","Embarrassed","Regretful","Inadequate","Self-critical","Exposed","Humiliated"]},
+ {name:"Powerless",color:"#5e7160",list:["Helpless","Stuck","Trapped","Defeated","Resigned","Hopeless","Lost","Torn"]},
+ {name:"Drained",color:"#77716a",list:["Tired","Drained","Burnt out","Numb","Flat","Bored","Foggy","Restless"]},
+ {name:"Calm",color:"#2f7a72",list:["Calm","Content","Peaceful","Relieved","Settled","Steady","Safe","Accepting"]},
+ {name:"Joy & energy",color:"#a07d1f",list:["Happy","Energised","Excited","Proud","Grateful","Hopeful","Confident","Motivated","Amused","Loved","Inspired","Curious"]}];
+const DIFFICULT=new Set(EMOFAM.filter(f=>f.name!=="Calm"&&f.name!=="Joy & energy").flatMap(f=>f.list));
+const QUICK_EMO=["Frustrated","Anxious","Overwhelmed","Angry","Tired","Low","Calm","Content"];
+function famOf(e){ const f=EMOFAM.find(f=>f.list.includes(e)); return f?f.name:null; }
+function famColor(e){ const f=EMOFAM.find(f=>f.list.includes(e)); return f?f.color:"var(--teal)"; }
 const CONTEXTS=["Deadline","Meetings","My team","Senior stakeholders","Deal pressure","Workload","Family","Social life","Sleep & health","Something else"];
 const MOODS=["","Rough","Strained","Steady","Good","Great"];
 const PROFILE_OPTS=["Corporate finance","I manage a team","Long hours","High-stakes meetings","Family is complicated","Far from home"];
@@ -223,7 +244,13 @@ const COURSES=[
   ["Find your tell",`Every negotiator has a tell; so does every temper. Maybe yours is rereading the same email three times, typing harder, or going very quiet in meetings. Identify your two or three reliable tells and they become tripwires — catch the emotion at 3/10 instead of 8/10, when it's still cheap to handle.`],
   ["The desk scan",`Three times a day — coffee, lunch, the 4pm slump — run a ten-second scan: jaw, shoulders, breath, stomach. Release what's held. You're not meditating; you're checking the dashboard the way you'd glance at the numbers before a call.`]],
   take:["Your body registers emotion before your conscious mind does.","Know your two or three physical 'tells' and treat them as tripwires.","A ten-second body scan, three times a day, catches trouble early."],
-  reflect:"Where does pressure show up first in your body? Jaw, shoulders, chest, stomach — what's your tell?"}]},
+  reflect:"Where does pressure show up first in your body? Jaw, shoulders, chest, stomach — what's your tell?"},
+ {id:"f5",title:"The five buttons other people press",min:4,sections:[
+  ["Your reactions have triggers — and triggers have owners",`Most strong emotional reactions at work aren't about the task. They're about what someone's behaviour signals. The brain processes social threats with the same circuitry as physical ones — which is why an interruption can feel like a shove. Five buttons cover most of it: STATUS (being diminished or overlooked), CERTAINTY (being kept in the dark), AUTONOMY (being controlled or micromanaged), RELATEDNESS (being excluded or betrayed), and FAIRNESS (being shortchanged). Researchers call it the SCARF model. You'll recognise all five by Friday.`],
+  ["Name the button, not just the feeling",`When someone triggers you, upgrade the label. Not just "I'm furious at Marcus" but "Marcus talked over me in front of the CFO — that's my status button." The button explains the intensity: a thirty-second interruption feels enormous because the tribe was watching, not because the words mattered. And it points at the fix — status wounds need standing restored, certainty wounds need information, autonomy wounds need choice returned. The feeling alone tells you none of that.`],
+  ["Their button-pressing is data about them",`The colleague who grabs credit is usually managing his own status threat. The boss who micromanages is soothing her certainty button. The parent who compares you to cousins is playing the family's status economy, not measuring your worth. Understanding this excuses nothing — but it de-personalises everything. The two-step, every time someone lands on you: first, which of MY buttons did they press? Second, which of THEIRS were they defending? The first calms you; the second tells you what to do next.`]],
+  take:["Five buttons drive most people-triggered reactions: status, certainty, autonomy, relatedness, fairness.","Name the button, not just the feeling — the button explains the intensity and points at the fix.","Ask two questions: which of my buttons did they press, and which of theirs were they defending?"],
+  reflect:"Which of the five buttons is most sensitive in you — and who in your life presses it most often?"}]},
 {id:"heat",title:"Heat",subtitle:"Frustration and anger, handled",icon:"🔥",tint:"var(--ember)",lessons:[
  {id:"h1",title:"What anger is actually for",min:3,sections:[
   ["Anger is a boundary alarm",`Anger fires when something you value is violated — your time, your standards, your team, your sense of fairness. That makes it useful: it tells you exactly what you care about. The problem is never the signal; it's the untranslated signal, delivered raw to a colleague at volume.`],
@@ -506,6 +533,154 @@ const MEDITATIONS=[
   ["The evening is yours now. Not the quarter's. Not the deal's. Yours.",12],
   ["One more long breath out… and open your eyes.",8]]}];
 
+// Scenario Gym: practice arena for the moments where OTHER PEOPLE press your
+// buttons. Each scenario names the mechanism — what their action did in you,
+// and what's likely driving them.
+const GYM=[
+ {id:"gy1",who:"Your boss",title:"Credit, absorbed",
+  prompt:`Your MD presents your analysis to the executive committee as "work we've been doing" — your name never comes up. You find out from a peer who was in the room.`,
+  mech:`Their move pressed your STATUS and FAIRNESS buttons — recognition earned, then taken. The heat is the social brain treating invisibility as threat. What's driving him: almost certainly his own status management upward; senior people under pressure hoard credit reflexively, and it usually isn't personal.`,
+  options:[
+   {t:"Email him a 'summary for the record' of your contribution, cc'ing his boss.",best:false,fb:"That's escalation wearing a memo's clothes. He'll read the cc instantly, and you'll have converted an oversight into a war."},
+   {t:"Privately, once cool: 'Glad it landed well. For my growth here I need some visibility at that level — can I present the follow-up?'",best:true,fb:"No accusation to defend against, and it converts the grievance into a forward ask he can grant cheaply. Status restored through the future, not litigation of the past."},
+   {t:"Let it go and work even harder so the quality becomes impossible to ignore.",best:false,fb:"Quality without visibility compounds his habit, not your career. Swallowed fairness violations don't dissolve — they turn into resentment with a timestamp."}]},
+ {id:"gy2",who:"Your boss",title:"The 6pm grenade",
+  prompt:`Third Friday running, your boss drops a "need this first thing Monday" request at 6pm. Your weekend plans — and your team's — evaporate again.`,
+  mech:`AUTONOMY and FAIRNESS pressed at once: your time claimed without consent, on a repeating pattern. What's driving her: usually her own late-landing pressure from above plus weak triage — you're the shock absorber of her disorder, which is a process problem wearing a person's face.`,
+  options:[
+   {t:"Push back on the spot, at 6pm, while the annoyance is fresh.",best:false,fb:"6pm Friday is the worst possible negotiating table — you're flooded, she's cornered by her own deadline. You'll get either a fight or a grudging yes that changes nothing."},
+   {t:"Deliver this one — then book Monday: 'When requests land at 6 on Fridays, quality and the team's recovery both suffer. Can we set a Thursday cut-off or triage earlier in the week?'",best:true,fb:"You separate the incident from the pattern. Delivering buys standing; the Monday conversation attacks the process, not the person — which is the only version she can say yes to."},
+   {t:"Comply silently again. She's the boss; this is the job.",best:false,fb:"Three data points is a pattern, and silent compliance ratifies it. The cost lands on your team too — they're watching whether you protect their weekends or trade them."}]},
+ {id:"gy3",who:"Your boss",title:"Flayed in front of your team",
+  prompt:`In the team meeting, your MD picks your model apart in a tone two notches too sharp — in front of the three analysts who report to you.`,
+  mech:`STATUS threat, amplified: criticism in front of your tribe cuts deeper than the same words alone, because standing with your own team is on the line. What's driving him: heat rarely originates where it discharges — he's most likely transmitting pressure from above, and you were the nearest conductor.`,
+  options:[
+   {t:"Defend the model line by line, matching his energy so the team sees you fight.",best:false,fb:"Now it's a status battle you can't win in public — he outranks you, and escalation reads as insecurity to the very audience you're protecting."},
+   {t:"Stay level, concede what's fair, correct the factual points calmly — then privately: 'Content was fair game. The manner, in front of my team, undermines me. Bring it to me direct first.'",best:true,fb:"Composure in the room IS the status recovery — your team watches you absorb heat without catching fire. The private boundary handles the pattern, clean-anger style: behaviour, impact, request."},
+   {t:"Absorb it, then vent to your team afterwards about what he's really like.",best:false,fb:"Venting downward trades your authority for sympathy and teaches your team that heat rolls downhill here. They need a transformer, not a second broadcaster."}]},
+ {id:"gy4",who:"A peer",title:"The land grab",
+  prompt:`In a leadership meeting you weren't warned about, a peer proposes his team absorb part of your remit "for efficiency". Heads nod. You feel your chest tighten.`,
+  mech:`A rare triple: STATUS (your territory), CERTAINTY (blindsided), AUTONOMY (decided about you, without you). That's why the body slams so hard — three alarms at once. What's driving him: ambition plus opportunity; land grabs test for soft boundaries more than they target people.`,
+  options:[
+   {t:"Counter immediately by cataloguing his team's recent failures.",best:false,fb:"Attacking his team makes you the aggressor in the room's memory and converts a boundary defence into a feud. The nodding heads remember tone longer than content."},
+   {t:"Slow the decision and take co-ownership of the process: 'Worth exploring — before anything moves, he and I should map the interfaces properly. We'll bring a joint recommendation next week.'",best:true,fb:"You can't win a surprise vote, but you can dissolve it. Slowing the clock restores certainty, joint ownership restores status, and next week's terms get set by preparation instead of ambush."},
+   {t:"Say nothing in the room, then lobby your boss privately to shut it down.",best:false,fb:"Silence in the room reads as consent to everyone who was there — and back-channel reversals make you look political while he looks decisive. Contest it where it was raised."}]},
+ {id:"gy5",who:"A peer",title:"The reply-all sniper",
+  prompt:`A peer corrects a minor figure in your email — reply-all, seniors included. The correction is technically right and utterly unnecessary at that altitude.`,
+  mech:`STATUS pressed via channel choice: the content is trivial, the audience is the message. What's driving them: visibility hunger — public corrections are a cheap way to look rigorous. Read it as their campaign, not your failure.`,
+  options:[
+   {t:"Reply-all with a detailed defence showing the figure was within rounding.",best:false,fb:"A reply-all duel over a rounding error makes both of you look small — and you'll have amplified his stage. Never fight for an audience he chose."},
+   {t:"Reply-all once, brief and unbothered: 'Good catch, updated.' Then privately: 'If you spot something, flag it to me first — I'd do the same for you.'",best:true,fb:"Public composure starves the move of its payoff; the private line names the channel violation and sets the norm. You look bigger than the correction — which reverses the status math entirely."},
+   {t:"Wait for his next email and return the favour with interest.",best:false,fb:"Now it's an arms race, and the seniors on the thread will remember two people who snipe — not who started it."}]},
+ {id:"gy6",who:"A peer",title:"The eye-roll",
+  prompt:`In planning, a chronically negative peer rolls his eyes before you've finished presenting your idea. You feel the surge before you can name it.`,
+  mech:`Contempt cues — the eye-roll, the smirk — press STATUS and RELATEDNESS simultaneously; they signal 'you're not worth engaging', which the social brain registers as pain. What's driving him: habitual critics are usually protecting their own certainty — shooting down ideas is safer than being wrong about one.`,
+  options:[
+   {t:"Stop mid-sentence and call it out: 'Something to say about the eye-roll?'",best:false,fb:"Confronting the gesture makes the meeting about the gesture — he'll deny it, you'll look thin-skinned, and your idea dies unheard in the scuffle."},
+   {t:"Finish your point, then hand him a genuine question: 'You look sceptical — what would need to be true for this to work?'",best:true,fb:"You convert the critic into a contributor on your terms. Either he engages properly (idea improves) or he has nothing (scepticism deflates in public). Both outcomes restore your standing without a shot fired."},
+   {t:"Note it, finish quickly, and stop bringing ideas to that forum.",best:false,fb:"Retreat hands him the room permanently. Your ideas' exposure shouldn't be priced by his manners."}]},
+ {id:"gy7",who:"Your team",title:"The counter-offer",
+  prompt:`Your best analyst tells you a rival shop has offered 20% more. After two years of investing in her, the word that surfaces in you is 'betrayal'.`,
+  mech:`RELATEDNESS pressed: the loyalty story ("after everything I did") converts a market event into a personal one. But check the story — she told you, which is the opposite of betrayal. What's driving her: market forces and a career, not a verdict on you.`,
+  options:[
+   {t:"Let the disappointment show: 'Honestly, after the opportunities I've given you, this stings.'",best:false,fb:"Guilt might buy three awkward months, but you'll have taught her that honesty gets punished — the next offer she gets, you'll hear about via her resignation."},
+   {t:"Thank her for the openness, then get curious: 'Money aside — what would make staying the more compelling career?' Then genuinely explore both comp and the answer.",best:true,fb:"The betrayal feeling is a story; her telling you is trust. Treating it as a negotiation about her future — not your wound — is what actually retains people. And if she goes anyway, she goes as an ally."},
+   {t:"Match the money that day and consider it solved.",best:false,fb:"Counter-offers that ignore the underlying reasons buy an average of months, not years. If she was underpaid, fix it — but the offer usually surfaced something money wasn't."}]},
+ {id:"gy8",who:"Your team",title:"The shrug",
+  prompt:`A mid-level analyst misses a third internal deadline and shrugs: 'It's only internal.' The shrug lands harder than the miss.`,
+  mech:`The miss pressed FAIRNESS (others carry his slack); the shrug pressed STATUS — casual dismissal of a standard you own is dismissal of you. What's driving him: possibly overload, possibly genuine confusion about what matters; the shrug may be face-saving, not defiance.`,
+  options:[
+   {t:"Sharpen up: 'Only internal? That attitude is exactly the problem.'",best:false,fb:"You'd be answering the shrug, not the pattern — and character verdicts ('that attitude') trigger defence, not change. The real information stays hidden."},
+   {t:"SBI plus curiosity: 'Three Tuesday cuts have landed late; the team builds on those, so others stayed late twice. That's the impact. Walk me through how you're prioritising — something isn't matching.'",best:true,fb:"Behaviour, impact, then a genuine question. Three misses usually has a cause — hidden workload, unclear priority, or a wrong belief about what internal deadlines are for. You can't fix which until he says."},
+   {t:"Quietly route the important work around him from now on.",best:false,fb:"Avoidance freezes his growth and doubles everyone else's load — and he'll notice the routing without ever learning why. That's a slow firing you haven't admitted to."}]},
+ {id:"gy9",who:"Your team",title:"Tears in a feedback meeting",
+  prompt:`A junior tears up during routine feedback. You feel a flash of irritation — then guilt about the irritation.`,
+  mech:`Your irritation is usually anxiety in disguise — their tears press your CERTAINTY button (script gone, no playbook) and quietly accuse your delivery. What's driving them: accumulated overload finding an exit, not manipulation — the feedback was the last straw, rarely the cause.`,
+  options:[
+   {t:"Wrap up fast and cover the rest by email to spare you both.",best:false,fb:"Fleeing teaches you both that emotion ends conversations — feedback gets rarer, which juniors experience as abandonment, not kindness."},
+   {t:"Pause without drama: 'Take a second — feedback lands hard on a tired week, that's human.' Then finish gently, and separately check what else is on their plate.",best:true,fb:"Normalising the tears drains their shame and your awkwardness. Finishing the feedback preserves the standard; the workload check afterwards addresses the real cause."},
+   {t:"Soften the message until it's barely feedback at all, and lower the bar going forward.",best:false,fb:"Diluted standards help no one — they'll plateau, and you'll quietly resent doing their thinking. Kindness is gentle delivery of the real message, not a different message."}]},
+ {id:"gy10",who:"A client",title:"The moving goalposts",
+  prompt:`On a call with your MD present, the client CFO rejects the deck for 'missing' analyses that were never in scope — with a tone that implies your team is out of its depth.`,
+  mech:`FAIRNESS (goalposts moved) and STATUS (competence questioned in front of your MD) pressed together. What's driving him: client-side CFOs perform rigour for their own boards — the jab is often theatre for an audience you can't see.`,
+  options:[
+   {t:"Politely reference the scope email, on the call, so the record is straight.",best:false,fb:"You'd win the fact and lose the room — clients don't forgive being corrected in company, and your MD needs the relationship more than the point."},
+   {t:"Let the jab pass, absorb the ask: 'We'll fold that in.' Then: 'So we stay efficient for you, let's lock the full scope on one page after this call.' Debrief facts with your MD after.",best:true,fb:"The one-pager fixes the actual problem (scope drift) without litigating blame. Your composure in front of the MD is worth more than the point you didn't score."},
+   {t:"Apologise comprehensively and take full responsibility for the gap.",best:false,fb:"Absorbing blame for unrequested work sets the price of all future goalpost-moving at zero. Accommodation and self-indictment are different things."}]},
+ {id:"gy11",who:"A client",title:"Radio silence",
+  prompt:`A client goes silent for two weeks on a live deal. Your mind runs disaster scenarios on a loop, and yesterday you snapped at an analyst over nothing.`,
+  mech:`CERTAINTY starvation: ambiguity is the one thing the threat system refuses to file, so it forecasts catastrophe instead. The snap at your analyst is pressure transmission — their silence became your team's weather. What's driving them: usually their own internal chaos; silence is rarely a verdict.`,
+  options:[
+   {t:"Escalate the check-ins — daily emails, calls to every contact you have.",best:false,fb:"Anxiety-volume reads as desperation and prices your position down. You'd be managing your feelings with their inbox."},
+   {t:"Send one crisp, value-adding nudge, park the rest on the worry ledger, and tell your team the facts: 'No word — common at this stage. We prep as planned.'",best:true,fb:"One professional touch, then deliberate uncertainty-tolerance. Naming facts-versus-forecast for your team stops the transmission — and the ledger will tell you in a month how often silence meant death. (Rarely.)"},
+   {t:"Assume it's dead, deprioritise it, and mention to peers the client was never serious.",best:false,fb:"Premature certainty is just anxiety wearing a conclusion. Deals resurrect weekly — and the 'never serious' line will travel."}]},
+ {id:"gy12",who:"Family",title:"The comparison at dinner",
+  prompt:`Family dinner in Singapore. An uncle loudly compares your career to your cousin's startup exit. Your father joins in rather than defending you. Something old flares in your chest.`,
+  mech:`STATUS pressed inside the oldest tribe you have — which is why it burns hotter than any work slight. Your father joining in presses RELATEDNESS on top. What's driving them: the family status economy runs on comparison; your uncle is playing his own game, and your father is avoiding a challenge to his brother, not casting a verdict on you.`,
+  options:[
+   {t:"Answer with your own scoreboard — the title, the deals, the London salary converted to dollars.",best:false,fb:"Entering the comparison validates the game and stakes your worth on its next round. You cannot win a table whose rules are someone else's insecurity."},
+   {t:"One warm line — 'we're all doing fine, uncle' — change the subject, and later find the one relative you actually talk to.",best:true,fb:"Declining the game beats winning it. The deflection costs two seconds of pride; the real connection afterwards is what family dinners are actually for. Your worth was never on that table."},
+   {t:"Go quiet, leave early, and replay the conversation for the rest of the night.",best:false,fb:"Withdrawal plus rumination means their thirty seconds costs you six hours. If it needs addressing, address it once with your father, in private, on another day."}]},
+ {id:"gy13",who:"Family",title:"The guilt call",
+  prompt:`You missed a cousin's wedding for a deal closing. Your mother, on the phone: 'You've changed since London. You never think of us anymore.'`,
+  mech:`RELATEDNESS pressed with a guilt payload wired in childhood — which is why it bypasses the composure you'd have with any colleague. What's driving her: loneliness expressed as accusation. 'You never think of us' almost always decodes to 'I miss you and I'm afraid of the distance.'`,
+  options:[
+   {t:"Defend the logistics — the closing timeline, the flight costs, why it was impossible.",best:false,fb:"You'd be answering the words instead of the feeling. She isn't running a tribunal on your calendar; the facts will win the argument and lose the call."},
+   {t:"Answer the feeling underneath: 'You miss me. I miss you too — I hated missing it. Let's plan my next trip home right now, dates in the diary.'",best:true,fb:"Decode, reflect, then act. Guilt dissolves when the underlying bid for connection gets answered with something concrete. One diary entry beats an hour of defence."},
+   {t:"Absorb it and promise you'll be at everything from now on.",best:false,fb:"Promises made from guilt get broken by reality, and each break recharges the accusation. Warm honesty about what's possible beats comprehensive commitments you can't keep."}]},
+ {id:"gy14",who:"Partner & friends",title:"'You're always working'",
+  prompt:`You postpone on your partner (or closest friend) twice in a week for work. When you finally sit down together: 'Honestly, you're always working.' You feel yourself flare defensively.`,
+  mech:`The flare is the tell: it's guilt recognising truth, plus a FAIRNESS protest ('I do all this FOR us'). What's driving them: the complaint is a bid for connection — 'I miss you' in armour. Defensiveness answers the armour; the bid goes unanswered.`,
+  options:[
+   {t:"Itemise the pressure you're under and everything the job funds.",best:false,fb:"All true, all beside the point. They didn't audit your effort — they reached for you. A defended bid becomes a withdrawn one, and withdrawn bids are how relationships thin out."},
+   {t:"Drop the shield: 'You're right — it's been too much, and I don't want it to be the pattern. Saturday is yours. No phone.'",best:true,fb:"Concede the truth, answer the bid, make it concrete. One protected Saturday repairs more than a flawless defence ever could — this is the 'small consistent deposits' lesson, live."},
+   {t:"Go quiet and let it blow over — it always does.",best:false,fb:"It blows over the way interest accrues — invisibly. The complaint stops being voiced long before it stops being felt, and silence is the worst possible sign."}]},
+ {id:"gy15",who:"Partner & friends",title:"The friend who only takes",
+  prompt:`A close friend calls — again — to vent about his job for an hour. He never asks about yours. Tonight, after your own brutal week, you feel resentment rising as the phone buzzes.`,
+  mech:`FAIRNESS pressed in the friendship ledger — but check both columns: you've never told him your actual state, so he's overdrawing an account he can't see. What's driving him: his own overflow, plus the comfortable assumption that you're always fine. Your polish costs you here too.`,
+  options:[
+   {t:"Let it ring tonight, and start letting it ring generally.",best:false,fb:"Ghosting punishes him for a rule he was never told. Slow withdrawal ends friendships that one honest sentence could have fixed."},
+   {t:"Answer, and say it plainly once: 'I want to hear all of it — and I've had a brutal week myself, so I need the first ten minutes. Deal?'",best:true,fb:"You renegotiate the ledger by finally showing your column. Real friends adjust instantly when told — and 'lead with the real state, not the highlight reel' has to start with you."},
+   {t:"Take the call, listen resentfully, say nothing about your week. Again.",best:false,fb:"Resentful listening isn't generosity — it's an invoice you're accruing in secret. He experiences a fine friendship while you experience an unfair one; only one of you can fix that, and it's not him."}]}];
+
+// Test-your-knowledge quizzes, one per course.
+const QUIZZES={
+ foundations:[
+  {q:"The chemical surge of an emotion — adrenaline, cortisol — physically washes through in about…",o:[["90 seconds",1,"Right — anything longer is your thoughts re-triggering the wave."],["15 minutes",0,"Shorter: about 90 seconds. If it lasts 15 minutes, rumination is re-firing it."],["An hour",0,"About 90 seconds. The hour version is the replay loop, not the chemistry."]]},
+  {q:"Naming an emotion ('that's frustration') helps because…",o:[["It measurably reduces amygdala activity",1,"Affect labelling — the label moves the experience toward the part of the brain that can act on it."],["It distracts you from the feeling",0,"It's not distraction — labelling engages the feeling and measurably lowers the alarm response."],["It suppresses the emotion politely",0,"The opposite of suppression: you acknowledge precisely, which is why it works."]]},
+  {q:"'Stressed' is a weak label because…",o:[["Different emotions underneath it need different responses",1,"Frustration, anxiety, and helplessness each have a different fix — 'stressed' hides which one you need."],["It sounds unprofessional",0,"Nothing to do with polish — it's that the label carries no information about the fix."],["Stress isn't a real emotion",0,"It's real — just imprecise. The problem is it doesn't tell you what to do next."]]},
+  {q:"Being micromanaged presses which of the five buttons?",o:[["Autonomy",1,"Control over your own work — micromanagement takes the choice away, and that's the sting."],["Status",0,"There can be a status flavour, but the core wound is autonomy — your control was taken."],["Certainty",0,"Micromanagers usually give you MORE certainty. What they take is autonomy."]]}],
+ heat:[
+  {q:"HALT — the four states that make an amygdala hijack far more likely — stands for…",o:[["Hungry, Angry, Lonely, Tired",1,"On a 14-hour day you can be all four — which is why the 10pm reply reads so differently at 9am."],["Hostile, Anxious, Late, Tense",0,"Close in spirit — but it's Hungry, Angry, Lonely, Tired: depletion states, not emotions."],["Heated, Agitated, Loud, Terse",0,"Those are symptoms of the hijack. HALT is what makes you vulnerable to it: Hungry, Angry, Lonely, Tired."]]},
+  {q:"The one iron rule while emotionally flooded:",o:[["No irreversible actions",1,"No sent email, no verdict, no 'quick word'. The queue can hold ten minutes; regret can't be recalled."],["Tell everyone you're flooded",0,"Sometimes useful, never required. The rule is narrower and harder: nothing irreversible."],["Leave the building",0,"A walk helps — but the rule is about actions, not location: nothing irreversible while the wave is up."]]},
+  {q:"Research on venting anger (ranting, punching pillows) shows it…",o:[["Rehearses and deepens the anger",1,"Each retelling re-runs the wave and carves the groove deeper. Movement discharges; narration rehearses."],["Releases it harmlessly",0,"The catharsis theory failed testing — venting is practice, not release."],["Works only in private",0,"Private or public, rehearsal is rehearsal. What discharges the charge is physical: movement, cold water, one write-out."]]},
+  {q:"The clean anger formula, in order:",o:[["Situation → feeling → value → request",1,"'When X happened → I was frustrated → because I care about Y → next time, Z.' No character verdicts anywhere."],["Feeling → blame → apology → moving on",0,"Blame triggers defence and apologies you extract don't change behaviour. Situation → feeling → value → request."],["Warning → escalation → consequence",0,"That's a disciplinary ladder, not clean anger. Clean anger is one conversation: situation, feeling, value, request."]]}],
+ ground:[
+  {q:"In the control map, your worry-energy should concentrate on…",o:[["The Control and Influence circles",1,"Energy pooled in the Concern circle achieves nothing and costs everything — find each worry's handle one ring inward."],["The Concern circle — that's where the threats are",0,"That's exactly where energy is wasted. The threats live there; your leverage doesn't."],["All three equally",0,"Deliberately unequal: Control first, Influence second, and Concern gets acknowledged, not worked."]]},
+  {q:"The trap in learned helplessness is that the feeling…",o:[["Generalises beyond the facts",1,"One uncontrollable thing whispers that everything is uncontrollable. The antidote is a precise audit."],["Is always inaccurate",0,"It's often accurate about specific things — the trap is the spread from 'this decision' to 'everything'."],["Only affects junior people",0,"Seniority doesn't immunise — reorgs and markets manufacture it at every level."]]},
+  {q:"Agency is rebuilt primarily by…",o:[["Small completed actions",1,"Mastery experience: each completion is evidence that effort still connects to outcome. Size barely matters."],["Positive affirmations",0,"Helplessness is broken by evidence, not affirmations — one absurdly small completed step beats any mantra."],["Waiting for conditions to improve",0,"Waiting is the helplessness talking. Shrink the next move until it's doable now, then complete it."]]},
+  {q:"The strongest way to ask for help:",o:[["Specific and optioned: 'a day's extension OR one analyst for two days — which works better?'",1,"Easy to grant, reads as judgement. Surprise blow-ups damage reputations; early precise asks build them."],["Broad and honest: 'I'm drowning'",0,"Honest, but it hands the other person the sizing work. Specific + optioned asks get granted."],["Only after exhausting every alternative",0,"That's the lone-hero tax — by then it's expensive. Early asks signal judgement, not weakness."]]}],
+ presence:[
+  {q:"Emotional contagion in a team flows mainly…",o:[["Down the hierarchy, from leader to team",1,"Your Tuesday stress becomes the team's within an hour, unspoken. You stopped having private moods with your first direct report."],["Up the hierarchy",0,"Some flows up, but the strong current runs downward — which is why your regulation is multiplied by headcount."],["Sideways between peers only",0,"Peer contagion exists, but the leader's mood is the dominant weather system."]]},
+  {q:"SBI stands for…",o:[["Situation, Behaviour, Impact",1,"Specific situation, observable behaviour, real impact — and no character verdicts anywhere."],["Standards, Blame, Improvement",0,"Blame is exactly what SBI removes. Situation, Behaviour, Impact."],["Summary, Background, Instruction",0,"That's a briefing format. Feedback is Situation, Behaviour, Impact."]]},
+  {q:"Your reaction when someone brings you bad news early sets…",o:[["The price of the next early warning",1,"Heat teaches the team to sit on problems until they explode; 'good catch — what do we do?' buys an early-warning system."],["Their annual rating",0,"It sets something more valuable: whether you ever hear bad news early again."],["The tone for the whole quarter",0,"Narrower and more important: it prices the next warning. Expensive warnings stop coming."]]},
+  {q:"Handling pressure from above, a leader should…",o:[["Pass urgency and facts through; filter panic and heat",1,"Transformer, not wire: raw forwarding burns the team, silent absorption burns you."],["Shield the team from all of it",0,"Full shielding means absorbing it yourself — that's the ulcer path. Pass the facts; filter the heat."],["Forward it verbatim so everyone feels the stakes",0,"'The MD is furious, everything by Monday' produces burnt-out teams, not better output."]]}],
+ roots:[
+  {q:"The exhaustion after code-switching between cultural worlds is…",o:[["A real metabolic cost of a real skill",1,"Switching operating systems all day costs energy — it's infrastructure work, not a character flaw."],["A sign of inauthenticity",0,"The opposite: multiple registers are range. The cost is real precisely because the skill is real."],["Something that fades with practice",0,"It gets more efficient but never free — which is why a no-switch zone is infrastructure, not luxury."]]},
+  {q:"What actually restores you after work, per recovery research:",o:[["Psychological detachment — a genuine mental sign-off",1,"Hours off don't restore; detachment does. Scrolling with Slack open is low-grade work with worse posture."],["Total hours away from the desk",0,"Hours don't do it if the mind stays on the desk. Detachment is the active ingredient."],["Sleep alone",0,"Sleep is necessary but evening detachment is what recovery research keeps isolating — and it improves the sleep too."]]},
+  {q:"In most families, the heavy repeated questions (promotion? marriage?) usually decode to…",o:[["'We miss you and want to know you're safe'",1,"The delivery is expectation; the payload is love. (Where a parent consistently leaves you smaller, not loved — that's Kin course terrain.)"],["A genuine audit of your progress",0,"It lands like an audit from eight time zones away, but the payload underneath is usually connection and worry."],["Pressure you're obliged to satisfy",0,"Translate before obeying: answer the love, set warm boundaries on the script."]]},
+  {q:"On 70-hour weeks, friendship survives on…",o:[["Small consistent deposits",1,"The two-line message, the standing dinner. Five minutes reliably beats five hours theoretically."],["Occasional grand gestures",0,"Grandeur can't compound. Consistency can — small deposits, kept up."],["Waiting for a quieter season",0,"The quieter season is a myth on this calendar. Friendships are equipment for the demanding years, not a reward after them."]]}],
+ kin:[
+  {q:"The core reframe when a parent runs a narcissistic pattern:",o:[["The pattern is about their regulation, not your worth",1,"The deficit was never yours. Explanation isn't excuse — but it relocates the problem where it belongs."],["They'll change if you finally explain it well enough",0,"The old game has no winning move — the goalposts serve their regulation. Redefine the win instead."],["You must have contributed to it somehow",0,"Children of such parents are trained to assume the deficit is theirs. It isn't, and it never was."]]},
+  {q:"JADE — the four hooks to avoid — stands for…",o:[["Justify, Argue, Defend, Explain",1,"Every explanation opens a debate you can't win, because the argument was never about the topic."],["Judge, Accuse, Dismiss, Escalate",0,"Those are his moves. Yours to avoid are Justify, Argue, Defend, Explain — the calm broken record instead."],["Joke, Avoid, Deflect, Exit",0,"Deflection has its place, but JADE names the hooks: Justify, Argue, Defend, Explain."]]},
+  {q:"A boundary with someone who steamrolls boundaries works because…",o:[["It's an action you take, not an agreement they honour",1,"'If X happens, I end the call, warmly.' He doesn't have to agree — just to experience it, consistently."],["Repetition eventually persuades them",0,"Persuasion is the old game. The boundary works without their agreement — that's the whole design."],["You announce consequences firmly enough",0,"Announcements invite negotiation. Actions, taken calmly and consistently, don't need his sign-off."]]},
+  {q:"With such a parent, sharing achievements and vulnerabilities should be…",o:[["Rationed — achievements become trophies, vulnerabilities can become ammunition",1,"Give the relationship only the weight it can carry; save your full self for people who've earned it."],["Increased, to build trust over time",0,"With this pattern, more disclosure means more material. Ration the supply and the ammunition."],["Shared fully but only in person",0,"The channel isn't the problem — the pattern is. Ration what, not just where."]]}],
+ steel:[
+  {q:"A stress cycle actually completes when…",o:[["The body gets a physical full stop — movement, breath, warmth, connection",1,"The stressor ending doesn't end the stress; the adrenaline needs its own exit. That's why you can win the day and lie awake at 1am."],["The task that caused it is finished",0,"Sending the email closes the task, not the chemistry — the body needs its own signal."],["Enough time passes",0,"Uncompleted cycles accumulate as allostatic load. Completion is active: move, breathe, connect."]]},
+  {q:"One bad night of sleep makes the amygdala roughly…",o:[["60% more reactive to negative stimuli",1,"EQ degrades before IQ — you'll still build the model fine; you'll just misread the room."],["Twice as slow",0,"It's not slowness — it's reactivity: ~60% more, so the same email reads more hostile."],["Unaffected — sleep hits memory, not emotion",0,"Emotion regulation is among the first casualties: ~60% more amygdala reactivity."]]},
+  {q:"The defusion move for a sticky thought:",o:[["Prefix it: 'I'm having the thought that…'",1,"Same content, different position — you step from inside the thought to beside it, and it loses grip."],["Argue with it until it yields",0,"Arguing keeps you inside the thought. Defusion steps beside it: 'I'm having the thought that…'"],["Replace it with a positive one",0,"Thought-swapping is a tug-of-war. Defusion drops the rope."]]},
+  {q:"Converting the inner critic to a coach means making the message…",o:[["Specific, behavioural, forward-looking — same standard, zero contempt",1,"'Lost the thread when challenged → next time I pre-write the three hardest questions.' The cruelty added nothing; the standard stays."],["Gentler and lower-stakes",0,"The standard doesn't drop — the contempt does. Specific, behavioural, forward."],["Silent — ignore the critic entirely",0,"Suppression is a loan. Translation is the payment: same standard, coach's voice."]]}]};
+
 const DISTORTIONS=[
  ["Mind reading",`"He thinks I'm not up to it" — you don't actually know.`],
  ["Catastrophising","One miss becomes a ruined career by step three."],
@@ -533,6 +708,8 @@ const MILESTONES=[
  {id:"prepare-1",t:"Walks In Ready",d:"Primed before a high-stakes moment",i:"🎯",f:s=>s.journal.some(j=>j.kind==="Prepare")},
  {id:"script-1",t:"Said It Cleanly",d:"Built a difficult-conversation script",i:"🗣️",f:s=>s.journal.some(j=>j.kind==="Script")},
  {id:"worry-5",t:"Calibrated",d:"Reviewed 5 parked worries",i:"⚖️",f:s=>(s.worries||[]).filter(w=>w.status!=="open").length>=5},
+ {id:"gym-10",t:"Sparring Partner",d:"Practised 10 gym scenarios",i:"🎭",f:s=>(s.gymDone||[]).length>=10},
+ {id:"quiz-3",t:"Examined",d:"Scored 75%+ on 3 course quizzes",i:"🎓",f:s=>Object.values(s.quizScores||{}).filter(q=>q.best/q.total>=0.75).length>=3},
  {id:"course-all",t:"Samatva",d:"Completed every course",i:"🏛️",f:s=>COURSES.every(c=>c.lessons.every(l=>s.done.includes(l.id)))}];
 
 /* ================= State ================= */
@@ -546,6 +723,8 @@ function load(){
   if(!S.profile) S.profile=[];
   if(S.voice===undefined) S.voice=true;
   if(!S.doneAt) S.doneAt={};
+  if(!S.gymDone) S.gymDone=[];
+  if(!S.quizScores) S.quizScores={};
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 function effectiveTheme(){
@@ -657,6 +836,9 @@ function render(){
   else if(nav.page==="prepare") html=viewPrepare();
   else if(nav.page==="med") html=viewMed(nav.p.id);
   else if(nav.page==="review") html=viewReview();
+  else if(nav.page==="gym") html=viewGym();
+  else if(nav.page==="gymrun") html=viewGymRun(nav.p.id);
+  else if(nav.page==="quiz") html=viewQuiz(nav.p.id);
   else if(nav.page==="script") html=viewScript();
   else if(nav.page==="worries") html=viewWorries();
   else if(nav.page==="decompress") html=viewDecompress();
@@ -737,7 +919,8 @@ function suggestionCard(){
     Drained:["Running on empty changes every reading. Protect the evening.","🌙 Decompress","goPage('decompress')","📖 Rest is a skill","goPage('lesson',{cid:'roots',lid:'r4'})"],
     Low:["A low day deserves gentleness, not analysis.","🪞 Self-compassion reset","openReset()","🌙 Decompress","goPage('decompress')"]
   };
-  const m=M[e]||M.Frustrated;
+  const FAMFALL={"Anger":"Frustrated","Fear & anxiety":"Anxious","Sadness":"Low","Shame & guilt":"Low","Powerless":"Helpless","Drained":"Drained"};
+  const m=M[e]||M[FAMFALL[famOf(e)]]||M.Frustrated;
   return `<div class="card">
     <div class="eyebrow" style="color:var(--ember); margin-bottom:6px">For right now</div>
     <p style="font-size:14.5px; margin:0 0 10px">${m[0]}</p>
@@ -832,8 +1015,17 @@ function openCheckIn(){
       <div class="grow"><b id="ci-label">Steady</b>
         <input type="range" min="1" max="5" step="1" value="3" oninput="ciMood(this.value)"></div>
     </div>
-    <div class="eyebrow" style="margin-bottom:8px">Name it (optional, but it helps)</div>
-    <div class="chips" style="margin-bottom:18px">${EMOTIONS.map(e=>`<button class="chip" id="ci-e-${e}" onclick="ciTog('emotions','${e}')">${e}</button>`).join("")}</div>
+    <div class="eyebrow" style="margin-bottom:8px">Name it — precision is the skill</div>
+    <div class="chips" style="margin-bottom:10px">${QUICK_EMO.map(e=>emoChip(e)).join("")}</div>
+    <div class="tiny" style="margin-bottom:8px">Or find the exact word:</div>
+    <div style="margin-bottom:18px">${EMOFAM.map(f=>`
+      <div style="margin-bottom:7px">
+        <button class="famhead" onclick="toggleFam(this)">
+          <span class="famdot" style="background:${f.color}"></span>${f.name}
+          <span class="famcount" data-fam="${f.name}"></span><span class="famarrow">›</span>
+        </button>
+        <div class="chips" style="display:none; margin-top:8px; padding:0 2px">${f.list.map(e=>emoChip(e)).join("")}</div>
+      </div>`).join("")}</div>
     <div class="eyebrow" style="margin-bottom:8px">What's it about?</div>
     <div class="chips" style="margin-bottom:18px">${CONTEXTS.map(c=>`<button class="chip" id="ci-c-${c}" onclick="ciTog('contexts','${c}')">${c}</button>`).join("")}</div>
     <div class="eyebrow" style="margin-bottom:8px">A line for future you</div>
@@ -842,6 +1034,40 @@ function openCheckIn(){
   document.body.appendChild(ov);
 }
 function ciMood(v){ ci.mood=+v; document.getElementById("ci-face").textContent=MOODFACE[v]; document.getElementById("ci-label").textContent=MOODS[v]; }
+function emoChip(e){
+  const c=famColor(e);
+  const on=ci&&ci.emotions.includes(e);
+  return `<button class="chip emo${on?" on":""}" id="ci-e-${e}" data-e="${e}" data-c="${c}"
+    style="${on?`background:${c}; color:#fff`:`background:color-mix(in srgb, ${c} 13%, var(--card)); border-color:color-mix(in srgb, ${c} 40%, transparent)`}"
+    onclick="ciEmo(this)">${e}</button>`;
+}
+function ciEmo(el){
+  const e=el.dataset.e, c=el.dataset.c;
+  const i=ci.emotions.indexOf(e);
+  // The same emotion may render twice (quick row + family list) — sync both.
+  const twins=document.querySelectorAll(`[data-e="${e}"]`);
+  if(i>=0){
+    ci.emotions.splice(i,1);
+    twins.forEach(t=>{ t.classList.remove("on"); t.style.background=`color-mix(in srgb, ${c} 13%, var(--card))`; t.style.color=""; t.style.borderColor=`color-mix(in srgb, ${c} 40%, transparent)`; });
+  }else{
+    ci.emotions.push(e);
+    twins.forEach(t=>{ t.classList.add("on"); t.style.background=c; t.style.color="#fff"; });
+  }
+  updateFamCounts();
+}
+function toggleFam(btn){
+  const list=btn.nextElementSibling;
+  const open=list.style.display!=="none";
+  list.style.display=open?"none":"flex";
+  btn.querySelector(".famarrow").textContent=open?"›":"⌄";
+}
+function updateFamCounts(){
+  document.querySelectorAll(".famcount").forEach(sp=>{
+    const f=EMOFAM.find(x=>x.name===sp.dataset.fam);
+    const n=f.list.filter(e=>ci.emotions.includes(e)).length;
+    sp.textContent=n?`· ${n} picked`:"";
+  });
+}
 function ciTog(k,v){
   const i=ci[k].indexOf(v);
   if(i>=0) ci[k].splice(i,1); else ci[k].push(v);
@@ -988,6 +1214,12 @@ function viewLearn(){
         <div class="tiny">${s.c.title} · ${s.l.min} min</div></div>
       <span class="chev">›</span></div></button>`).join("")+
     `<div class="eyebrow" style="margin:14px 2px 10px">All courses</div>`:"")+
+  `<button class="tap card" onclick="goPage('gym')"><div class="row">
+    <span class="icon">🎭</span>
+    <div class="grow"><h3>Scenario gym</h3>
+      <div class="sub">Practise the moments where people press your buttons</div>
+      <div class="tiny">${S.gymDone.length} of ${GYM.length} practised</div></div>
+    <span class="chev">›</span></div></button>`+
   COURSES.map(c=>{
     const p=courseProg(c);
     return `<button class="tap card" onclick="goPage('course',{id:'${c.id}'})"><div class="row">
@@ -1009,7 +1241,12 @@ function viewCourse(id){
       <div class="grow"><b style="font-size:15px">${l.title}</b>
         <div class="tiny">${l.min} min${l.scenario?" · includes scenario":""}</div></div>
       <span class="chev">›</span></div></button>`;
-  }).join("");
+  }).join("")+
+  (QUIZZES[c.id]?`<button class="tap card" onclick="goPage('quiz',{id:'${c.id}'})"><div class="row">
+    <span class="icon">🎓</span>
+    <div class="grow"><h3>Test your knowledge</h3>
+      <div class="tiny">${QUIZZES[c.id].length} questions${S.quizScores[c.id]?` · best ${S.quizScores[c.id].best}/${S.quizScores[c.id].total}`:""}</div></div>
+    <span class="chev">›</span></div></button>`:"");
 }
 let lessonState={};
 function viewLesson(cid,lid){
@@ -1080,6 +1317,119 @@ function completeLesson(cid,lid){
   save(); goPage("course",{id:cid});
 }
 
+/* ---------- Scenario gym ---------- */
+const GYM_GROUPS=["Your boss","A peer","Your team","A client","Family","Partner & friends"];
+function viewGym(){
+  return `<button class="back" onclick="goTab('learn')">‹ Learn</button>
+  <h1 style="margin-top:2px">Scenario gym</h1>
+  <p class="sub" style="margin:-6px 2px 12px">The hardest moments are other people. Each scenario names what their action pressed in you — and what's likely driving them. ${S.gymDone.length}/${GYM.length} practised.</p>`+
+  GYM_GROUPS.map(g=>{
+    const items=GYM.filter(x=>x.who===g);
+    if(!items.length) return "";
+    return `<div class="eyebrow" style="margin:12px 2px 8px">${g}</div>`+
+      items.map(x=>`<button class="tap card" onclick="goPage('gymrun',{id:'${x.id}'})"><div class="row">
+        <span style="flex:none; width:24px; text-align:center; color:${S.gymDone.includes(x.id)?"var(--moss)":"var(--faint)"}">${S.gymDone.includes(x.id)?"✓":"·"}</span>
+        <div class="grow"><b style="font-size:15px">${x.title}</b></div>
+        <span class="chev">›</span></div></button>`).join("");
+  }).join("");
+}
+function viewGymRun(id){
+  const g=GYM.find(x=>x.id===id);
+  return `<button class="back" onclick="goPage('gym')">‹ Scenario gym</button>
+  <div class="eyebrow" style="margin:4px 2px 6px">${g.who}</div>
+  <h1 style="margin:0 2px 12px">${g.title}</h1>
+  <div class="card">
+    <p style="font-size:15px; line-height:1.55; margin:0 0 4px">${g.prompt}</p>
+    ${g.options.map((o,i)=>`<button class="opt" id="gopt-${i}" onclick="gymPick('${id}',${i})">${o.t}</button>`).join("")}
+    <div id="gym-fb"></div>
+  </div>
+  <div id="gym-after"></div>`;
+}
+function gymPick(id,i){
+  const g=GYM.find(x=>x.id===id);
+  const o=g.options[i];
+  g.options.forEach((_,j)=>{
+    const el=document.getElementById("gopt-"+j);
+    el.disabled=true;
+    if(j===i) el.classList.add(o.best?"best":"notbest");
+  });
+  const best=g.options.find(x=>x.best);
+  document.getElementById("gym-fb").innerHTML=`<div style="margin-top:12px">
+    <b style="color:${o.best?"var(--moss)":"var(--ember)"}">${o.best?"Well read.":"A common instinct —"}</b>
+    <p class="sub" style="margin:5px 0 0; font-size:14px">${o.fb}</p>
+    ${!o.best?`<p style="font-size:14px; margin:8px 0 0"><b>Stronger move:</b> ${best.t}</p>`:""}</div>`;
+  if(!S.gymDone.includes(id)){ S.gymDone.push(id); save(); }
+  const next=GYM.find(x=>!S.gymDone.includes(x.id));
+  document.getElementById("gym-after").innerHTML=`
+    <div class="card">
+      <div class="eyebrow" style="color:var(--indigo); margin-bottom:6px">What just happened in you</div>
+      <p style="font-size:14.5px; line-height:1.55; margin:0">${g.mech}</p>
+    </div>
+    ${next?`<button class="btn" onclick="goPage('gymrun',{id:'${next.id}'})">Next scenario</button>`
+          :`<button class="btn moss" onclick="goPage('gym')">All ${GYM.length} practised — back to the gym</button>`}`;
+}
+
+/* ---------- Course quizzes ---------- */
+let qz={};
+function viewQuiz(cid){
+  qz={cid,i:0,score:0};
+  const c=COURSES.find(x=>x.id===cid);
+  return `<button class="back" onclick="goPage('course',{id:'${cid}'})">‹ ${c.title}</button>
+  <h1 style="margin-top:2px">Test your knowledge</h1>
+  <div id="quiz-body">${quizQ()}</div>`;
+}
+function quizQ(){
+  const qs=QUIZZES[qz.cid];
+  const item=qs[qz.i];
+  // Shuffle options per render so the right answer moves around.
+  const order=item.o.map((_,i)=>i).sort(()=>Math.random()-0.5);
+  qz.order=order;
+  return `<div class="eyebrow" style="margin:2px 2px 8px">Question ${qz.i+1} of ${qs.length}</div>
+  <div class="card">
+    <p style="font-size:15.5px; font-weight:600; margin:0 0 4px">${item.q}</p>
+    ${order.map((oi,pos)=>`<button class="opt" id="qopt-${pos}" onclick="quizPick(${pos})">${item.o[oi][0]}</button>`).join("")}
+    <div id="quiz-fb"></div>
+  </div>`;
+}
+function quizPick(pos){
+  const qs=QUIZZES[qz.cid];
+  const item=qs[qz.i];
+  const oi=qz.order[pos];
+  const picked=item.o[oi];
+  const correct=picked[1]===1;
+  if(correct) qz.score++;
+  qz.order.forEach((o2,p2)=>{
+    const el=document.getElementById("qopt-"+p2);
+    el.disabled=true;
+    if(p2===pos) el.classList.add(correct?"best":"notbest");
+    else if(item.o[o2][1]===1) el.classList.add("best");
+  });
+  document.getElementById("quiz-fb").innerHTML=`<div style="margin-top:12px">
+    <b style="color:${correct?"var(--moss)":"var(--ember)"}">${correct?"Correct.":"Not quite —"}</b>
+    <p class="sub" style="margin:5px 0 10px; font-size:14px">${picked[2]}</p>
+    <button class="btn ghost" onclick="quizNext()">${qz.i+1<qs.length?"Next question":"See result"}</button></div>`;
+}
+function quizNext(){
+  const qs=QUIZZES[qz.cid];
+  qz.i++;
+  const body=document.getElementById("quiz-body");
+  if(qz.i<qs.length){ body.innerHTML=quizQ(); window.scrollTo(0,0); return; }
+  const prev=S.quizScores[qz.cid];
+  if(!prev||qz.score>prev.best) S.quizScores[qz.cid]={best:qz.score,total:qs.length};
+  save();
+  const pct=qz.score/qs.length;
+  const verdict=pct===1?"Full marks. This one's in your bones now."
+    :pct>=0.75?"Solid — the core ideas are landing."
+    :"Worth a re-read: the lessons are short, and the second pass is where they stick.";
+  body.innerHTML=`<div class="card center" style="padding:26px 18px">
+    <div style="font-size:44px">${pct>=0.75?"🎓":"📖"}</div>
+    <h2 style="margin:10px 0 4px">${qz.score} / ${qs.length}</h2>
+    <p class="sub" style="max-width:300px; margin:0 auto 16px">${verdict}</p>
+    <button class="btn" style="max-width:220px; margin:0 auto" onclick="goPage('course',{id:'${qz.cid}'})">Back to the course</button>
+  </div>`;
+  window.scrollTo(0,0);
+}
+
 /* ---------- Toolkit ---------- */
 function viewTools(){
   const row=(icon,tint,title,sub,click)=>`<button class="tap card" onclick="${click}"><div class="row">
@@ -1094,7 +1444,7 @@ function viewTools(){
   <div class="eyebrow" style="margin:14px 2px 10px">Guided meditations</div>
   ${MEDITATIONS.map(m=>row(m.icon,"var(--teal)",m.title,`${m.sub} · ${m.min} min`,`goPage('med',{id:'${m.id}'})`)).join("")}
   <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
-  ${row("🔁","var(--ember)","Thought record","Guided CBT: catch, test and rewrite one thought","goPage('reframe')")}
+  ${row("🔁","var(--ember)","Thought record","Guided CBT engine — detects your thinking patterns and challenges them","goPage('reframe')")}
   ${row("🗣️","var(--moss)","Say it cleanly","Build the difficult-conversation script","goPage('script')")}
   ${row("🅿️","var(--steel)","Worry parking","Park it now; let the facts settle it later","goPage('worries')")}
   ${row("🌙","var(--plum)","Decompress","Close the day so it doesn't follow you home","goPage('decompress')")}`;
@@ -1233,112 +1583,169 @@ function groundStep(){
   </div>`;
 }
 
-/* ---------- Thought record (CBT) ---------- */
-const RF_EMOTIONS=["Anxious","Frustrated","Angry","Helpless","Overwhelmed","Guilty","Embarrassed","Low"];
-let rf={};
+/* ---------- CBT engine (guided thought record) ---------- */
+// A step-by-step cognitive-restructuring wizard. The engine reads the
+// automatic thought, detects likely distortions from wording, asks targeted
+// Socratic questions per distortion, and offers balanced-thought starters.
+const SOCRATIC={
+ "Mind reading":["What hard evidence do you have for what they're actually thinking?","What are two other explanations for their behaviour?"],
+ "Catastrophising":["What's the most likely outcome — not the worst one?","If the bad version did happen, how would you actually cope?"],
+ "All-or-nothing":["What's the 70% version of this — the ground between perfect and failure?","What partial wins is this thought deleting?"],
+ "Personalising":["What share of this was genuinely within your control?","Who and what else contributed to the outcome?"],
+ "Should-storms":["Who wrote this rule — and would you hold a friend to it?","What would 'good enough for today' look like?"],
+ "Discounting wins":["If a colleague did exactly the same thing, would you call it luck?","What skill or judgement did it actually take?"]};
+const STARTERS={
+ "Mind reading":"I don't actually know what they think. What I do know is…",
+ "Catastrophising":"The most likely outcome here is…",
+ "All-or-nothing":"Parts of this went wrong AND parts went fine:…",
+ "Personalising":"My share of this was…, but it also depended on…",
+ "Should-storms":"It would have been better if…, and it's workable that…",
+ "Discounting wins":"It counts. What it took was…"};
+function detectDistortions(text){
+  const s=" "+text.toLowerCase()+" ";
+  const hits=[];
+  if(/(always|never|everyone|every ?one|no ?one|nothing ever|every time|completely|totally)/.test(s)) hits.push("All-or-nothing");
+  if(/(should|shouldn'?t|must|mustn'?t|have to|ought to|supposed to)/.test(s)) hits.push("Should-storms");
+  if(/(he thinks|she thinks|they think|they'?ll think|must think|everyone (saw|thinks|knows)|they can (see|tell)|judg)/.test(s)) hits.push("Mind reading");
+  if(/(disaster|ruined|catastroph|worst|career (is|will be)|finished|it'?s over|what if|fall apart|lose everything|fired)/.test(s)) hits.push("Catastrophising");
+  if(/(my fault|because of me|i caused|all on me|i ruined|i let)/.test(s)) hits.push("Personalising");
+  if(/(just luck|a fluke|doesn'?t count|anyone could|only because)/.test(s)) hits.push("Discounting wins");
+  return [...new Set(hits)];
+}
+
+let cbt={};
 function viewReframe(){
-  rf={sel:[],emo:null,before:70};
+  cbt={step:0,sit:"",emo:null,before:70,after:40,thought:"",sel:[],sugg:[],evFor:"",evAg:"",bal:""};
   return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
   <h1 style="margin-top:2px">Thought record</h1>
-  <p class="sub" style="margin:-6px 2px 4px">The core CBT exercise: catch one thought, put it on trial, rewrite it. Three honest minutes.</p>
-
-  <label class="q">1 · The situation</label>
-  <div class="hint">Just the facts a camera would record — one line.</div>
-  <textarea id="rf-sit" rows="2" placeholder='e.g. "MD reassigned my project in the Monday meeting without telling me first"'></textarea>
-
-  <label class="q">2 · The feeling, and how strong</label>
-  <div class="hint">Pick the closest one, then rate its intensity right now.</div>
-  <div class="chips" style="margin-bottom:10px">${RF_EMOTIONS.map(e=>`<button class="chip" id="rf-e-${e}" onclick="rfEmo('${e}')">${e}</button>`).join("")}</div>
-  <div class="row"><input type="range" min="0" max="100" step="5" value="70" oninput="rf.before=+this.value; document.getElementById('rf-b-val').textContent=this.value+'%'">
-    <b id="rf-b-val" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">70%</b></div>
-
-  <label class="q">3 · The automatic thought</label>
-  <div class="hint">The sentence your mind produced, verbatim — not the polished version.</div>
-  <textarea id="rf-thought" rows="2" placeholder='e.g. "He thinks I can&#39;t handle it. Everyone in that room now doubts me."'></textarea>
-
-  <label class="q">4 · Spot the distortion</label>
-  <div class="hint">Which patterns is it running? (Pick any that fit.)</div>
-  <div class="grid2">${DISTORTIONS.map((d,i)=>`
-    <button class="opt" id="rf-d-${i}" onclick="rfTog(${i})" style="margin-top:7px">
-      <b style="font-size:14px">${d[0]}</b><div class="tiny">${d[1]}</div></button>`).join("")}</div>
-
-  <label class="q">5 · Put it on trial</label>
-  <div class="hint">Evidence FOR the thought — facts only, not feelings.</div>
-  <textarea id="rf-for" rows="2" placeholder='e.g. "He did reassign it without telling me"'></textarea>
-  <div class="hint" style="margin-top:10px">Evidence AGAINST it — what the thought conveniently ignores.</div>
-  <textarea id="rf-against" rows="2" placeholder='e.g. "He gave me the bigger mandate last quarter; reshuffles hit three other teams too"'></textarea>
-
-  <label class="q">6 · The balanced verdict</label>
-  <div class="hint">Not fake positivity — what a fair-minded colleague who saw all the evidence would conclude.</div>
-  <textarea id="rf-bal" rows="3" placeholder='e.g. "The process was poor and worth raising calmly — but one reshuffle isn&#39;t a verdict on me"'></textarea>
-
-  <label class="q">7 · Re-rate the feeling</label>
-  <div class="hint">Same feeling, now — after the trial. It rarely hits zero; lower is the win.</div>
-  <div class="row"><input type="range" min="0" max="100" step="5" value="40" oninput="rf.after=+this.value; document.getElementById('rf-a-val').textContent=this.value+'%'">
-    <b id="rf-a-val" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">40%</b></div>
-
-  <button class="btn ember" style="margin-top:18px" onclick="saveReframe()">Close the record</button>`;
+  <div id="cbt-body">${cbtStep()}</div>`;
 }
-function rfEmo(e){
-  rf.emo=rf.emo===e?null:e;
-  RF_EMOTIONS.forEach(x=>document.getElementById("rf-e-"+x).classList.toggle("on",x===rf.emo));
+function cbtHead(title,hint){
+  return `<div class="eyebrow" style="margin:2px 2px 8px">Step ${cbt.step+1} of 7</div>
+  <h2 style="margin:0 2px 4px">${title}</h2>
+  <p class="hint" style="margin:0 2px 12px">${hint}</p>`;
 }
-function rfTog(i){
-  const j=rf.sel.indexOf(i);
-  if(j>=0) rf.sel.splice(j,1); else rf.sel.push(i);
-  document.getElementById("rf-d-"+i).classList.toggle("notbest",j<0);
+function cbtNav(nextLabel){
+  return `<div class="row" style="margin-top:16px; gap:10px">
+    ${cbt.step>0?`<button class="btn ghost" style="flex:1" onclick="cbtBack()">Back</button>`:""}
+    <button class="btn ember" style="flex:2" onclick="cbtNext()">${nextLabel||"Next"}</button>
+  </div>`;
 }
-function saveReframe(){
-  const sit=document.getElementById("rf-sit").value.trim();
-  const t=document.getElementById("rf-thought").value.trim();
-  const b=document.getElementById("rf-bal").value.trim();
-  if(!t||!b) return;
-  const after=rf.after??40;
-  const pats=rf.sel.map(i=>DISTORTIONS[i][0]).join(", ");
-  const evFor=document.getElementById("rf-for").value.trim();
-  const evAg=document.getElementById("rf-against").value.trim();
+function cbtEmoChip(e){
+  const c=famColor(e), on=cbt.emo===e;
+  return `<button class="chip emo" data-e="${e}"
+    style="${on?`background:${c}; color:#fff`:`background:color-mix(in srgb, ${c} 13%, var(--card)); border-color:color-mix(in srgb, ${c} 40%, transparent)`}"
+    onclick="cbtPickEmo('${e}')">${e}</button>`;
+}
+function cbtStep(){
+  switch(cbt.step){
+    case 0: return cbtHead("The situation","Just the facts a camera would record — one or two lines.")+
+      `<textarea id="cb-sit" rows="3" placeholder='e.g. "The CFO questioned my numbers in the steering committee"'>${esc(cbt.sit)}</textarea>`+cbtNav();
+    case 1: return cbtHead("The feeling, and how strong","Pick the closest word — colour is the family. Then rate it right now.")+
+      EMOFAM.filter(f=>f.name!=="Calm"&&f.name!=="Joy & energy").map(f=>`
+        <div class="tiny" style="margin:10px 2px 6px"><span class="famdot" style="background:${f.color}; display:inline-block; width:9px; height:9px; margin-right:5px"></span>${f.name}</div>
+        <div class="chips">${f.list.map(e=>cbtEmoChip(e)).join("")}</div>`).join("")+
+      `<div class="row" style="margin-top:16px">
+        <input type="range" min="0" max="100" step="5" value="${cbt.before}" oninput="cbt.before=+this.value; document.getElementById('cb-bval').textContent=this.value+'%'">
+        <b id="cb-bval" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">${cbt.before}%</b></div>`+cbtNav();
+    case 2: return cbtHead("The automatic thought","The sentence your mind produced, verbatim — not the polished version.")+
+      `<textarea id="cb-th" rows="3" placeholder='e.g. "Everyone in that room now thinks I can&#39;t be trusted with the numbers"'>${esc(cbt.thought)}</textarea>`+cbtNav("Analyse it");
+    case 3: {
+      const note=cbt.sugg.length
+        ?`<div class="card" style="margin-bottom:10px"><div class="eyebrow" style="color:var(--indigo); margin-bottom:4px">Engine analysis</div>
+          <p style="font-size:13.5px; margin:0">Your wording shows the signature of <b>${cbt.sugg.join("</b> and <b>")}</b> — pre-selected below. Adjust freely; you know the thought better than the pattern-matcher.</p></div>`
+        :`<div class="hint" style="margin-bottom:10px">No obvious pattern in the wording — pick whichever fits from the inside.</div>`;
+      return cbtHead("Spot the distortion","Which thinking patterns is it running?")+note+
+        DISTORTIONS.map((d,i)=>{
+          const on=cbt.sel.includes(d[0]);
+          return `<button class="opt${on?" notbest":""}" id="cb-d-${i}" onclick="cbtTogD(${i})" style="margin-top:7px">
+            <b style="font-size:14px">${d[0]}${cbt.sugg.includes(d[0])?" · <span style='color:var(--indigo)'>detected</span>":""}</b>
+            <div class="tiny">${d[1]}</div></button>`;
+        }).join("")+cbtNav();
+    }
+    case 4: {
+      const qs=cbt.sel.flatMap(d=>SOCRATIC[d]||[]).slice(0,4);
+      return cbtHead("Put it on trial","Answer the engine's questions in your head, then log the evidence.")+
+        (qs.length?`<div class="card" style="margin-bottom:12px">${qs.map(q=>`<div class="take"><b>?</b><span style="font-size:14px">${q}</span></div>`).join("")}</div>`:"")+
+        `<label class="q" style="margin-top:4px">Evidence FOR the thought</label>
+        <div class="hint">Facts only — what a prosecutor could actually prove.</div>
+        <textarea id="cb-for" rows="2">${esc(cbt.evFor)}</textarea>
+        <label class="q">Evidence AGAINST it</label>
+        <div class="hint">What the thought conveniently ignores.</div>
+        <textarea id="cb-ag" rows="2">${esc(cbt.evAg)}</textarea>`+cbtNav();
+    }
+    case 5: {
+      const starters=cbt.sel.filter(d=>STARTERS[d]).slice(0,3);
+      return cbtHead("The balanced verdict","Not fake positivity — what a fair-minded colleague who saw all the evidence would conclude.")+
+        (starters.length?`<div class="hint" style="margin-bottom:6px">Tap a starter to begin from it:</div>
+        <div class="chips" style="margin-bottom:10px">${starters.map(d=>`<button class="chip" onclick="cbtStarter('${d}')">${STARTERS[d].slice(0,28)}…</button>`).join("")}</div>`:"")+
+        `<textarea id="cb-bal" rows="4">${esc(cbt.bal)}</textarea>`+cbtNav();
+    }
+    case 6: return cbtHead("Re-rate the feeling","Same feeling, now — after the trial. Lower is the win; zero isn't the goal.")+
+      `<div class="card" style="margin-bottom:12px">
+        <div class="tiny" style="margin-bottom:4px">Your balanced verdict</div>
+        <p class="quote" style="margin:0">“${esc(cbt.bal)}”</p></div>
+      <div class="row">
+        <input type="range" min="0" max="100" step="5" value="${cbt.after}" oninput="cbt.after=+this.value; document.getElementById('cb-aval').textContent=this.value+'%'">
+        <b id="cb-aval" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">${cbt.after}%</b></div>`+
+      cbtNav("Close the record");
+  }
+}
+function cbtRefresh(){ document.getElementById("cbt-body").innerHTML=cbtStep(); window.scrollTo(0,0); }
+function cbtCollect(){
+  const g=id=>{ const el=document.getElementById(id); return el?el.value.trim():null; };
+  if(cbt.step===0){ const v=g("cb-sit"); if(v!==null) cbt.sit=v; }
+  if(cbt.step===2){ const v=g("cb-th"); if(v!==null) cbt.thought=v; }
+  if(cbt.step===4){ const f=g("cb-for"); if(f!==null) cbt.evFor=f; const a=g("cb-ag"); if(a!==null) cbt.evAg=a; }
+  if(cbt.step===5){ const v=g("cb-bal"); if(v!==null) cbt.bal=v; }
+}
+function cbtNext(){
+  cbtCollect();
+  if(cbt.step===2){
+    if(!cbt.thought) return;
+    cbt.sugg=detectDistortions(cbt.thought);
+    cbt.sugg.forEach(d=>{ if(!cbt.sel.includes(d)) cbt.sel.push(d); });
+  }
+  if(cbt.step===5&&!cbt.bal) return;
+  if(cbt.step===6){ cbtSave(); return; }
+  cbt.step++;
+  cbtRefresh();
+}
+function cbtBack(){ cbtCollect(); if(cbt.step>0){ cbt.step--; cbtRefresh(); } }
+function cbtPickEmo(e){ cbt.emo=cbt.emo===e?null:e; cbtRefresh(); }
+function cbtTogD(i){
+  const d=DISTORTIONS[i][0];
+  const j=cbt.sel.indexOf(d);
+  if(j>=0) cbt.sel.splice(j,1); else cbt.sel.push(d);
+  cbtRefresh();
+}
+function cbtStarter(d){
+  const el=document.getElementById("cb-bal");
+  if(el){ el.value=STARTERS[d]+" "+el.value; el.focus(); }
+}
+function cbtSave(){
+  const pats=cbt.sel.join(", ");
   S.journal.unshift({date:new Date().toISOString(),kind:"Reframe",title:"Thought record",
-    meta:{emo:rf.emo,before:rf.before,after:after,patterns:rf.sel.map(i=>DISTORTIONS[i][0])},
-    body:`Situation: ${sit||"—"}\nFeeling: ${rf.emo||"—"} ${rf.before}% → ${after}%`
-      +`\nThought: ${t}\nPatterns: ${pats||"—"}\nFor: ${evFor||"—"}\nAgainst: ${evAg||"—"}\nBalanced: ${b}`});
+    meta:{emo:cbt.emo,before:cbt.before,after:cbt.after,patterns:[...cbt.sel]},
+    body:`Situation: ${cbt.sit||"—"}
+Feeling: ${cbt.emo||"—"} ${cbt.before}% → ${cbt.after}%`
+      +`
+Thought: ${cbt.thought}
+Patterns: ${pats||"—"}
+For: ${cbt.evFor||"—"}
+Against: ${cbt.evAg||"—"}
+Balanced: ${cbt.bal}`});
   S.reframes++; save();
-  const drop=rf.before-after;
+  const drop=cbt.before-cbt.after;
   document.getElementById("app").innerHTML=`<div class="fade center" style="padding-top:14vh">
     <div style="font-size:48px">⚖️</div>
     <h2 style="margin-top:12px">Record closed.</h2>
-    <p class="sub" style="max-width:320px; margin:8px auto 4px">${rf.emo?rf.emo:"The feeling"} went from <b>${rf.before}%</b> to <b>${after}%</b>${drop>0?" — that's the reframe doing its work.":"."}</p>
-    <p class="sub" style="max-width:320px; margin:0 auto 24px">${drop>0?"":"No drop this time is still a win — you now know this thought needs a different tool, or a real conversation."}</p>
+    <p class="sub" style="max-width:320px; margin:8px auto 4px">${cbt.emo||"The feeling"} went from <b>${cbt.before}%</b> to <b>${cbt.after}%</b>${drop>0?" — that's the reframe doing its work.":"."}</p>
+    <p class="sub" style="max-width:320px; margin:0 auto 24px">${drop>0?"":"No drop is still a win — you now know this thought needs a different tool, or a real conversation."}</p>
     <button class="btn" style="max-width:220px; margin:0 auto" onclick="goTab('tools')">Done</button>
   </div>`;
   window.scrollTo(0,0);
 }
-
-/* ---------- Decompress ---------- */
-function viewDecompress(){
-  return `<button class="back" onclick="goTab('today')">‹ Back</button>
-  <h1 style="margin-top:2px">Decompress</h1>
-  <p class="sub" style="margin:-6px 2px 8px">Three questions to close the day. Your brain files the day by its ending — give it a clean one.</p>
-  <label class="q">What was the hardest moment today?</label>
-  <div class="hint">Name it plainly. Naming closes loops.</div>
-  <textarea id="dc-1" rows="2"></textarea>
-  <label class="q">What did you handle better than you would have a year ago?</label>
-  <div class="hint">There's always one. It counts.</div>
-  <textarea id="dc-2" rows="2"></textarea>
-  <label class="q">What's tomorrow's first move?</label>
-  <div class="hint">One concrete thing. Then the desk is closed.</div>
-  <textarea id="dc-3" rows="2"></textarea>
-  <button class="btn plum" style="margin-top:16px" onclick="saveDecompress()">Shutdown complete</button>`;
-}
-function saveDecompress(){
-  const a=document.getElementById("dc-1").value.trim();
-  const b=document.getElementById("dc-2").value.trim();
-  const c=document.getElementById("dc-3").value.trim();
-  if(!a&&!b&&!c) return;
-  S.journal.unshift({date:new Date().toISOString(),kind:"Decompress",title:"Day closed",
-    body:`Hardest: ${a}\nHandled well: ${b}\nTomorrow's first move: ${c}`});
-  save(); goTab("today");
-}
-
 /* ---------- Prepare (pre-meeting primer) ---------- */
 let ppTimer=null;
 function viewPrepare(){
@@ -1503,7 +1910,7 @@ function insights(){
     recent.forEach(c=>c.contexts.forEach(x=>ctx[x]=(ctx[x]||0)+1));
     const top=Object.entries(ctx).sort((a,b)=>b[1]-a[1])[0];
     if(top&&top[1]>=3&&top[0]!=="Family") out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
-    const fr=recent.filter(c=>c.emotions.includes("Frustrated")||c.emotions.includes("Angry")).length;
+    const fr=recent.filter(c=>c.emotions.some(e=>famOf(e)==="Anger")).length;
     if(fr>=3) out.push(`Frustration has come up ${fr} times in two weeks. The Heat course and the 60-second Reset are built exactly for this.`);
     const avg=recent.reduce((a,c)=>a+c.mood,0)/recent.length;
     if(avg>=3.6) out.push("Your average mood over the last two weeks has been on the brighter side. Notice what's working — that's data too.");
