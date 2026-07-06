@@ -769,6 +769,34 @@ function rsAdvance(){
 }
 function rsClose(){ if(rs.timer) clearInterval(rs.timer); rs.timer=null; closeOverlay("rs-overlay"); render(); }
 
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="samatva-backup-"+new Date().toISOString().slice(0,10)+".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importData(input){
+  const f=input.files&&input.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const d=JSON.parse(reader.result);
+      if(typeof d!=="object"||!Array.isArray(d.checkIns)||!Array.isArray(d.journal)) throw 0;
+      S=d;
+      if(!S.theme) S.theme="auto";
+      if(!S.worries) S.worries=[];
+      if(!S.resetLog) S.resetLog=[];
+      if(!S.profile) S.profile=[];
+      save(); applyTheme(); render();
+      alert("Backup restored.");
+    }catch(e){ alert("That file doesn't look like a Samatva backup."); }
+  };
+  reader.readAsText(f);
+  input.value="";
+}
+
 function togProfile(p){
   const i=S.profile.indexOf(p);
   if(i>=0) S.profile.splice(i,1); else S.profile.push(p);
@@ -1350,6 +1378,13 @@ function viewSettings(){
     <p class="sub" style="font-size:14px; margin:0">Built as a pocket support system for demanding days: short lessons, honest check-ins, and tools for the moments that run hot.</p></div>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">Privacy</div>
     <p style="font-size:14px; margin:0">🔒 Everything stays in this browser's local storage. No account, no cloud, no analytics.</p></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">Your data</div>
+    <p class="hint" style="margin-bottom:10px">Browser storage can be lost if you clear website data. Export a backup now and then — it's a single private file.</p>
+    <div class="chips">
+      <button class="chip" onclick="exportData()">Export backup</button>
+      <button class="chip" onclick="document.getElementById('imp-file').click()">Restore from backup</button>
+    </div>
+    <input type="file" id="imp-file" accept=".json,application/json" style="display:none" onchange="importData(this)"></div>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">A note on limits</div>
     <p class="sub" style="font-size:13px; margin:0">Samatva is an educational companion, not a medical or mental-health service. If low mood, anger or anxiety are seriously affecting your life, a professional is the right next step — in the UK, you can self-refer to NHS Talking Therapies, or call Samaritans on 116 123 any time.</p></div>
   <button class="btn ghost" style="color:var(--ember)" onclick="if(confirm('Erase everything? This can\\'t be undone.')){localStorage.removeItem('samatva'); load(); nav={tab:'today',page:null,p:{}}; render();}">Erase all data</button>`;
