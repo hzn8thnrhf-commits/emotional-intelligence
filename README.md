@@ -33,7 +33,16 @@ Many lessons end with an interactive scenario — a realistic moment (an MD dism
 - **Uncluttered** — a restrained palette (deep sea teal, warm sand, soft ink), serif headings, generous whitespace, full dark-mode support.
 - **Private by design** — everything is stored on-device as local JSON. No account, no cloud, no analytics, no network access at all.
 
-## Running it
+## Two ways to run it
+
+### Web app (no Mac needed)
+
+`web/index.html` is a complete port of the app as a single self-contained file — no frameworks, no build step, no server logic. All the same features: check-ins, the 60-second Reset, all 22 lessons with scenarios, breathing, grounding, reframe, decompress, mood chart, insights and milestones. Data persists in the browser's local storage.
+
+- **Try it locally:** `python3 -m http.server -d web` then open `http://localhost:8000`, or just open the file directly in any browser.
+- **On your iPhone:** host the file anywhere static (GitHub Pages, Netlify, Vercel — it's one file), open it in Safari, then Share → **Add to Home Screen**. It runs full-screen like an app, works offline after first load, and keeps your data on the device.
+
+### Native iOS app
 
 Requirements: Xcode 16+ and iOS 17+.
 

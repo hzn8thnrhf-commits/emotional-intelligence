@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f7f4ee">
+<title>Samatva</title>
+</head>
+<body>
+<style>
+:root{
+  --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
+  --moss:#5f7d59; --plum:#815a7a;
+  --bg:#f7f4ee; --card:#ffffff; --ink:#22302f; --muted:#6d7a78; --faint:#a3adab;
+  --chip:#eceae3; --line:#e8e4da; --shadow:0 4px 14px rgba(40,50,50,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
+    --chip:#2a3235; --line:#2b3336; --shadow:none;
+    --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
+  }
+}
+:root[data-theme="light"]{
+  --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
+  --moss:#5f7d59; --plum:#815a7a;
+  --bg:#f7f4ee; --card:#ffffff; --ink:#22302f; --muted:#6d7a78; --faint:#a3adab;
+  --chip:#eceae3; --line:#e8e4da; --shadow:0 4px 14px rgba(40,50,50,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
+  --chip:#2a3235; --line:#2b3336; --shadow:none;
+  --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg); color:var(--ink);
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  min-height:100vh;
+}
+#app{max-width:520px; margin:0 auto; padding:18px 16px calc(86px + env(safe-area-inset-bottom));}
+h1,h2,h3,.serif{font-family:ui-serif,Georgia,"Times New Roman",serif; letter-spacing:.1px;}
+h1{font-size:26px; margin:8px 2px 16px; font-weight:650;}
+h2{font-size:19px; margin:0 0 6px; font-weight:650;}
+h3{font-size:16.5px; margin:0 0 6px; font-weight:650;}
+.sub{color:var(--muted); font-size:14px;}
+.tiny{color:var(--faint); font-size:12px;}
+.eyebrow{font-size:11px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase; color:var(--muted);}
+.card{
+  background:var(--card); border-radius:18px; padding:16px 17px; margin-bottom:12px;
+  box-shadow:var(--shadow); border:1px solid var(--line);
+}
+button{font:inherit; cursor:pointer; border:none; background:none; color:inherit; padding:0;}
+.btn{
+  display:block; width:100%; text-align:center; padding:13px 16px; border-radius:14px;
+  background:var(--teal); color:#fff; font-weight:600; font-size:16px;
+}
+.btn.ghost{background:var(--chip); color:var(--ink);}
+.btn.ember{background:var(--ember);} .btn.plum{background:var(--plum);} .btn.moss{background:var(--moss);} .btn.indigo{background:var(--indigo);}
+.btn:disabled{opacity:.4;}
+.row{display:flex; align-items:center; gap:13px;}
+.row .grow{flex:1; min-width:0;}
+.chev{color:var(--faint); font-size:18px;}
+.tap{width:100%; text-align:left;}
+.hero{
+  background:linear-gradient(135deg,var(--teal),var(--indigo));
+  color:#fff; border:none;
+}
+.hero .sub{color:rgba(255,255,255,.85);}
+.icon{font-size:24px; width:36px; text-align:center; flex:none;}
+.chips{display:flex; flex-wrap:wrap; gap:8px;}
+.chip{
+  padding:7px 14px; border-radius:999px; background:var(--chip); font-size:14px; color:var(--ink);
+}
+.chip.on{background:var(--teal); color:#fff;}
+textarea,input[type=text]{
+  width:100%; font:inherit; color:var(--ink); background:var(--chip);
+  border:none; border-radius:12px; padding:11px 12px; resize:none; outline:none;
+}
+input[type=range]{width:100%; accent-color:var(--teal);}
+.quote{font-family:ui-serif,Georgia,serif; font-style:italic; font-size:15.5px;}
+.tools3{display:flex; gap:10px;}
+.tools3 .card{flex:1; text-align:center; margin:0; padding:14px 6px;}
+.overlay{
+  position:fixed; inset:0; background:var(--bg); z-index:40; overflow-y:auto;
+  padding:18px 16px calc(24px + env(safe-area-inset-bottom));
+}
+.overlay .inner{max-width:520px; margin:0 auto;}
+.sheetbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+.sheetbar button{color:var(--teal); font-weight:600; font-size:16px; padding:6px 2px;}
+.center{text-align:center;}
+.bigring{position:relative; width:150px; height:150px; margin:18px auto;}
+.bigring svg{transform:rotate(-90deg);}
+.bigring .num{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:42px; font-weight:300; font-variant-numeric:tabular-nums;
+}
+.breath-wrap{height:300px; display:flex; align-items:center; justify-content:center;}
+#borb{
+  width:230px; height:230px; border-radius:50%;
+  background:radial-gradient(circle at 42% 38%, var(--teal-soft,#5a98a3), var(--teal));
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-family:ui-serif,Georgia,serif; font-size:19px;
+  transform:scale(.55); transition:transform 4s ease-in-out;
+}
+.tabbar{
+  position:fixed; bottom:0; left:0; right:0; z-index:30;
+  background:var(--card); border-top:1px solid var(--line);
+  padding:8px 0 calc(8px + env(safe-area-inset-bottom));
+}
+.tabbar .inner{max-width:520px; margin:0 auto; display:flex;}
+.tabbar button{flex:1; text-align:center; color:var(--faint); font-size:11px; font-weight:600;}
+.tabbar button.on{color:var(--teal);}
+.tabbar .ticon{display:block; margin:0 auto 3px;}
+.tabbar svg{width:23px; height:23px; display:block; margin:0 auto 3px;}
+.opt{
+  width:100%; text-align:left; padding:11px 12px; border-radius:12px; background:var(--chip);
+  margin-top:8px; font-size:14.5px; line-height:1.45;
+}
+.opt.best{background:color-mix(in srgb, var(--moss) 15%, var(--card)); outline:1.5px solid var(--moss);}
+.opt.notbest{background:color-mix(in srgb, var(--ember) 13%, var(--card)); outline:1.5px solid var(--ember);}
+.take{display:flex; gap:8px; margin:6px 0; font-size:14.5px;}
+.take b{color:var(--teal);}
+.badgegrid{display:grid; grid-template-columns:repeat(3,1fr); gap:9px;}
+.badge{
+  border-radius:13px; padding:10px 7px; text-align:center; background:var(--chip); opacity:.45;
+}
+.badge.earned{opacity:1; background:color-mix(in srgb, var(--moss) 12%, var(--card)); outline:1px solid color-mix(in srgb, var(--moss) 40%, transparent);}
+.badge .bi{font-size:21px;}
+.badge .bt{font-size:11.5px; font-weight:650; margin-top:3px;}
+.badge .bd{font-size:9.5px; color:var(--muted); margin-top:1px;}
+.stats{display:flex; gap:10px; margin-bottom:12px;}
+.stats .card{flex:1; margin:0; text-align:center; padding:13px 4px;}
+.stats .v{font-size:23px; font-weight:650; font-variant-numeric:tabular-nums;}
+.jentry{padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px; white-space:pre-line;}
+.jentry:last-child{border-bottom:none;}
+.back{color:var(--teal); font-weight:600; font-size:15.5px; padding:4px 2px; margin-bottom:10px; display:inline-block;}
+.lessonbody{font-size:15.5px; line-height:1.62; color:var(--ink);}
+.moodface{font-size:38px; width:56px; text-align:center; flex:none;}
+.progress-ring{flex:none;}
+.fade{animation:fade .25s ease;}
+@keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+label.q{display:block; font-weight:650; font-family:ui-serif,Georgia,serif; margin:16px 0 4px; font-size:16px;}
+.hint{font-size:12.5px; color:var(--muted); margin-bottom:6px;}
+.grid2{display:flex; flex-direction:column; gap:0;}
+svg.ring circle{fill:none;}
+</style>
+
+<div id="app"></div>
+<nav class="tabbar" id="tabbar" style="display:none"><div class="inner">
+  <button onclick="goTab('today')" id="tab-today"><span class="ticon">🌅</span>Today</button>
+  <button onclick="goTab('learn')" id="tab-learn"><span class="ticon">📖</span>Learn</button>
+  <button onclick="goTab('tools')" id="tab-tools"><span class="ticon">🌬️</span>Toolkit</button>
+  <button onclick="goTab('reflect')" id="tab-reflect"><span class="ticon">🪞</span>Reflect</button>
+</div></nav>
+
+<script>
+/* ================= Data ================= */
+const QUOTES=[
+["Samatvam yoga ucyate — equanimity is excellence in action.","Bhagavad Gita 2.48"],
+["You have power over your mind, not outside events. Realise this, and you will find strength.","Marcus Aurelius"],
+["Between stimulus and response there is a space. In that space is our power to choose.","Viktor Frankl"],
+["The quieter you become, the more you are able to hear.","Rumi"],
+["Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.","Thich Nhat Hanh"],
+["He who angers you conquers you.","Elizabeth Kenny"],
+["Nothing gives one person so much advantage over another as to remain always cool and unruffled.","Thomas Jefferson"],
+["You can't stop the waves, but you can learn to surf.","Jon Kabat-Zinn"],
+["The obstacle is the way.","Marcus Aurelius"],
+["Slow is smooth, smooth is fast.","Old operator's maxim"]];
+
+const EMOTIONS=["Calm","Content","Energised","Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"];
+const DIFFICULT=new Set(["Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"]);
+const CONTEXTS=["Deadline","Meetings","My team","Senior stakeholders","Markets","Workload","Family","Social life","Sleep & health","Something else"];
+const MOODS=["","Rough","Strained","Steady","Good","Great"];
+const MOODFACE=["","🌧️","☁️","⛅","🌤️","☀️"];
+
+const COURSES=[
+{id:"foundations",title:"Foundations",subtitle:"Learn to read your own weather",icon:"🌤️",tint:"var(--teal)",lessons:[
+ {id:"f1",title:"The sharpest people feel more, not less",min:3,sections:[
+  ["The myth of the ice-cold operator",`Finance culture prizes the unflappable. But "unflappable" done badly is just suppression — and suppression is expensive. Studies of traders show that those who ignore their emotions don't trade better; they blow up more spectacularly. The best performers feel everything and use it as information.`],
+  ["Emotions are data, not noise",`Every emotion is your brain's fast summary of a situation: anger flags a violated boundary, anxiety flags an unpriced risk, helplessness flags a control problem. You already read markets for signal. This course teaches you to read yourself the same way — quickly, without drama, and then decide what to do.`],
+  ["What this app will and won't do",`Samatva won't make you feel nothing. It will shorten the time between feeling something and understanding it, and widen the gap between feeling and reacting. That gap — Viktor Frankl's "space between stimulus and response" — is where composure lives.`]],
+  take:["Suppressing emotion degrades judgement; reading it sharpens judgement.","Each emotion carries a specific message about the situation.","The goal is a wider gap between feeling and reacting — not feeling less."],
+  reflect:"Think of the last time you 'kept it together' at work but paid for it later. What did keeping it together actually cost?",
+  scenario:{prompt:`It's 7pm. A deal document comes back from legal riddled with errors and the client call is at 8am. You feel heat rising in your chest. What's the most emotionally intelligent first move?`,options:[
+   {t:"Push the feeling aside — no time for it, just fix the document.",best:false,fb:"Suppression works for about an hour, then leaks out — usually at whoever messages you next. The feeling doesn't need an hour; it needs ten seconds of acknowledgement."},
+   {t:"Notice: 'That's anger. It's telling me a standard was violated and I'm time-pressed.' Then plan.",best:true,fb:"Exactly. Naming it takes ten seconds, drops its intensity, and turns it into information: the anger is about a standard and a deadline — both of which are solvable problems."},
+   {t:"Fire off a sharp email to legal so they know this isn't acceptable.",best:false,fb:"Maybe deserved — but sent at peak anger it will be 20% too hot, and you'll spend tomorrow managing the fallout instead of the client."}]}},
+ {id:"f2",title:"Name it to tame it",min:3,sections:[
+  ["The label lowers the volume",`Neuroscience calls it affect labelling: putting a feeling into words measurably reduces amygdala activity. Saying — even silently — "this is frustration" moves the experience from the alarm system to the part of the brain that can actually do something about it. It feels almost too simple. It works anyway.`],
+  ["Get more precise than 'stressed'",`"Stressed" is like saying a portfolio is "down" — true, but useless for action. Is it frustration (blocked goal)? Anxiety (uncertain threat)? Helplessness (no control)? Resentment (unfair load)? Each has a different fix. Psychologists call this emotional granularity, and people who have it recover faster and make better decisions under pressure.`],
+  ["The one-line check-in",`This is why Samatva's check-in takes fifteen seconds, not five minutes. One honest label, logged. Over weeks, the pattern becomes visible — which meetings, which hours, which people. You can't manage what you never name.`]],
+  take:["Naming an emotion reduces its grip — measurably.","Precision matters: frustration, anxiety, and helplessness need different responses.","Fifteen honest seconds a day builds a map of your patterns."],
+  reflect:"What word do you reach for when someone asks how you are? What's the more precise word underneath it today?"},
+ {id:"f3",title:"The 90-second wave",min:3,sections:[
+  ["Chemistry has a half-life",`When something triggers you, a chemical surge — adrenaline, cortisol — floods the body. Here's the part nobody tells you: physiologically, that surge washes through in about 90 seconds. If you're still furious ten minutes later, it's because your thoughts keep re-triggering the wave — replaying the comment, drafting the comeback.`],
+  ["Ride it, don't feed it",`The skill is to let the first wave pass without adding fuel. Feel the heat, the tight jaw, the fast pulse — and just observe it like a print moving on a screen, without opening the mental argument. Ninety seconds of watching beats thirty minutes of stewing.`],
+  ["Where the Reset button comes in",`Samatva's Reset is built around this: when something hits, open it, and it walks you through the 90 seconds — breath, body, label — so the wave passes through you instead of into your next meeting.`]],
+  take:["The chemical part of an emotion lasts about 90 seconds.","Rumination — replaying and rehearsing — is what keeps it alive.","Ride the first wave without feeding it; then decide."],
+  reflect:"When you stay angry for hours, what's the loop your mind replays? What would it be like to let the first wave pass just once?"},
+ {id:"f4",title:"Your body is the dashboard",min:3,sections:[
+  ["The body knows first",`By the time you consciously think "I'm annoyed," your body has known for minutes: shoulders creeping toward ears, jaw tight, breath gone shallow, that specific heat behind the sternum. Interoception — reading these internal signals — is trainable, and it's your earliest warning system.`],
+  ["Find your tell",`Every trader has a tell; so does every temper. Maybe yours is rereading the same email three times, typing harder, or going very quiet in meetings. Identify your two or three reliable tells and they become tripwires — catch the emotion at 3/10 instead of 8/10, when it's still cheap to handle.`],
+  ["The desk scan",`Three times a day — coffee, lunch, the 4pm slump — run a ten-second scan: jaw, shoulders, breath, stomach. Release what's held. You're not meditating; you're checking the dashboard the way you'd glance at a risk screen.`]],
+  take:["Your body registers emotion before your conscious mind does.","Know your two or three physical 'tells' and treat them as tripwires.","A ten-second body scan, three times a day, catches trouble early."],
+  reflect:"Where does pressure show up first in your body? Jaw, shoulders, chest, stomach — what's your tell?"}]},
+{id:"heat",title:"Heat",subtitle:"Frustration and anger, handled",icon:"🔥",tint:"var(--ember)",lessons:[
+ {id:"h1",title:"What anger is actually for",min:3,sections:[
+  ["Anger is a boundary alarm",`Anger fires when something you value is violated — your time, your standards, your team, your sense of fairness. That makes it useful: it tells you exactly what you care about. The problem is never the signal; it's the untranslated signal, delivered raw to a colleague at volume.`],
+  ["Frustration is blocked progress",`Frustration is anger's cousin: a goal you're driving toward, blocked — by a slow approval chain, a flaky system, a person who won't decide. In a demanding job, frustration is structural, not personal. Expecting a frictionless day in finance is like expecting a flat vol surface. The question isn't how to never feel it; it's what to do in the first minute.`],
+  ["Translate before transmitting",`The practice: when heat rises, ask "what boundary or goal is this about?" "I'm furious at legal" translates to "I care about quality and I'm time-pressed." That sentence you can say out loud in a meeting. The untranslated version you can't.`]],
+  take:["Anger marks a violated boundary; frustration marks a blocked goal.","The signal is useful; the raw transmission is what causes damage.","Ask: what is this heat actually about? Then say that instead."],
+  reflect:"What do your last three flashes of anger have in common? What value of yours were they defending?"},
+ {id:"h2",title:"The hijack",min:4,sections:[
+  ["Why smart people say dumb things at 9pm",`Under acute stress, the amygdala can effectively hijack the prefrontal cortex — the part of you that models consequences, reads the room, and remembers that the person opposite you controls your bonus. In hijack mode your IQ is temporarily unavailable. Everyone's is. The skill isn't preventing the hijack; it's recognising it and refusing to make decisions inside it.`],
+  ["Your vulnerability multipliers",`The hijack triggers far more easily when you're depleted. The checklist is HALT: Hungry, Angry (already), Lonely, Tired. On a 14-hour day you may be all four. That snappish reply at 10pm isn't your personality — it's your physiology. Which means the fix is often boring: eat, walk, sleep, call someone who knew you before the job.`],
+  ["Never trade during a hijack",`Make one rule and keep it absolutely: no irreversible action while flooded. No sent email, no verdict on a direct report, no 'quick word' with a stakeholder. The queue can hold for ten minutes. Nothing written in the flood reads well in the morning.`]],
+  take:["Acute stress temporarily disconnects your best thinking. For everyone.","HALT — hungry, angry, lonely, tired — makes hijacks far more likely.","One iron rule: no irreversible actions while flooded."],
+  reflect:"What time of day, and in what state, do your worst moments happen? What does that tell you about HALT?",
+  scenario:{prompt:`A managing director dismisses your team's analysis in front of everyone with a wave of the hand: 'This is half-baked.' You feel the flood — hot face, fast heart. The meeting is still going. What now?`,options:[
+   {t:"Defend the work immediately and firmly — silence looks like agreement.",best:false,fb:"Anything said in the first 30 seconds of a flood comes out sharper than intended, and now it's you versus an MD in public. The work can be defended better in five minutes than in five seconds."},
+   {t:"Breathe out slowly, note 'that's anger — my team was attacked', and say: 'I'd push back on half-baked — let me walk you through the assumptions after this.'",best:true,fb:"You bought your prefrontal cortex three seconds, protected your team on the record, and moved the fight to ground where evidence — not volume — decides it."},
+   {t:"Say nothing, then vent to your team afterwards about how impossible the MD is.",best:false,fb:"Your team watched the work get dismissed and then watched you absorb it. Venting downward transfers your flood to people who can do even less about it than you."}]}},
+ {id:"h3",title:"The STOP protocol",min:3,sections:[
+  ["S — Stop. T — Take a breath.",`When you notice the tell, stop — mid-sentence if needed; "give me a second" is a complete sentence. Then one slow breath with a long exhale. The extended exhale activates the parasympathetic brake directly; it's the fastest legal intervention on your own nervous system.`],
+  ["O — Observe.",`Three quick observations: What's in my body? (heat, tight chest.) What's the emotion? (frustration, edging to anger.) What's the story I'm telling? ("they don't respect my time.") That last one matters — the story is usually the accelerant, and it's usually only one of several possible readings.`],
+  ["P — Proceed on purpose.",`Now choose: address it, park it, or drop it. All three are legitimate. What was never on the menu was the auto-reply your flooded brain drafted at second zero. STOP takes about fifteen seconds and works in an open-plan office, on a call, or mid-meeting. Practise it on small annoyances — the delayed train, the double-booked room — so it's there for the big ones.`]],
+  take:["Stop, Take a breath, Observe, Proceed — about fifteen seconds.","The long exhale is the fastest way to slow your own system.","The story you're telling is the accelerant. Question it first."],
+  reflect:"What small daily annoyance could you use as STOP practice this week?"},
+ {id:"h4",title:"Discharge, don't suppress — and don't 'vent'",min:3,sections:[
+  ["The venting myth",`Punching pillows and ranting to colleagues feels productive but research is blunt: rehearsing anger deepens it. Each retelling re-runs the wave and carves the groove deeper. Venting isn't release — it's practice.`],
+  ["What actually discharges the charge",`The stress chemicals want physical completion, not narrative. A fast walk around the block, two flights of stairs, twenty push-ups, a hard gym session after work — movement metabolises the cortisol. Cold water on the wrists and face works surprisingly well between meetings. Write the furious version down once — then close the notebook; that's discharge. Reading it to three people is venting.`],
+  ["The email rule",`Angry email? Write it with the To: field empty. Say everything. Then leave it in drafts until after your next meal. Nine times out of ten you'll send a shorter, colder, far more effective version — or nothing, which is sometimes the strongest move available.`]],
+  take:["Venting rehearses anger; it doesn't release it.","Movement, cold water, and one private write-out actually discharge it.","Angry emails: empty To: field, and nothing sends before your next meal."],
+  reflect:"What's your current discharge method — and is it discharge, or is it rehearsal?"},
+ {id:"h5",title:"Clean anger",min:4,sections:[
+  ["Composed doesn't mean silent",`There's a failure mode on the other side of shouting: swallowing everything to seem professional, then leaking it as sarcasm, cc'd escalations, or sudden coldness. If you grew up where open disagreement with seniors felt disrespectful, this route is extra tempting. But unexpressed anger doesn't disappear — it compounds, and it collects interest.`],
+  ["The clean formula",`Clean anger is specific, unheated, and aimed at behaviour, not character: "When the deck came back at 11pm with the numbers unchecked → I was frustrated → because I care that we're accurate in front of the client → next time, flag it by 6 if you're stuck." Situation, feeling, value, request. No verdicts on anyone's competence or character.`],
+  ["Deliver it cool",`Timing is the multiplier: after the wave has passed, in private, once. Said calmly within a day, that script builds more respect than either the explosion or the swallow. People trust leaders whose displeasure is precise, predictable, and proportionate.`]],
+  take:["Swallowed anger leaks — as sarcasm, coldness, or escalation.","Clean formula: situation → feeling → value → request.","Deliver after the wave, in private, once."],
+  reflect:"Is there a conversation you've been swallowing? What would the clean, four-part version sound like?",
+  scenario:{prompt:`A peer keeps committing your team to deadlines in meetings you're not in. It's the third time. You're past annoyed. What's the clean-anger move?`,options:[
+   {t:"Mention it lightly with a laugh so it doesn't get awkward: 'Ha, stop selling my team's weekends!'",best:false,fb:"Humour-wrapped anger is still anger — but now it's deniable and easy to ignore. Third-time patterns deserve a direct sentence, not a joke."},
+   {t:"Privately: 'When my team was committed to Friday without me in the room — third time now — I was genuinely frustrated. I need to be in the loop before commitments. Can we agree on that?'",best:true,fb:"Specific, factual, states the feeling once without heat, ends with a clear request. Hard to argue with, easy to respect."},
+   {t:"Escalate to your shared boss with a documented timeline of all three incidents.",best:false,fb:"Escalating before a direct conversation reads as political warfare and burns the relationship. Escalation is the second move if the direct request fails — not the first."}]}}]},
+{id:"ground",title:"Ground",subtitle:"From helplessness to agency",icon:"⛰️",tint:"var(--moss)",lessons:[
+ {id:"g1",title:"The helplessness trap",min:3,sections:[
+  ["Where helplessness comes from",`Helplessness is the feeling that outcomes are disconnected from effort. Finance manufactures it in bulk: markets move against you for reasons that have nothing to do with your work; decisions land from three levels up; a reorg redraws your world overnight. Psychologist Martin Seligman showed that with enough uncontrollable stress, we stop trying even where we do have control. That's the trap — the feeling spreads beyond the facts.`],
+  ["The trap generalises; reality doesn't",`One genuinely uncontrollable quarter and the mind whispers that everything is uncontrollable — your hours, your career, your mood. Notice that move. Helplessness is accurate about specific things and almost always wrong as a general theory of your life.`],
+  ["The antidote is precision",`The way out isn't positive thinking — it's an audit. What here is actually mine to move? The next lesson gives you the tool. For now, just catch the moment the feeling tries to go from "I can't control this decision" to "I can't control anything."`]],
+  take:["Helplessness = the felt disconnect between effort and outcome.","It generalises beyond the facts — one uncontrollable thing colours everything.","The antidote is a precise audit of what is and isn't yours to move."],
+  reflect:"Where in your work does helplessness show up most? Is the feeling precise, or has it spread?"},
+ {id:"g2",title:"The control map",min:4,sections:[
+  ["Three circles",`Take any situation that's eating you and sort every piece into three circles. Control: your preparation, your responses, your hours of sleep, what you escalate, how you communicate. Influence: your boss's view of you, your team's morale, the client's mood, promotion decisions. Concern: markets, reorgs, the economy, other people's temperaments.`],
+  ["The energy audit",`Now the uncomfortable question: where does your worry-time actually go? For most people under pressure, 80% of mental energy pools in the Concern circle — precisely where it can achieve nothing. Stoics called this the dichotomy of control; it predates modern psychology by two millennia because it works.`],
+  ["Move one ring inward",`The practice: for anything in Concern, find its handle in Influence or Control. Can't control the reorg → can control being visibly excellent and having your CV honest. Can't control the MD's temper → can control your preparation and how you time your asks. Every worry either has a handle you can grip, or it doesn't — in which case it's weather, and you dress for weather; you don't argue with it.`]],
+  take:["Sort any mess into Control / Influence / Concern.","Energy pooled in the Concern circle achieves nothing and costs everything.","For each concern, find its handle one ring inward — or accept it as weather."],
+  reflect:"Take today's biggest worry. Which circle is it in? What's its handle one ring inward?",
+  scenario:{prompt:`Rumours of restructuring are everywhere. Your team keeps asking you what will happen; you don't know, and your own role may be at risk. You notice yourself refreshing news and Slack constantly. Best use of your energy?`,options:[
+   {t:"Work your network hard for intel so you're never surprised.",best:false,fb:"Some intel-gathering is reasonable, but rumour-chasing is Concern-circle activity dressed as action — it feeds the anxiety loop and produces mostly noise."},
+   {t:"Map it: Control — my performance, my CV, honesty with my team about what I know and don't. Influence — how leadership sees my team's value. Concern — the decision itself. Act on the first two.",best:true,fb:"This is the control map doing its job. Notice it also gives your team something honest and steady to hold onto — which is itself an Influence-circle move."},
+   {t:"Reassure the team it will all be fine so morale holds.",best:false,fb:"Promising what you can't control trades this week's comfort for your long-term credibility. 'Here's what I know, here's what I don't, here's what we control' is stronger and still steadying."}]}},
+ {id:"g3",title:"Micro-moves",min:3,sections:[
+  ["Agency compounds like interest",`Helplessness is broken by evidence, not affirmations. Each small completed action — one email sent, one decision made, one desk cleared — is a data point proving effort still connects to outcome. The size of the move barely matters; the completion does. Psychologists call it mastery experience. You'd call it marking positions to market.`],
+  ["Shrink until it's doable now",`Overwhelmed by the whole? Shrink the next move until resistance disappears. Not "fix the model" — "open the file." Not "resolve the conflict" — "draft one sentence asking for 15 minutes." The absurdly small first step isn't a trick; it's how stuck systems restart.`],
+  ["End the day on a completion",`One habit with outsized returns: never end the workday mid-failure. Close with one small completed thing — a tidy handover note, tomorrow's first task written down, one email cleared. Your brain files the day by its ending. Give it a completion to file.`]],
+  take:["Agency is rebuilt by evidence: small, completed actions.","Shrink the next step until the resistance disappears.","End every day on a completion, however small."],
+  reflect:"What's one thing you've been circling for days? What's its absurdly small first step?"},
+ {id:"g4",title:"Asking for help isn't losing face",min:4,sections:[
+  ["The lone-hero tax",`If you were raised to equate self-sufficiency with worth — common where academic and career excellence carried family honour — asking for help can feel like public failure. So the load grows silently until something cracks. But watch actual senior leaders: they ask for help constantly. They just call it 'leveraging resources' and 'aligning stakeholders.'`],
+  ["Reframe: asking is an executive skill",`A precise, early ask signals judgement, not weakness: you sized the problem, identified what's missing, and moved before it became expensive. What actually damages reputations is the surprise blow-up in week six that a five-minute conversation in week one would have prevented.`],
+  ["Make the ask specific",`Weak: "I'm drowning." Strong: "I need either a day's extension or one analyst for two days — which works better for you?" Specific asks are easy to grant and read as competence. And the same applies off the desk: telling one friend how the quarter actually felt is the personal-life version, and it's just as much a skill.`]],
+  take:["Silent overload isn't strength; it's deferred, compounding risk.","Early, precise asks read as judgement — surprise blow-ups read as failure.","Make asks specific and optioned: easy to grant, easy to respect."],
+  reflect:"What are you currently carrying alone that a specific, five-minute ask could halve?"}]},
+{id:"presence",title:"Presence",subtitle:"Composure as a leadership tool",icon:"🤝",tint:"var(--indigo)",lessons:[
+ {id:"p1",title:"Your mood is public infrastructure",min:3,sections:[
+  ["Emotional contagion is real and fast",`Humans sync moods automatically — and the syncing runs down the hierarchy far more strongly than up. As the manager, your Tuesday-morning stress becomes your team's Tuesday-morning stress within an hour, without a word said. You stopped having fully private moods the day you got direct reports.`],
+  ["They're reading you all day",`Your team studies your face on calls, your punctuation on Slack, the speed of your replies. A terse "fine." from you at 9am can cost a junior analyst a whole anxious morning. This isn't a reason to perform fake positivity — it's a reason to regulate for real, because the returns are multiplied by headcount.`],
+  ["Steady is the gift",`The most valuable thing a leader under pressure transmits is regulated presence: urgency without panic, seriousness without doom. "This is hard, and we can handle it" — said with a settled nervous system — is worth more to a team than any pep talk. Every tool in this app quietly serves that sentence.`]],
+  take:["Moods propagate down hierarchies fast and silently.","Your team reads your signals all day; small tells have big costs.","Regulated presence — calm urgency — is the leader's real gift."],
+  reflect:"What does your team most likely 'catch' from you in a bad week? What would you want them to catch instead?"},
+ {id:"p2",title:"Regulate before you respond",min:3,sections:[
+  ["Buy three seconds, own the room",`In tense meetings, the person who can insert three seconds between hearing and speaking has an unfair advantage. Tactics that look natural: take a sip of water; write the point down; repeat their statement back — "so your concern is timing" — which both buys time and makes the other person feel heard. Nobody knows you're regulating. That's the point.`],
+  ["The question is a fire-break",`When challenged aggressively, a genuine question beats a fast defence: "What would you need to see to be comfortable?" "Which assumption bothers you most?" Questions shift you from defending to examining, drop the temperature, and often reveal the challenge was thinner than it sounded.`],
+  ["Call the break",`If a meeting is genuinely running hot, naming it is senior behaviour: "Let's take five and come back to this with the numbers." Composure isn't never feeling heat — it's being the person in the room who notices the temperature and has the standing to adjust it.`]],
+  take:["Three seconds of pause is an advantage nobody can see.","A genuine question de-escalates faster than a fast defence.","Naming the temperature and calling a break is senior behaviour."],
+  reflect:"In your last heated meeting, what would three extra seconds have changed?"},
+ {id:"p3",title:"Feedback without heat",min:4,sections:[
+  ["Anger corrupts the message",`Feedback delivered hot achieves the opposite of its intent: the recipient's threat response spikes, and all processing goes to survival, not learning. They'll remember your tone for years and the content for minutes. If you're still charged, you're not ready to deliver — that's what the Reset is for.`],
+  ["SBI: situation, behaviour, impact",`The clean structure: Situation ("in Thursday's client call"), Behaviour ("the sensitivity table had last quarter's rates"), Impact ("the client caught it, and it dented our credibility in the room"). No character verdicts — not "careless", not "sloppy". Behaviour is fixable; character accusations just get defended.`],
+  ["Then close the loop forward",`End with the future, jointly owned: "What would make sure the final numbers get a second pass?" People rise to being treated as the solution. And deliver praise with the same SBI precision — specific praise is fuel; vague praise is noise.`]],
+  take:["Hot delivery triggers defence, not learning.","SBI: specific situation, observable behaviour, real impact — no character verdicts.","Close forward: make them co-owner of the fix. Praise with the same precision."],
+  reflect:"Think of feedback you need to give. Draft it silently as SBI. What changed from the version in your head?",
+  scenario:{prompt:`Your strongest analyst has been quietly missing internal deadlines for three weeks. Yesterday it caused you to look unprepared in front of your MD. You're annoyed and disappointed. How do you open the conversation?`,options:[
+   {t:"'You're my best analyst, but lately you're letting me down and it made me look bad yesterday.'",best:false,fb:"'Letting me down' is a character verdict wearing feedback's clothes, and leading with your image makes it about you. You'll get an apology and a defensive shell — not information or change."},
+   {t:"'Over the last three weeks the Tuesday cuts have landed late, and yesterday it left me answering the MD without the numbers. That's unlike you — what's going on?'",best:true,fb:"Specific situation and behaviour, honest impact, and then — crucially — a genuine question. Three weeks of uncharacteristic slipping usually has a cause worth knowing: burnout, a home situation, a hidden blocker."},
+   {t:"Say nothing yet — they're your best performer and you don't want to demotivate them. Watch another two weeks.",best:false,fb:"Three weeks of pattern plus a real impact is past the watching stage. Silence now means the eventual conversation happens at week eight, angrier, with more damage banked — and they'd have wanted to know sooner."}]}},
+ {id:"p4",title:"Pressure from above",min:3,sections:[
+  ["You are the transformer, not the wire",`A manager's core physics problem: pressure arrives from above at high voltage, and your job is to step it down — pass through the urgency and the facts, filter out the panic and the heat. Leaders who forward pressure raw ('the MD is furious, everything by Monday') get burnt-out teams. Leaders who absorb it silently get ulcers. Transform it: "Priorities changed above us. Here's what actually needs to move, in what order."`],
+  ["Manage up with the same EQ",`Your seniors are also stressed humans with amygdalas. Time your asks after their storms, not during. Bring problems with options attached, never bare. And when a senior is heated at you, remember the contagion lesson in reverse: their heat is usually about their pressure, not your worth. You can decline to absorb it personally while still acting on the content.`],
+  ["Protect the boundary that protects the team",`Sometimes stepping pressure down means a respectful push-back up: "We can do all three by Friday at draft quality, or the top two properly — which serves you better?" That sentence, delivered calmly, is what senior people themselves do. It's also how they spot who's ready for the next level.`]],
+  take:["Step pressure down: pass urgency and facts, filter panic and heat.","Time asks around your seniors' storms; bring options, not bare problems.","A calm, optioned push-back up is a senior move — and gets read as one."],
+  reflect:"When pressure last arrived from above, did you pass it through raw, absorb it silently, or transform it?"},
+ {id:"p5",title:"Demanding and safe — both",min:3,sections:[
+  ["Safety isn't softness",`Psychological safety — the shared belief that speaking up won't be punished — is the strongest known predictor of team performance, including in high-pressure environments. It is not lowered standards. The best desks are both: brutal about the work, safe for the people. Errors get dissected; people don't.`],
+  ["Your reaction to bad news sets the price of truth",`Every time someone brings you a mistake or a risk early, your face in that moment sets the price of the next warning. React with heat and the team learns to sit on problems until they explode. React with "good catch — what do we do?" and you've bought yourself an early-warning system money can't buy.`],
+  ["Own your misses out loud",`The single fastest safety-builder: admit your own errors plainly. "I called that wrong — here's what I'd do differently." From a leader who also holds a hard standard, that sentence doesn't reduce respect; it multiplies it, and it licenses honesty all the way down.`]],
+  take:["High standards and psychological safety aren't opposites — the best teams have both.","Your reaction to bad news sets the price of the next early warning.","Admitting your own misses out loud licenses honesty downward."],
+  reflect:"Would your team tell you about a serious mistake on day one, or day ten? What's your evidence?"}]},
+{id:"roots",title:"Roots",subtitle:"Identity, family, and a life outside work",icon:"🌳",tint:"var(--plum)",lessons:[
+ {id:"r1",title:"Two homes, two codes",min:4,sections:[
+  ["The switching load is real",`Growing up South Asian in Singapore, studying and working in Britain — you run several cultural operating systems: one for the trading floor, one for the phone call home, one for old friends, each with different rules about directness, deference, humour, and what feelings are showable. Code-switching is a genuine skill. It also has a genuine metabolic cost that mostly goes unacknowledged.`],
+  ["Name the switch, drop the verdict",`The exhaustion after certain dinners or calls isn't a character flaw — it's switching cost. And notice the quiet self-criticism that can ride along: too Asian for one room, too Westernised for another. Third-culture research is clear that the richness runs the other way: you have more registers, more empathy range, more ways to read a room than the single-culture people around you.`],
+  ["Keep one no-switch zone",`Protect at least one context where no performance is required — a friend who knew you before the job, a cousin, a group where every version of you is admissible. That's not a luxury. For someone who switches all day, it's infrastructure, and it's worth scheduling like a client meeting.`]],
+  take:["Code-switching is a skill with a real, unacknowledged energy cost.","Multiple cultural registers are range, not inauthenticity.","Maintain one no-switch zone and treat it as infrastructure."],
+  reflect:"Where in your life do you switch the least? When did you last spend time there?"},
+ {id:"r2",title:"The Sunday call",min:4,sections:[
+  ["Love arrives as expectation",`In many South Asian families, love is expressed as involvement: questions about promotions, money, marriage, when you're moving closer to home. From eight time zones away, a Sunday call can land as an audit. It helps to translate: behind almost every heavy question is 'we miss you and we want to be sure you're safe.' The delivery is expectation; the payload is love.`],
+  ["Guilt is not a verdict",`The pull between the life you're building in London and the one imagined for you back home generates guilt on a schedule. Feel it without obeying it reflexively: guilt is evidence you care about both worlds, not proof you've betrayed either. You can honour your family deeply while making different choices than they'd script — most of them, eventually, want your happiness more than their script.`],
+  ["Boundaries, warmly held",`A boundary with family doesn't need to be cold: "I want to tell you about work, and I need us to not do the marriage question every week" — said with warmth — is love plus honesty. Also practical: call when you have energy to be present, not out of scheduled duty while multitasking. One good call beats four resentful ones, and they can feel the difference.`]],
+  take:["Heavy questions are usually love in expectation's clothing — translate them.","Guilt means you care about both worlds; it isn't a verdict on your choices.","Warm boundaries and fewer-but-present calls beat dutiful, resentful ones."],
+  reflect:"What does your family actually want underneath their most repeated question?"},
+ {id:"r3",title:"Friendship on a banker's calendar",min:3,sections:[
+  ["Connection is a system, not a mood",`On 70-hour weeks, friendship can't run on spontaneity — there is none. It runs on small deliberate deposits: the two-line message when someone crosses your mind, the voice note on the walk between meetings, the standing monthly dinner that survives because it's standing. Consistency beats grandeur; five minutes reliably beats five hours theoretically.`],
+  ["Loneliness is a leadership hazard too",`Managing a team is quietly isolating — you can't fully vent down, and up is politics. Without off-desk relationships, work relationships carry loads they were never built for, and HALT's 'L' becomes chronic. Friendships aren't the reward for surviving the demanding years; they're part of the equipment for surviving them.`],
+  ["Show up as a person, not a CV",`One practice: with friends, lead with how things actually are, not the highlight reel. 'Honestly, brutal quarter, I'm tired' opens more connection in ten seconds than an hour of polished updates. You already perform all day. Friendship is where you get to stop.`]],
+  take:["On demanding hours, friendship runs on small consistent deposits.","Leadership is isolating; off-desk relationships are load-bearing equipment.","Lead with the real state, not the highlight reel."],
+  reflect:"Which friendship have you been meaning to tend? What's the two-minute deposit you could make today?"},
+ {id:"r4",title:"Rest is a skill",min:3,sections:[
+  ["Detachment is what restores",`Recovery research keeps finding the same thing: hours off don't restore you — psychological detachment does. Ten p.m. scrolling with work Slack open is not rest; it's low-grade work with worse posture. A shorter evening with a genuine mental sign-off beats a long one spent half-on.`],
+  ["Build a shutdown ritual",`The mind needs a boundary marker. Cal Newport's version: review open loops, write tomorrow's first move, say an explicit 'shutdown complete.' Yours might be the walk from the station, the gym, cooking, ten minutes of breathing in this app. The form matters less than the consistency — a repeated signal that tells your nervous system the desk is closed.`],
+  ["Guard one non-negotiable",`You will never find time for rest inside a demanding calendar; you can only defend it. Pick one non-negotiable block a week — the Sunday ride, the Saturday morning that's yours, the evening class — and protect it the way you'd protect a client meeting. Composure on Monday is manufactured on the weekend.`]],
+  take:["Restoration requires detachment, not just hours away from the desk.","A consistent shutdown ritual tells your nervous system the day is closed.","Defend one weekly non-negotiable block like a client meeting."],
+  reflect:"What could your shutdown ritual be — and what's the one weekly block worth defending?"}]}];
+
+const RESETS={
+ "Anger":{icon:"🔥",steps:[
+  [20,"Exhale the surge","Breathe in for 4, out for 8. Long exhales, jaw loose, shoulders down. The chemical wave passes in about 90 seconds — you're already inside it."],
+  [20,"Name the boundary",`Silently finish this sentence: "This anger is protecting…" My time? My standards? My team? Naming the value turns heat into information.`],
+  [20,"Choose, don't react","One rule: nothing irreversible in the next ten minutes. No sent email, no verdict. Decide your one calm next step — then take only that."]]},
+ "Frustration":{icon:"😤",steps:[
+  [20,"Drop the shoulders","Slow breath in, long breath out. Unclench the jaw and hands. Frustration lives in the body first — release the grip."],
+  [20,"Find the blockage","Frustration = a goal that's blocked. Name the goal, name the blocker. Is the blocker in your control, your influence, or just weather?"],
+  [20,"One micro-move","Pick the smallest action that puts anything back in motion — one message, one decision, one 15-minute slot booked. Motion dissolves frustration."]]},
+ "Helplessness":{icon:"🪨",steps:[
+  [20,"Feet on the floor","Breathe out slowly. Feel your feet, your seat, your hands. You are here, and this is one situation — not your whole life."],
+  [20,"Shrink the frame",`The feeling says "nothing I do matters." Test it: name one thing in this mess that is genuinely yours to move, however small.`],
+  [20,"Prove it","Do — or schedule — that one thing in the next hour. Agency is rebuilt by evidence, and evidence starts small."]]},
+ "Overwhelm":{icon:"🌪️",steps:[
+  [20,"Stop adding","Long exhale. Nothing new gets added for sixty seconds — no tabs, no messages, no mental list-growing."],
+  [20,"Triage like an operator","Of everything on the pile: what actually must happen today? Usually it's two things, not nine. Name the two."],
+  [20,"Serial, not parallel","Pick the first of the two. Everything else formally waits. One thing at a time is not slower — it's how anything ships."]]},
+ "Anxiety":{icon:"〰️",steps:[
+  [20,"Slow the system","Physiological sigh: two quick inhales through the nose, one long sigh out. Twice more. It's the fastest known downshift."],
+  [20,"Separate fact from forecast","Anxiety trades in forecasts. What is actually true right now, versus what your mind is projecting? Say the facts only."],
+  [20,"Prepare, don't ruminate","If the worry has an action — a check, a prep note, an ask — name it and schedule it. If it has none, it's weather. Let it pass."]]}};
+
+const PATTERNS={
+ box:{name:"Box breathing",sub:"4-4-4-4 · steady focus before a big meeting",phases:[["Breathe in",4,1],["Hold",4,1],["Breathe out",4,.55],["Hold",4,.55]]},
+ sigh:{name:"Physiological sigh",sub:"Fastest downshift · between meetings",phases:[["Inhale",1.5,.85],["Top-up inhale",1,1],["Long sigh out",6,.55]]},
+ f478:{name:"4-7-8 wind-down",sub:"For the end of the day, or 2am thoughts",phases:[["Breathe in",4,1],["Hold",7,1],["Slow exhale",8,.55]]},
+ coherent:{name:"Coherent 5.5",sub:"Five minutes to an even keel",phases:[["Breathe in",5.5,1],["Breathe out",5.5,.55]]}};
+
+const DISTORTIONS=[
+ ["Mind reading",`"He thinks I'm not up to it" — you don't actually know.`],
+ ["Catastrophising","One miss becomes a ruined career by step three."],
+ ["All-or-nothing","Anything short of perfect counts as failure."],
+ ["Personalising","Someone's mood or a market move becomes your fault."],
+ ["Should-storms",`"I should handle this alone / should be further ahead by now."`],
+ ["Discounting wins","Successes were luck; only the misses were real."]];
+
+const GROUND_STEPS=[
+ [5,"things you can see","Look around slowly. The mug, the window, the grain of the desk. Name them silently, one by one."],
+ [4,"things you can touch","The chair under you, fabric on your arm, the cool of the phone, your feet in your shoes."],
+ [3,"things you can hear","The hum of the building, traffic, your own breath. Just notice — no fixing."],
+ [2,"things you can smell","Coffee, air, paper. If nothing comes, take one slow breath through the nose."],
+ [1,"thing you can taste","Or simply notice your mouth and jaw, and let the jaw unclench."]];
+
+const MILESTONES=[
+ {id:"first-checkin",t:"First Weather Report",d:"Logged your first check-in",i:"🌤️",f:s=>s.checkIns.length>0},
+ {id:"first-lesson",t:"Student of the Self",d:"Completed your first lesson",i:"📖",f:s=>s.done.length>0},
+ {id:"first-reset",t:"Circuit Breaker",d:"Used a Reset in a hard moment",i:"⏮️",f:s=>s.resets>=1},
+ {id:"calm-10",t:"Ten Quiet Minutes",d:"10 minutes of breathing practice",i:"🌬️",f:s=>s.calmSec>=600},
+ {id:"calm-60",t:"The Still Hour",d:"60 minutes of breathing practice",i:"🌙",f:s=>s.calmSec>=3600},
+ {id:"reframe-5",t:"Second Opinion",d:"Reframed 5 difficult thoughts",i:"🔁",f:s=>s.reframes>=5},
+ {id:"checkins-10",t:"Honest Ledger",d:"10 check-ins recorded",i:"🧾",f:s=>s.checkIns.length>=10},
+ {id:"course-heat",t:"Cooler Head",d:"Finished the Heat course",i:"🔥",f:s=>COURSES.find(c=>c.id==="heat").lessons.every(l=>s.done.includes(l.id))},
+ {id:"course-all",t:"Samatva",d:"Completed every course",i:"🏛️",f:s=>COURSES.every(c=>c.lessons.every(l=>s.done.includes(l.id)))}];
+
+/* ================= State ================= */
+let S;
+function load(){
+  try{ S=JSON.parse(localStorage.getItem("samatva"))||null; }catch(e){ S=null; }
+  if(!S) S={name:"",onboarded:false,checkIns:[],journal:[],done:[],calmSec:0,reframes:0,resets:0};
+}
+function save(){ localStorage.setItem("samatva",JSON.stringify(S)); }
+load();
+
+let nav={tab:"today",page:null,p:{}};
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function goTab(t){ stopBreath(); nav={tab:t,page:null,p:{}}; render(); window.scrollTo(0,0); }
+function goPage(pg,p){ stopBreath(); nav.page=pg; nav.p=p||{}; render(); window.scrollTo(0,0); }
+
+function todayCheckIn(){
+  const t=new Date().toDateString();
+  return [...S.checkIns].reverse().find(c=>new Date(c.date).toDateString()===t);
+}
+function nextLesson(){
+  for(const c of COURSES){ const l=c.lessons.find(l=>!S.done.includes(l.id)); if(l) return [c,l]; }
+  return null;
+}
+function courseProg(c){ return c.lessons.filter(l=>S.done.includes(l.id)).length/c.lessons.length; }
+
+/* ================= Render ================= */
+function render(){
+  const app=document.getElementById("app");
+  const bar=document.getElementById("tabbar");
+  if(!S.onboarded){ bar.style.display="none"; app.innerHTML=viewOnboard(); return; }
+  bar.style.display="";
+  ["today","learn","tools","reflect"].forEach(t=>{
+    document.getElementById("tab-"+t).className=(nav.tab===t&&!nav.page)||nav.tab===t?"on":"";
+  });
+  let html="";
+  if(nav.page==="course") html=viewCourse(nav.p.id);
+  else if(nav.page==="lesson") html=viewLesson(nav.p.cid,nav.p.lid);
+  else if(nav.page==="breathe") html=viewBreathe(nav.p.pat||"box");
+  else if(nav.page==="ground") html=viewGround();
+  else if(nav.page==="reframe") html=viewReframe();
+  else if(nav.page==="decompress") html=viewDecompress();
+  else if(nav.page==="settings") html=viewSettings();
+  else if(nav.tab==="today") html=viewToday();
+  else if(nav.tab==="learn") html=viewLearn();
+  else if(nav.tab==="tools") html=viewTools();
+  else if(nav.tab==="reflect") html=viewReflect();
+  app.innerHTML=`<div class="fade">${html}</div>`;
+  if(nav.page==="breathe") initBreath();
+}
+
+/* ---------- Onboarding ---------- */
+function viewOnboard(){
+  return `
+  <div class="center" style="padding-top:9vh">
+    <div style="font-size:52px">☸️</div>
+    <h1 style="font-size:34px; margin:14px 0 6px">Samatva</h1>
+    <p class="sub" style="max-width:330px; margin:0 auto 26px">Equanimity, from the Sanskrit.<br>"Samatvam yoga ucyate" — evenness of mind is excellence in action.</p>
+    <div style="text-align:left; max-width:360px; margin:0 auto 26px">
+      <div class="take"><b>📖</b><span><b>Short lessons</b> — two to four minutes, written for demanding days.</span></div>
+      <div class="take"><b>🌬️</b><span><b>Tools for the moment</b> — breathing, resets and reframes for when pressure hits.</span></div>
+      <div class="take"><b>🪞</b><span><b>Quiet progress</b> — milestones and patterns. No streaks, no guilt mechanics.</span></div>
+      <div class="take"><b>🔒</b><span><b>Private</b> — everything stays in this browser. No account, no cloud.</span></div>
+    </div>
+    <div style="max-width:300px; margin:0 auto">
+      <input type="text" id="obname" placeholder="What should I call you?" style="text-align:center; font-size:17px; margin-bottom:12px">
+      <button class="btn" onclick="finishOnboard()">Begin</button>
+    </div>
+  </div>`;
+}
+function finishOnboard(){
+  const n=document.getElementById("obname").value.trim();
+  if(!n) return;
+  S.name=n; S.onboarded=true; save(); render();
+}
+
+/* ---------- Today ---------- */
+function greeting(){
+  const h=new Date().getHours();
+  const n=S.name?`, ${esc(S.name)}`:"";
+  if(h>=5&&h<12) return "Good morning"+n;
+  if(h>=12&&h<18) return "Good afternoon"+n;
+  if(h>=18&&h<23) return "Good evening"+n;
+  return "Still up"+n+"?";
+}
+function viewToday(){
+  const day=Math.floor(Date.now()/86400000);
+  const q=QUOTES[day%QUOTES.length];
+  const t=todayCheckIn();
+  const nl=nextLesson();
+  return `
+  <div class="row" style="justify-content:space-between">
+    <h1 style="margin-bottom:12px">${greeting()}</h1>
+    <button onclick="goPage('settings')" style="font-size:20px; color:var(--muted)">⚙︎</button>
+  </div>
+  <button class="tap card hero" onclick="openReset()">
+    <div class="row">
+      <span class="icon" style="font-size:28px">⏮️</span>
+      <div class="grow"><h2 style="color:#fff">Reset</h2><div class="sub">Hard moment? Sixty guided seconds.</div></div>
+      <span class="chev" style="color:rgba(255,255,255,.7)">›</span>
+    </div>
+  </button>
+  ${t?`
+  <div class="card"><div class="row">
+    <span class="moodface" style="font-size:30px;width:36px">${MOODFACE[t.mood]}</span>
+    <div class="grow"><h3>Today: ${MOODS[t.mood].toLowerCase()}</h3>
+      <div class="sub">${t.emotions.length?t.emotions.map(esc).join(" · "):"Checked in. You can log again any time."}</div></div>
+    <button onclick="openCheckIn()" style="color:var(--teal); font-weight:600; font-size:14px">Again</button>
+  </div></div>`:`
+  <button class="tap card" onclick="openCheckIn()"><div class="row">
+    <span class="icon">🌤️</span>
+    <div class="grow"><h3>Check in</h3><div class="sub">Fifteen seconds. What's the weather in there?</div></div>
+    <span class="chev">›</span>
+  </div></button>`}
+  ${nl?`
+  <button class="tap card" onclick="goPage('lesson',{cid:'${nl[0].id}',lid:'${nl[1].id}'})"><div class="row">
+    <span class="icon">${nl[0].icon}</span>
+    <div class="grow">
+      <div class="eyebrow" style="color:${nl[0].tint}">Next up · ${nl[0].title}</div>
+      <h3 style="margin-top:2px">${nl[1].title}</h3>
+      <div class="sub">${nl[1].min} min read</div>
+    </div><span class="chev">›</span>
+  </div></button>`:""}
+  <div class="tools3">
+    <button class="tap card" onclick="goPage('breathe',{pat:'box'})"><div style="font-size:22px">🌬️</div><div style="font-size:13px; font-weight:600; margin-top:4px">Breathe</div></button>
+    <button class="tap card" onclick="goPage('ground')"><div style="font-size:22px">✋</div><div style="font-size:13px; font-weight:600; margin-top:4px">Ground</div></button>
+    <button class="tap card" onclick="goPage('decompress')"><div style="font-size:22px">🌙</div><div style="font-size:13px; font-weight:600; margin-top:4px">Decompress</div></button>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="quote">“${q[0]}”</div>
+    <div class="tiny" style="margin-top:6px">— ${q[1]}</div>
+  </div>`;
+}
+
+/* ---------- Check-in ---------- */
+let ci;
+function openCheckIn(){
+  ci={mood:3,emotions:[],contexts:[]};
+  const ov=document.createElement("div"); ov.className="overlay"; ov.id="ci-overlay";
+  ov.innerHTML=`<div class="inner">
+    <div class="sheetbar"><button onclick="closeOverlay('ci-overlay')">Cancel</button>
+      <b class="serif">Check in</b><button onclick="saveCheckIn()"><b>Save</b></button></div>
+    <h2>How's the weather in there?</h2>
+    <div class="row" style="margin:10px 0 18px">
+      <span class="moodface" id="ci-face">⛅</span>
+      <div class="grow"><b id="ci-label">Steady</b>
+        <input type="range" min="1" max="5" step="1" value="3" oninput="ciMood(this.value)"></div>
+    </div>
+    <div class="eyebrow" style="margin-bottom:8px">Name it (optional, but it helps)</div>
+    <div class="chips" style="margin-bottom:18px">${EMOTIONS.map(e=>`<button class="chip" id="ci-e-${e}" onclick="ciTog('emotions','${e}')">${e}</button>`).join("")}</div>
+    <div class="eyebrow" style="margin-bottom:8px">What's it about?</div>
+    <div class="chips" style="margin-bottom:18px">${CONTEXTS.map(c=>`<button class="chip" id="ci-c-${c}" onclick="ciTog('contexts','${c}')">${c}</button>`).join("")}</div>
+    <div class="eyebrow" style="margin-bottom:8px">A line for future you</div>
+    <textarea id="ci-note" rows="3" placeholder="Optional note…"></textarea>
+  </div>`;
+  document.body.appendChild(ov);
+}
+function ciMood(v){ ci.mood=+v; document.getElementById("ci-face").textContent=MOODFACE[v]; document.getElementById("ci-label").textContent=MOODS[v]; }
+function ciTog(k,v){
+  const i=ci[k].indexOf(v);
+  if(i>=0) ci[k].splice(i,1); else ci[k].push(v);
+  document.getElementById(`ci-${k[0]}-${v}`).classList.toggle("on",i<0);
+}
+function saveCheckIn(){
+  S.checkIns.push({date:new Date().toISOString(),mood:ci.mood,emotions:ci.emotions,contexts:ci.contexts,note:document.getElementById("ci-note").value});
+  save(); closeOverlay("ci-overlay"); render();
+}
+function closeOverlay(id){ const el=document.getElementById(id); if(el) el.remove(); }
+
+/* ---------- Reset ---------- */
+let rs={timer:null};
+function openReset(){
+  const ov=document.createElement("div"); ov.className="overlay"; ov.id="rs-overlay";
+  ov.innerHTML=`<div class="inner" id="rs-inner"></div>`;
+  document.body.appendChild(ov);
+  rsPicker();
+}
+function rsPicker(){
+  document.getElementById("rs-inner").innerHTML=`
+    <div class="sheetbar"><button onclick="rsClose()">Close</button><span></span><span></span></div>
+    <div class="center" style="margin:26px 0 18px">
+      <h2>What's here right now?</h2><div class="sub">No judgement. Pick the closest one.</div>
+    </div>
+    ${Object.keys(RESETS).map(k=>`<button class="tap card" onclick="rsStart('${k}')"><div class="row">
+      <span class="icon">${RESETS[k].icon}</span><div class="grow"><h3>${k}</h3></div><span class="chev">›</span>
+    </div></button>`).join("")}`;
+}
+function rsStart(k){ rs.k=k; rs.i=0; rs.left=RESETS[k].steps[0][0]; rsTick(true); rs.timer=setInterval(()=>rsTick(false),1000); }
+function rsTick(first){
+  if(!first){ rs.left--; if(rs.left<=0){ rsAdvance(); return; } }
+  const st=RESETS[rs.k].steps[rs.i];
+  const total=st[0], done=total-rs.left, C=2*Math.PI*62;
+  document.getElementById("rs-inner").innerHTML=`
+    <div class="sheetbar"><button onclick="rsClose()">Close</button><span></span><span></span></div>
+    <div class="center">
+      <div class="eyebrow" style="margin-top:22px">Step ${rs.i+1} of 3</div>
+      <div class="bigring"><svg class="ring" width="150" height="150">
+        <circle cx="75" cy="75" r="62" stroke="var(--line)" stroke-width="8"/>
+        <circle cx="75" cy="75" r="62" stroke="var(--teal)" stroke-width="8" stroke-linecap="round"
+          stroke-dasharray="${C}" stroke-dashoffset="${C*(1-done/total)}" style="transition:stroke-dashoffset 1s linear"/>
+      </svg><div class="num">${rs.left}</div></div>
+      <h2>${st[1]}</h2>
+      <p class="sub" style="max-width:330px; margin:8px auto 26px; min-height:96px">${st[2]}</p>
+      <button class="btn ghost" style="max-width:220px; margin:0 auto" onclick="rsAdvance()">${rs.i<2?"Next step":"Done"}</button>
+    </div>`;
+}
+function rsAdvance(){
+  if(rs.i<2){ rs.i++; rs.left=RESETS[rs.k].steps[rs.i][0]; rsTick(true); }
+  else{
+    clearInterval(rs.timer); rs.timer=null;
+    S.resets++; S.calmSec+=RESETS[rs.k].steps.reduce((a,s)=>a+s[0],0); save();
+    document.getElementById("rs-inner").innerHTML=`
+      <div class="sheetbar"><button onclick="rsClose()">Close</button><span></span><span></span></div>
+      <div class="center" style="padding-top:16vh">
+        <div style="font-size:50px">✓</div>
+        <h2 style="margin-top:12px">Wave ridden.</h2>
+        <p class="sub" style="max-width:320px; margin:8px auto 26px">Whatever you do next, you're choosing it now — not the surge. That's the whole skill.</p>
+        <button class="btn" style="max-width:220px; margin:0 auto" onclick="rsClose()">Back to it</button>
+      </div>`;
+  }
+}
+function rsClose(){ if(rs.timer) clearInterval(rs.timer); rs.timer=null; closeOverlay("rs-overlay"); render(); }
+
+/* ---------- Learn ---------- */
+function ring(pct,tint){
+  const C=2*Math.PI*23;
+  return `<svg class="ring progress-ring" width="54" height="54" style="transform:rotate(-90deg)">
+    <circle cx="27" cy="27" r="23" stroke="var(--line)" stroke-width="4.5"/>
+    <circle cx="27" cy="27" r="23" stroke="${tint}" stroke-width="4.5" stroke-linecap="round"
+      stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg>`;
+}
+function viewLearn(){
+  return `<h1>Learn</h1>`+COURSES.map(c=>{
+    const p=courseProg(c);
+    return `<button class="tap card" onclick="goPage('course',{id:'${c.id}'})"><div class="row">
+      <div style="position:relative; width:54px; height:54px; flex:none">${ring(p,c.tint)}
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:20px">${c.icon}</div></div>
+      <div class="grow"><h3>${c.title}</h3><div class="sub">${c.subtitle}</div>
+        <div class="tiny">${p>=1?"Complete":Math.round(p*100)+"% · "+c.lessons.length+" lessons"}</div></div>
+      <span class="chev">›</span></div></button>`;
+  }).join("");
+}
+function viewCourse(id){
+  const c=COURSES.find(x=>x.id===id);
+  return `<button class="back" onclick="goTab('learn')">‹ Learn</button>
+  <h1 style="margin-top:2px">${c.title}</h1><p class="sub" style="margin:-8px 2px 14px">${c.subtitle}</p>`+
+  c.lessons.map((l,i)=>{
+    const done=S.done.includes(l.id);
+    return `<button class="tap card" onclick="goPage('lesson',{cid:'${c.id}',lid:'${l.id}'})"><div class="row">
+      <span style="flex:none; width:26px; text-align:center; font-size:17px; color:${done?c.tint:"var(--faint)"}">${done?"✓":i+1}</span>
+      <div class="grow"><b style="font-size:15px">${l.title}</b>
+        <div class="tiny">${l.min} min${l.scenario?" · includes scenario":""}</div></div>
+      <span class="chev">›</span></div></button>`;
+  }).join("");
+}
+let lessonState={};
+function viewLesson(cid,lid){
+  const c=COURSES.find(x=>x.id===cid);
+  const l=c.lessons.find(x=>x.id===lid);
+  const done=S.done.includes(lid);
+  lessonState={picked:null,saved:false};
+  return `<button class="back" onclick="goPage('course',{id:'${cid}'})">‹ ${c.title}</button>
+  <div class="eyebrow" style="color:${c.tint}; margin:4px 2px 6px">${c.title} · ${l.min} min</div>
+  <h1 style="margin:0 2px 14px">${l.title}</h1>
+  ${l.sections.map(s=>`<div class="card"><h3>${s[0]}</h3><div class="lessonbody">${s[1]}</div></div>`).join("")}
+  <div class="card"><div class="eyebrow" style="color:${c.tint}; margin-bottom:8px">Keep</div>
+    ${l.take.map(t=>`<div class="take"><b>·</b><span>${t}</span></div>`).join("")}</div>
+  ${l.scenario?scenarioHTML(l,c):""}
+  <div class="card"><div class="eyebrow" style="color:${c.tint}; margin-bottom:8px">Reflect</div>
+    <p style="font-style:italic; font-size:14.5px; margin:0 0 10px">${l.reflect}</p>
+    <textarea id="refl" rows="3" placeholder="A sentence is plenty…"></textarea>
+    <div id="refl-done" class="tiny" style="color:var(--moss); margin-top:6px; display:none">✓ Saved to your journal</div>
+    <button id="refl-save" onclick="saveReflection('${lid}')" style="color:var(--teal); font-weight:600; font-size:14px; margin-top:8px">Save reflection</button>
+  </div>
+  <button class="btn" style="background:${c.tint}" ${done?"disabled":""} onclick="completeLesson('${cid}','${lid}')">${done?"✓ Completed":"Mark as complete"}</button>`;
+}
+function scenarioHTML(l,c){
+  return `<div class="card" id="scen">
+    <div class="eyebrow" style="color:${c.tint}; margin-bottom:8px">Scenario</div>
+    <p style="font-size:14.5px; margin:0 0 4px">${l.scenario.prompt}</p>
+    ${l.scenario.options.map((o,i)=>`<button class="opt" id="opt-${i}" onclick="pickOpt('${l.id}',${i})">${o.t}</button>`).join("")}
+    <div id="scen-fb"></div>
+  </div>`;
+}
+function pickOpt(lid,i){
+  const l=COURSES.flatMap(c=>c.lessons).find(x=>x.id===lid);
+  const o=l.scenario.options[i];
+  l.scenario.options.forEach((_,j)=>{
+    const el=document.getElementById("opt-"+j);
+    el.disabled=true;
+    if(j===i) el.classList.add(o.best?"best":"notbest");
+  });
+  const best=l.scenario.options.find(x=>x.best);
+  document.getElementById("scen-fb").innerHTML=`
+    <div style="margin-top:12px">
+      <b style="color:${o.best?"var(--moss)":"var(--ember)"}">${o.best?"Well read.":"A common instinct —"}</b>
+      <p class="sub" style="margin:5px 0 0; font-size:14px">${o.fb}</p>
+      ${!o.best?`<p style="font-size:14px; margin:8px 0 0"><b>Stronger move:</b> ${best.t}</p>`:""}
+      <button onclick="resetScen('${lid}')" style="color:var(--teal); font-weight:600; font-size:13px; margin-top:8px">Try again</button>
+    </div>`;
+}
+function resetScen(lid){
+  const l=COURSES.flatMap(c=>c.lessons).find(x=>x.id===lid);
+  l.scenario.options.forEach((_,j)=>{
+    const el=document.getElementById("opt-"+j);
+    el.disabled=false; el.classList.remove("best","notbest");
+  });
+  document.getElementById("scen-fb").innerHTML="";
+}
+function saveReflection(lid){
+  const v=document.getElementById("refl").value.trim();
+  if(!v) return;
+  const l=COURSES.flatMap(c=>c.lessons).find(x=>x.id===lid);
+  S.journal.unshift({date:new Date().toISOString(),kind:"Reflection",title:l.title,body:v});
+  save();
+  document.getElementById("refl-done").style.display="block";
+  document.getElementById("refl-save").style.display="none";
+}
+function completeLesson(cid,lid){
+  if(!S.done.includes(lid)) S.done.push(lid);
+  save(); goPage("course",{id:cid});
+}
+
+/* ---------- Toolkit ---------- */
+function viewTools(){
+  const row=(icon,tint,title,sub,click)=>`<button class="tap card" onclick="${click}"><div class="row">
+    <span class="icon">${icon}</span><div class="grow"><h3>${title}</h3><div class="sub">${sub}</div></div>
+    <span class="chev">›</span></div></button>`;
+  return `<h1>Toolkit</h1>
+  <div class="eyebrow" style="margin:2px 2px 10px">In the moment</div>
+  ${row("🌬️","var(--teal)","Breathe","Box, physiological sigh, 4-7-8, coherent","goPage('breathe',{pat:'box'})")}
+  ${row("✋","var(--indigo)","Ground: 5-4-3-2-1","Out of your head, back into the room","goPage('ground')")}
+  <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
+  ${row("🔁","var(--ember)","Reframe a thought","Catch the story, question it, rewrite it","goPage('reframe')")}
+  ${row("🌙","var(--plum)","Decompress","Close the day so it doesn't follow you home","goPage('decompress')")}`;
+}
+
+/* ---------- Breathing ---------- */
+let br={on:false,task:null,clock:null,elapsed:0,pi:0};
+function viewBreathe(pat){
+  br.pat=pat;
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Breathe</h1>
+  <select id="br-sel" onchange="br.pat=this.value; document.getElementById('br-sub').textContent=PATTERNS[this.value].sub"
+    style="font:inherit; padding:8px 12px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink)">
+    ${Object.keys(PATTERNS).map(k=>`<option value="${k}" ${k===pat?"selected":""}>${PATTERNS[k].name}</option>`).join("")}
+  </select>
+  <div class="sub" id="br-sub" style="margin-top:8px">${PATTERNS[pat].sub}</div>
+  <div class="breath-wrap"><div id="borb">Ready</div></div>
+  <div class="center sub" id="br-time" style="min-height:22px"></div>
+  <button class="btn" id="br-btn" style="max-width:240px; margin:14px auto 0" onclick="toggleBreath()">Begin</button>`;
+}
+function initBreath(){ br.on=false; br.elapsed=0; }
+function toggleBreath(){ br.on?stopBreath(true):startBreath(); }
+function startBreath(){
+  br.on=true; br.elapsed=0; br.pi=0;
+  document.getElementById("br-btn").textContent="Finish";
+  document.getElementById("br-sel").disabled=true;
+  br.clock=setInterval(()=>{
+    br.elapsed++;
+    const el=document.getElementById("br-time");
+    if(el) el.textContent=`${Math.floor(br.elapsed/60)}:${String(br.elapsed%60).padStart(2,"0")}`;
+  },1000);
+  breathPhase();
+}
+function breathPhase(){
+  const phases=PATTERNS[br.pat].phases;
+  const ph=phases[br.pi];
+  const orb=document.getElementById("borb");
+  if(!orb||!br.on) return;
+  orb.style.transitionDuration=ph[1]+"s";
+  orb.style.transform=`scale(${ph[2]})`;
+  orb.textContent=ph[0];
+  br.task=setTimeout(()=>{ br.pi=(br.pi+1)%phases.length; breathPhase(); },ph[1]*1000);
+}
+function stopBreath(fromBtn){
+  if(!br.on) return;
+  br.on=false;
+  clearTimeout(br.task); clearInterval(br.clock);
+  if(br.elapsed>=15){ S.calmSec+=br.elapsed; save(); }
+  if(fromBtn){
+    const orb=document.getElementById("borb");
+    if(orb){ orb.style.transitionDuration="1s"; orb.style.transform="scale(.55)"; orb.textContent="Ready"; }
+    const btn=document.getElementById("br-btn"); if(btn) btn.textContent="Begin";
+    const sel=document.getElementById("br-sel"); if(sel) sel.disabled=false;
+    const tm=document.getElementById("br-time"); if(tm) tm.textContent="";
+  }
+  br.elapsed=0;
+}
+
+/* ---------- Grounding ---------- */
+let gr=0;
+function viewGround(){
+  gr=0;
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button><div id="gr-body">${groundStep()}</div>`;
+}
+function groundStep(){
+  if(gr>=GROUND_STEPS.length){
+    return `<div class="center" style="padding-top:12vh">
+      <div style="font-size:48px">✓</div><h2 style="margin-top:10px">Back in the room.</h2>
+      <button class="btn ghost" style="max-width:200px; margin:22px auto 0" onclick="goTab('tools')">Close</button></div>`;
+  }
+  const s=GROUND_STEPS[gr];
+  return `<div class="center" style="padding-top:7vh">
+    <div style="font-size:84px; font-weight:200; color:var(--indigo)">${s[0]}</div>
+    <h2>${s[1]}</h2>
+    <p class="sub" style="max-width:320px; margin:10px auto 28px">${s[2]}</p>
+    <button class="btn indigo" style="max-width:200px; margin:0 auto" onclick="gr++; document.getElementById('gr-body').innerHTML=groundStep()">${gr===GROUND_STEPS.length-1?"Done":"Next"}</button>
+  </div>`;
+}
+
+/* ---------- Reframe ---------- */
+let rfSel=[];
+function viewReframe(){
+  rfSel=[];
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Reframe</h1>
+  <label class="q">1 · Catch the thought</label>
+  <div class="hint">Write the sentence your mind is repeating, verbatim.</div>
+  <textarea id="rf-thought" rows="2" placeholder='e.g. "If this deal slips, I&#39;ve failed the whole team"'></textarea>
+  <label class="q">2 · Spot the distortion</label>
+  <div class="hint">Which patterns is it running? (Pick any that fit.)</div>
+  <div class="grid2">${DISTORTIONS.map((d,i)=>`
+    <button class="opt" id="rf-d-${i}" onclick="rfTog(${i})" style="margin-top:7px">
+      <b style="font-size:14px">${d[0]}</b><div class="tiny">${d[1]}</div></button>`).join("")}</div>
+  <label class="q">3 · Write the balanced version</label>
+  <div class="hint">Not fake positivity — what a fair-minded colleague who knows all the facts would say.</div>
+  <textarea id="rf-bal" rows="3" placeholder='e.g. "The timeline slipped for reasons beyond me; my part is on track and I&#39;ve flagged the risk early"'></textarea>
+  <button class="btn ember" style="margin-top:16px" onclick="saveReframe()">Save reframe</button>`;
+}
+function rfTog(i){
+  const j=rfSel.indexOf(i);
+  if(j>=0) rfSel.splice(j,1); else rfSel.push(i);
+  document.getElementById("rf-d-"+i).classList.toggle("notbest",j<0);
+}
+function saveReframe(){
+  const t=document.getElementById("rf-thought").value.trim();
+  const b=document.getElementById("rf-bal").value.trim();
+  if(!t||!b) return;
+  const pats=rfSel.map(i=>DISTORTIONS[i][0]).join(", ");
+  S.journal.unshift({date:new Date().toISOString(),kind:"Reframe",title:"Reframe",
+    body:`Thought: ${t}\nPatterns: ${pats||"—"}\nBalanced: ${b}`});
+  S.reframes++; save(); goTab("tools");
+}
+
+/* ---------- Decompress ---------- */
+function viewDecompress(){
+  return `<button class="back" onclick="goTab('today')">‹ Back</button>
+  <h1 style="margin-top:2px">Decompress</h1>
+  <p class="sub" style="margin:-6px 2px 8px">Three questions to close the day. Your brain files the day by its ending — give it a clean one.</p>
+  <label class="q">What was the hardest moment today?</label>
+  <div class="hint">Name it plainly. Naming closes loops.</div>
+  <textarea id="dc-1" rows="2"></textarea>
+  <label class="q">What did you handle better than you would have a year ago?</label>
+  <div class="hint">There's always one. It counts.</div>
+  <textarea id="dc-2" rows="2"></textarea>
+  <label class="q">What's tomorrow's first move?</label>
+  <div class="hint">One concrete thing. Then the desk is closed.</div>
+  <textarea id="dc-3" rows="2"></textarea>
+  <button class="btn plum" style="margin-top:16px" onclick="saveDecompress()">Shutdown complete</button>`;
+}
+function saveDecompress(){
+  const a=document.getElementById("dc-1").value.trim();
+  const b=document.getElementById("dc-2").value.trim();
+  const c=document.getElementById("dc-3").value.trim();
+  if(!a&&!b&&!c) return;
+  S.journal.unshift({date:new Date().toISOString(),kind:"Decompress",title:"Day closed",
+    body:`Hardest: ${a}\nHandled well: ${b}\nTomorrow's first move: ${c}`});
+  save(); goTab("today");
+}
+
+/* ---------- Reflect ---------- */
+function insights(){
+  const out=[];
+  const cutoff=Date.now()-14*86400000;
+  const recent=S.checkIns.filter(c=>new Date(c.date).getTime()>cutoff);
+  if(recent.length<3) return out;
+  const diff=recent.filter(c=>c.emotions.some(e=>DIFFICULT.has(e)));
+  if(diff.length){
+    const ev=diff.filter(c=>new Date(c.date).getHours()>=18).length;
+    if(ev/diff.length>0.6) out.push("Most of your harder moments land in the evening. A short decompress before you leave the desk may change how the night goes.");
+  }
+  const ctx={};
+  recent.forEach(c=>c.contexts.forEach(x=>ctx[x]=(ctx[x]||0)+1));
+  const top=Object.entries(ctx).sort((a,b)=>b[1]-a[1])[0];
+  if(top&&top[1]>=3) out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
+  const fr=recent.filter(c=>c.emotions.includes("Frustrated")||c.emotions.includes("Angry")).length;
+  if(fr>=3) out.push(`Frustration has come up ${fr} times in two weeks. The Heat course and the 60-second Reset are built exactly for this.`);
+  const avg=recent.reduce((a,c)=>a+c.mood,0)/recent.length;
+  if(avg>=3.6) out.push("Your average mood over the last two weeks has been on the brighter side. Notice what's working — that's data too.");
+  return out;
+}
+function moodChartSVG(){
+  const cutoff=Date.now()-14*86400000;
+  const pts=S.checkIns.filter(c=>new Date(c.date).getTime()>cutoff);
+  if(!pts.length) return `<p class="sub center" style="padding:22px 0">Check in for a few days and your weather pattern will appear here.</p>`;
+  const W=440,H=150,PL=18,PR=8,PT=10,PB=14;
+  const x=t=>PL+((t-cutoff)/(Date.now()-cutoff))*(W-PL-PR);
+  const y=m=>PT+(1-(m-1)/4)*(H-PT-PB);
+  const coords=pts.map(c=>[x(new Date(c.date).getTime()),y(c.mood)]);
+  const line=coords.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%; height:auto">
+    ${[1,3,5].map(m=>`<line x1="${PL}" x2="${W-PR}" y1="${y(m)}" y2="${y(m)}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${PL-4}" y="${y(m)+3}" font-size="8.5" fill="var(--faint)" text-anchor="end">${m===1?"Rough":m===3?"Steady":"Great"}</text>`).join("")}
+    ${coords.length>1?`<path d="${line}" fill="none" stroke="var(--teal)" stroke-width="2" opacity=".55" stroke-linejoin="round"/>`:""}
+    ${coords.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--teal)"/>`).join("")}
+  </svg>`;
+}
+function viewReflect(){
+  const ins=insights();
+  const earned=MILESTONES.filter(m=>m.f(S)).length;
+  return `<h1>Reflect</h1>
+  <div class="stats">
+    <div class="card"><div style="font-size:17px">🌬️</div><div class="v">${Math.floor(S.calmSec/60)}</div><div class="tiny">calm minutes</div></div>
+    <div class="card"><div style="font-size:17px">📖</div><div class="v">${S.done.length}</div><div class="tiny">lessons done</div></div>
+    <div class="card"><div style="font-size:17px">🌤️</div><div class="v">${S.checkIns.length}</div><div class="tiny">check-ins</div></div>
+  </div>
+  <div class="card"><b style="font-size:14px">Mood · last 14 days</b><div style="margin-top:10px">${moodChartSVG()}</div></div>
+  ${ins.length?`<div class="card"><div class="eyebrow" style="color:var(--indigo); margin-bottom:8px">Noticed</div>
+    ${ins.map(i=>`<div class="take"><b>·</b><span>${i}</span></div>`).join("")}</div>`:""}
+  <div class="card">
+    <div class="row" style="justify-content:space-between; margin-bottom:10px">
+      <b style="font-size:14px">Milestones</b><span class="tiny">${earned} of ${MILESTONES.length}</span></div>
+    <div class="badgegrid">${MILESTONES.map(m=>{
+      const e=m.f(S);
+      return `<div class="badge${e?" earned":""}"><div class="bi">${m.i}</div><div class="bt">${m.t}</div><div class="bd">${m.d}</div></div>`;
+    }).join("")}</div>
+  </div>
+  <div class="card"><b style="font-size:14px">Journal</b>
+    ${S.journal.length?S.journal.slice(0,20).map(j=>`
+      <div class="jentry">
+        <div class="row" style="justify-content:space-between; margin-bottom:2px">
+          <b style="color:var(--teal); font-size:12.5px">${esc(j.kind)}${j.kind==="Reflection"?" · "+esc(j.title):""}</b>
+          <span class="tiny">${new Date(j.date).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</span>
+        </div>${esc(j.body)}</div>`).join("")
+    :`<p class="sub" style="margin:8px 0 0">Reflections, reframes and decompress notes will collect here — private, in this browser only.</p>`}
+  </div>`;
+}
+
+/* ---------- Settings ---------- */
+function viewSettings(){
+  return `<button class="back" onclick="goTab('today')">‹ Back</button>
+  <h1 style="margin-top:2px">Settings</h1>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">You</div>
+    <input type="text" value="${esc(S.name)}" onchange="S.name=this.value.trim(); save()"></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">About Samatva</div>
+    <p style="font-size:14px; margin:0 0 8px">Samatva — Sanskrit for equanimity. "Samatvam yoga ucyate": evenness of mind is excellence in action (Bhagavad Gita 2.48).</p>
+    <p class="sub" style="font-size:14px; margin:0">Built as a pocket support system for demanding days: short lessons, honest check-ins, and tools for the moments that run hot.</p></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">Privacy</div>
+    <p style="font-size:14px; margin:0">🔒 Everything stays in this browser's local storage. No account, no cloud, no analytics.</p></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">A note on limits</div>
+    <p class="sub" style="font-size:13px; margin:0">Samatva is an educational companion, not a medical or mental-health service. If low mood, anger or anxiety are seriously affecting your life, a professional is the right next step — in the UK, you can self-refer to NHS Talking Therapies, or call Samaritans on 116 123 any time.</p></div>
+  <button class="btn ghost" style="color:var(--ember)" onclick="if(confirm('Erase everything? This can\\'t be undone.')){localStorage.removeItem('samatva'); load(); nav={tab:'today',page:null,p:{}}; render();}">Erase all data</button>`;
+}
+
+render();
+</script>
+</body>
+</html>
