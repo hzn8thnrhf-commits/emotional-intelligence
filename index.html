@@ -17,14 +17,14 @@
   --moss:#5f7d59; --plum:#815a7a;
   --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
   --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
-  --steel:#54748c;
+  --steel:#54748c; --rose:#96555f;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
     --chip:#2a3235; --line:#2b3336; --shadow:none;
     --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
-    --steel:#93aec2;
+    --steel:#93aec2; --rose:#c78e97;
   }
 }
 :root[data-theme="light"]{
@@ -32,13 +32,13 @@
   --moss:#5f7d59; --plum:#815a7a;
   --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
   --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
-  --steel:#54748c;
+  --steel:#54748c; --rose:#96555f;
 }
 :root[data-theme="dark"]{
   --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
   --chip:#2a3235; --line:#2b3336; --shadow:none;
   --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
-  --steel:#93aec2;
+  --steel:#93aec2; --rose:#c78e97;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html,body{margin:0; padding:0;}
@@ -182,15 +182,16 @@ const QUOTES=[
 
 const EMOTIONS=["Calm","Content","Energised","Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"];
 const DIFFICULT=new Set(["Anxious","Frustrated","Angry","Helpless","Overwhelmed","Drained","Low"]);
-const CONTEXTS=["Deadline","Meetings","My team","Senior stakeholders","Markets","Workload","Family","Social life","Sleep & health","Something else"];
+const CONTEXTS=["Deadline","Meetings","My team","Senior stakeholders","Deal pressure","Workload","Family","Social life","Sleep & health","Something else"];
 const MOODS=["","Rough","Strained","Steady","Good","Great"];
+const PROFILE_OPTS=["Corporate finance","I manage a team","Long hours","High-stakes meetings","Family is complicated","Far from home"];
 const MOODFACE=["","🌧️","☁️","⛅","🌤️","☀️"];
 
 const COURSES=[
 {id:"foundations",title:"Foundations",subtitle:"Learn to read your own weather",icon:"🌤️",tint:"var(--teal)",lessons:[
  {id:"f1",title:"The sharpest people feel more, not less",min:3,sections:[
-  ["The myth of the ice-cold operator",`Finance culture prizes the unflappable. But "unflappable" done badly is just suppression — and suppression is expensive. Studies of traders show that those who ignore their emotions don't trade better; they blow up more spectacularly. The best performers feel everything and use it as information.`],
-  ["Emotions are data, not noise",`Every emotion is your brain's fast summary of a situation: anger flags a violated boundary, anxiety flags an unpriced risk, helplessness flags a control problem. You already read markets for signal. This course teaches you to read yourself the same way — quickly, without drama, and then decide what to do.`],
+  ["The myth of the ice-cold operator",`Finance culture prizes the unflappable. But "unflappable" done badly is just suppression — and suppression is expensive. Studies of professionals under pressure keep finding the same thing: the ones who ignore their emotions don't decide better; they blow up more expensively. The best performers feel everything and use it as information.`],
+  ["Emotions are data, not noise",`Every emotion is your brain's fast summary of a situation: anger flags a violated boundary, anxiety flags an unpriced risk, helplessness flags a control problem. You already read a boardroom for signal. This course teaches you to read yourself the same way — quickly, without drama, and then decide what to do.`],
   ["What this app will and won't do",`Samatva won't make you feel nothing. It will shorten the time between feeling something and understanding it, and widen the gap between feeling and reacting. That gap — Viktor Frankl's "space between stimulus and response" — is where composure lives.`]],
   take:["Suppressing emotion degrades judgement; reading it sharpens judgement.","Each emotion carries a specific message about the situation.","The goal is a wider gap between feeling and reacting — not feeling less."],
   reflect:"Think of the last time you 'kept it together' at work but paid for it later. What did keeping it together actually cost?",
@@ -200,26 +201,26 @@ const COURSES=[
    {t:"Fire off a sharp email to legal so they know this isn't acceptable.",best:false,fb:"Maybe deserved — but sent at peak anger it will be 20% too hot, and you'll spend tomorrow managing the fallout instead of the client."}]}},
  {id:"f2",title:"Name it to tame it",min:3,sections:[
   ["The label lowers the volume",`Neuroscience calls it affect labelling: putting a feeling into words measurably reduces amygdala activity. Saying — even silently — "this is frustration" moves the experience from the alarm system to the part of the brain that can actually do something about it. It feels almost too simple. It works anyway.`],
-  ["Get more precise than 'stressed'",`"Stressed" is like saying a portfolio is "down" — true, but useless for action. Is it frustration (blocked goal)? Anxiety (uncertain threat)? Helplessness (no control)? Resentment (unfair load)? Each has a different fix. Psychologists call this emotional granularity, and people who have it recover faster and make better decisions under pressure.`],
+  ["Get more precise than 'stressed'",`"Stressed" is like flagging a variance without naming the driver — true, but useless for action. Is it frustration (blocked goal)? Anxiety (uncertain threat)? Helplessness (no control)? Resentment (unfair load)? Each has a different fix. Psychologists call this emotional granularity, and people who have it recover faster and make better decisions under pressure.`],
   ["The one-line check-in",`This is why Samatva's check-in takes fifteen seconds, not five minutes. One honest label, logged. Over weeks, the pattern becomes visible — which meetings, which hours, which people. You can't manage what you never name.`]],
   take:["Naming an emotion reduces its grip — measurably.","Precision matters: frustration, anxiety, and helplessness need different responses.","Fifteen honest seconds a day builds a map of your patterns."],
   reflect:"What word do you reach for when someone asks how you are? What's the more precise word underneath it today?"},
  {id:"f3",title:"The 90-second wave",min:3,sections:[
   ["Chemistry has a half-life",`When something triggers you, a chemical surge — adrenaline, cortisol — floods the body. Here's the part nobody tells you: physiologically, that surge washes through in about 90 seconds. If you're still furious ten minutes later, it's because your thoughts keep re-triggering the wave — replaying the comment, drafting the comeback.`],
-  ["Ride it, don't feed it",`The skill is to let the first wave pass without adding fuel. Feel the heat, the tight jaw, the fast pulse — and just observe it like a print moving on a screen, without opening the mental argument. Ninety seconds of watching beats thirty minutes of stewing.`],
+  ["Ride it, don't feed it",`The skill is to let the first wave pass without adding fuel. Feel the heat, the tight jaw, the fast pulse — and just observe it like weather crossing a window, without opening the mental argument. Ninety seconds of watching beats thirty minutes of stewing.`],
   ["Where the Reset button comes in",`Samatva's Reset is built around this: when something hits, open it, and it walks you through the 90 seconds — breath, body, label — so the wave passes through you instead of into your next meeting.`]],
   take:["The chemical part of an emotion lasts about 90 seconds.","Rumination — replaying and rehearsing — is what keeps it alive.","Ride the first wave without feeding it; then decide."],
   reflect:"When you stay angry for hours, what's the loop your mind replays? What would it be like to let the first wave pass just once?"},
  {id:"f4",title:"Your body is the dashboard",min:3,sections:[
   ["The body knows first",`By the time you consciously think "I'm annoyed," your body has known for minutes: shoulders creeping toward ears, jaw tight, breath gone shallow, that specific heat behind the sternum. Interoception — reading these internal signals — is trainable, and it's your earliest warning system.`],
-  ["Find your tell",`Every trader has a tell; so does every temper. Maybe yours is rereading the same email three times, typing harder, or going very quiet in meetings. Identify your two or three reliable tells and they become tripwires — catch the emotion at 3/10 instead of 8/10, when it's still cheap to handle.`],
-  ["The desk scan",`Three times a day — coffee, lunch, the 4pm slump — run a ten-second scan: jaw, shoulders, breath, stomach. Release what's held. You're not meditating; you're checking the dashboard the way you'd glance at a risk screen.`]],
+  ["Find your tell",`Every negotiator has a tell; so does every temper. Maybe yours is rereading the same email three times, typing harder, or going very quiet in meetings. Identify your two or three reliable tells and they become tripwires — catch the emotion at 3/10 instead of 8/10, when it's still cheap to handle.`],
+  ["The desk scan",`Three times a day — coffee, lunch, the 4pm slump — run a ten-second scan: jaw, shoulders, breath, stomach. Release what's held. You're not meditating; you're checking the dashboard the way you'd glance at the numbers before a call.`]],
   take:["Your body registers emotion before your conscious mind does.","Know your two or three physical 'tells' and treat them as tripwires.","A ten-second body scan, three times a day, catches trouble early."],
   reflect:"Where does pressure show up first in your body? Jaw, shoulders, chest, stomach — what's your tell?"}]},
 {id:"heat",title:"Heat",subtitle:"Frustration and anger, handled",icon:"🔥",tint:"var(--ember)",lessons:[
  {id:"h1",title:"What anger is actually for",min:3,sections:[
   ["Anger is a boundary alarm",`Anger fires when something you value is violated — your time, your standards, your team, your sense of fairness. That makes it useful: it tells you exactly what you care about. The problem is never the signal; it's the untranslated signal, delivered raw to a colleague at volume.`],
-  ["Frustration is blocked progress",`Frustration is anger's cousin: a goal you're driving toward, blocked — by a slow approval chain, a flaky system, a person who won't decide. In a demanding job, frustration is structural, not personal. Expecting a frictionless day in finance is like expecting a flat vol surface. The question isn't how to never feel it; it's what to do in the first minute.`],
+  ["Frustration is blocked progress",`Frustration is anger's cousin: a goal you're driving toward, blocked — by a slow approval chain, a flaky system, a person who won't decide. In a demanding job, frustration is structural, not personal. Expecting a frictionless day in corporate finance is like expecting a quarter close with no late adjustments. The question isn't how to never feel it; it's what to do in the first minute.`],
   ["Translate before transmitting",`The practice: when heat rises, ask "what boundary or goal is this about?" "I'm furious at legal" translates to "I care about quality and I'm time-pressed." That sentence you can say out loud in a meeting. The untranslated version you can't.`]],
   take:["Anger marks a violated boundary; frustration marks a blocked goal.","The signal is useful; the raw transmission is what causes damage.","Ask: what is this heat actually about? Then say that instead."],
   reflect:"What do your last three flashes of anger have in common? What value of yours were they defending?"},
@@ -257,13 +258,13 @@ const COURSES=[
    {t:"Escalate to your shared boss with a documented timeline of all three incidents.",best:false,fb:"Escalating before a direct conversation reads as political warfare and burns the relationship. Escalation is the second move if the direct request fails — not the first."}]}}]},
 {id:"ground",title:"Ground",subtitle:"From helplessness to agency",icon:"⛰️",tint:"var(--moss)",lessons:[
  {id:"g1",title:"The helplessness trap",min:3,sections:[
-  ["Where helplessness comes from",`Helplessness is the feeling that outcomes are disconnected from effort. Finance manufactures it in bulk: markets move against you for reasons that have nothing to do with your work; decisions land from three levels up; a reorg redraws your world overnight. Psychologist Martin Seligman showed that with enough uncontrollable stress, we stop trying even where we do have control. That's the trap — the feeling spreads beyond the facts.`],
+  ["Where helplessness comes from",`Helplessness is the feeling that outcomes are disconnected from effort. Corporate finance manufactures it in bulk: deals die for reasons that have nothing to do with your work; decisions land from three levels up; a reorg redraws your world overnight. Psychologist Martin Seligman showed that with enough uncontrollable stress, we stop trying even where we do have control. That's the trap — the feeling spreads beyond the facts.`],
   ["The trap generalises; reality doesn't",`One genuinely uncontrollable quarter and the mind whispers that everything is uncontrollable — your hours, your career, your mood. Notice that move. Helplessness is accurate about specific things and almost always wrong as a general theory of your life.`],
   ["The antidote is precision",`The way out isn't positive thinking — it's an audit. What here is actually mine to move? The next lesson gives you the tool. For now, just catch the moment the feeling tries to go from "I can't control this decision" to "I can't control anything."`]],
   take:["Helplessness = the felt disconnect between effort and outcome.","It generalises beyond the facts — one uncontrollable thing colours everything.","The antidote is a precise audit of what is and isn't yours to move."],
   reflect:"Where in your work does helplessness show up most? Is the feeling precise, or has it spread?"},
  {id:"g2",title:"The control map",min:4,sections:[
-  ["Three circles",`Take any situation that's eating you and sort every piece into three circles. Control: your preparation, your responses, your hours of sleep, what you escalate, how you communicate. Influence: your boss's view of you, your team's morale, the client's mood, promotion decisions. Concern: markets, reorgs, the economy, other people's temperaments.`],
+  ["Three circles",`Take any situation that's eating you and sort every piece into three circles. Control: your preparation, your responses, your hours of sleep, what you escalate, how you communicate. Influence: your boss's view of you, your team's morale, the client's mood, promotion decisions. Concern: the deal environment, reorgs, the economy, other people's temperaments.`],
   ["The energy audit",`Now the uncomfortable question: where does your worry-time actually go? For most people under pressure, 80% of mental energy pools in the Concern circle — precisely where it can achieve nothing. Stoics called this the dichotomy of control; it predates modern psychology by two millennia because it works.`],
   ["Move one ring inward",`The practice: for anything in Concern, find its handle in Influence or Control. Can't control the reorg → can control being visibly excellent and having your CV honest. Can't control the MD's temper → can control your preparation and how you time your asks. Every worry either has a handle you can grip, or it doesn't — in which case it's weather, and you dress for weather; you don't argue with it.`]],
   take:["Sort any mess into Control / Influence / Concern.","Energy pooled in the Concern circle achieves nothing and costs everything.","For each concern, find its handle one ring inward — or accept it as weather."],
@@ -273,7 +274,7 @@ const COURSES=[
    {t:"Map it: Control — my performance, my CV, honesty with my team about what I know and don't. Influence — how leadership sees my team's value. Concern — the decision itself. Act on the first two.",best:true,fb:"This is the control map doing its job. Notice it also gives your team something honest and steady to hold onto — which is itself an Influence-circle move."},
    {t:"Reassure the team it will all be fine so morale holds.",best:false,fb:"Promising what you can't control trades this week's comfort for your long-term credibility. 'Here's what I know, here's what I don't, here's what we control' is stronger and still steadying."}]}},
  {id:"g3",title:"Micro-moves",min:3,sections:[
-  ["Agency compounds like interest",`Helplessness is broken by evidence, not affirmations. Each small completed action — one email sent, one decision made, one desk cleared — is a data point proving effort still connects to outcome. The size of the move barely matters; the completion does. Psychologists call it mastery experience. You'd call it marking positions to market.`],
+  ["Agency compounds like interest",`Helplessness is broken by evidence, not affirmations. Each small completed action — one email sent, one decision made, one desk cleared — is a data point proving effort still connects to outcome. The size of the move barely matters; the completion does. Psychologists call it mastery experience; the name matters less than the evidence.`],
   ["Shrink until it's doable now",`Overwhelmed by the whole? Shrink the next move until resistance disappears. Not "fix the model" — "open the file." Not "resolve the conflict" — "draft one sentence asking for 15 minutes." The absurdly small first step isn't a trick; it's how stuck systems restart.`],
   ["End the day on a completion",`One habit with outsized returns: never end the workday mid-failure. Close with one small completed thing — a tidy handover note, tomorrow's first task written down, one email cleared. Your brain files the day by its ending. Give it a completion to file.`]],
   take:["Agency is rebuilt by evidence: small, completed actions.","Shrink the next step until the resistance disappears.","End every day on a completion, however small."],
@@ -314,14 +315,14 @@ const COURSES=[
   take:["Step pressure down: pass urgency and facts, filter panic and heat.","Time asks around your seniors' storms; bring options, not bare problems.","A calm, optioned push-back up is a senior move — and gets read as one."],
   reflect:"When pressure last arrived from above, did you pass it through raw, absorb it silently, or transform it?"},
  {id:"p5",title:"Demanding and safe — both",min:3,sections:[
-  ["Safety isn't softness",`Psychological safety — the shared belief that speaking up won't be punished — is the strongest known predictor of team performance, including in high-pressure environments. It is not lowered standards. The best desks are both: brutal about the work, safe for the people. Errors get dissected; people don't.`],
+  ["Safety isn't softness",`Psychological safety — the shared belief that speaking up won't be punished — is the strongest known predictor of team performance, including in high-pressure environments. It is not lowered standards. The best teams are both: brutal about the work, safe for the people. Errors get dissected; people don't.`],
   ["Your reaction to bad news sets the price of truth",`Every time someone brings you a mistake or a risk early, your face in that moment sets the price of the next warning. React with heat and the team learns to sit on problems until they explode. React with "good catch — what do we do?" and you've bought yourself an early-warning system money can't buy.`],
   ["Own your misses out loud",`The single fastest safety-builder: admit your own errors plainly. "I called that wrong — here's what I'd do differently." From a leader who also holds a hard standard, that sentence doesn't reduce respect; it multiplies it, and it licenses honesty all the way down.`]],
   take:["High standards and psychological safety aren't opposites — the best teams have both.","Your reaction to bad news sets the price of the next early warning.","Admitting your own misses out loud licenses honesty downward."],
   reflect:"Would your team tell you about a serious mistake on day one, or day ten? What's your evidence?"}]},
 {id:"roots",title:"Roots",subtitle:"Identity, family, and a life outside work",icon:"🌳",tint:"var(--plum)",lessons:[
  {id:"r1",title:"Two homes, two codes",min:4,sections:[
-  ["The switching load is real",`Growing up South Asian in Singapore, studying and working in Britain — you run several cultural operating systems: one for the trading floor, one for the phone call home, one for old friends, each with different rules about directness, deference, humour, and what feelings are showable. Code-switching is a genuine skill. It also has a genuine metabolic cost that mostly goes unacknowledged.`],
+  ["The switching load is real",`Growing up South Asian in Singapore, studying and working in Britain — you run several cultural operating systems: one for the boardroom, one for the phone call home, one for old friends, each with different rules about directness, deference, humour, and what feelings are showable. Code-switching is a genuine skill. It also has a genuine metabolic cost that mostly goes unacknowledged.`],
   ["Name the switch, drop the verdict",`The exhaustion after certain dinners or calls isn't a character flaw — it's switching cost. And notice the quiet self-criticism that can ride along: too Asian for one room, too Westernised for another. Third-culture research is clear that the richness runs the other way: you have more registers, more empathy range, more ways to read a room than the single-culture people around you.`],
   ["Keep one no-switch zone",`Protect at least one context where no performance is required — a friend who knew you before the job, a cousin, a group where every version of you is admissible. That's not a luxury. For someone who switches all day, it's infrastructure, and it's worth scheduling like a client meeting.`]],
   take:["Code-switching is a skill with a real, unacknowledged energy cost.","Multiple cultural registers are range, not inauthenticity.","Maintain one no-switch zone and treat it as infrastructure."],
@@ -329,8 +330,10 @@ const COURSES=[
  {id:"r2",title:"The Sunday call",min:4,sections:[
   ["Love arrives as expectation",`In many South Asian families, love is expressed as involvement: questions about promotions, money, marriage, when you're moving closer to home. From eight time zones away, a Sunday call can land as an audit. It helps to translate: behind almost every heavy question is 'we miss you and we want to be sure you're safe.' The delivery is expectation; the payload is love.`],
   ["Guilt is not a verdict",`The pull between the life you're building in London and the one imagined for you back home generates guilt on a schedule. Feel it without obeying it reflexively: guilt is evidence you care about both worlds, not proof you've betrayed either. You can honour your family deeply while making different choices than they'd script — most of them, eventually, want your happiness more than their script.`],
-  ["Boundaries, warmly held",`A boundary with family doesn't need to be cold: "I want to tell you about work, and I need us to not do the marriage question every week" — said with warmth — is love plus honesty. Also practical: call when you have energy to be present, not out of scheduled duty while multitasking. One good call beats four resentful ones, and they can feel the difference.`]],
-  take:["Heavy questions are usually love in expectation's clothing — translate them.","Guilt means you care about both worlds; it isn't a verdict on your choices.","Warm boundaries and fewer-but-present calls beat dutiful, resentful ones."],
+  ["Boundaries, warmly held",`A boundary with family doesn't need to be cold: "I want to tell you about work, and I need us to not do the marriage question every week" — said with warmth — is love plus honesty. Also practical: call when you have energy to be present, not out of scheduled duty while multitasking. One good call beats four resentful ones, and they can feel the difference.
+
+One honest caveat: this lesson assumes love underneath the expectation. If a parent consistently leaves you smaller rather than loved — if the pattern is about their needs, not your safety — the Kin course faces that squarely. This lesson isn't written for that; that one is.`]],
+  take:["Heavy questions are usually love in expectation's clothing — translate them.","Guilt means you care about both worlds; it isn't a verdict on your choices.","Warm boundaries and fewer-but-present calls beat dutiful, resentful ones.","If a parent consistently leaves you smaller, not loved — see the Kin course."],
   reflect:"What does your family actually want underneath their most repeated question?"},
  {id:"r3",title:"Friendship on a banker's calendar",min:3,sections:[
   ["Connection is a system, not a mood",`On 70-hour weeks, friendship can't run on spontaneity — there is none. It runs on small deliberate deposits: the two-line message when someone crosses your mind, the voice note on the walk between meetings, the standing monthly dinner that survives because it's standing. Consistency beats grandeur; five minutes reliably beats five hours theoretically.`],
@@ -344,11 +347,46 @@ const COURSES=[
   ["Guard one non-negotiable",`You will never find time for rest inside a demanding calendar; you can only defend it. Pick one non-negotiable block a week — the Sunday ride, the Saturday morning that's yours, the evening class — and protect it the way you'd protect a client meeting. Composure on Monday is manufactured on the weekend.`]],
   take:["Restoration requires detachment, not just hours away from the desk.","A consistent shutdown ritual tells your nervous system the day is closed.","Defend one weekly non-negotiable block like a client meeting."],
   reflect:"What could your shutdown ritual be — and what's the one weekly block worth defending?"}]},
+{id:"kin",title:"Kin",subtitle:"For the family relationships that hurt",icon:"🪷",tint:"var(--rose)",lessons:[
+ {id:"k1",title:"When a parent can't mirror you",min:4,sections:[
+  ["Seeing the pattern clearly",`Some parents cannot reliably see their children as separate people. In a narcissistic pattern, conversations orbit back to them; your wins become their trophies or their threats; warmth arrives when you perform and withdraws when you don't; criticism is casual and apology is rare. If that list reads like your calls home, here is the most important sentence in this course: the pattern is about their inner regulation, not your worth.`],
+  ["It was never about you",`A parent with a fragile self-image uses the people closest to them — especially their children — to steady it: achievement as supply, image management, control as safety. Understanding this doesn't excuse anything; it explains it. And the explanation matters, because children of such parents grow up assuming the deficit is theirs. It isn't. It never was.`],
+  ["You don't need the label to trust your experience",`Whether or not anyone would ever be formally diagnosed with anything, you don't need a clinical word to take your own experience seriously. If interactions with a parent consistently leave you smaller, doubting, or drained — that is data. This course works with the pattern, whatever name it carries, and everything in it holds either way.`]],
+  take:["The pattern — conversations orbiting them, conditional warmth, casual criticism — is about their regulation, not your worth.","Explanation is not excuse; but it relocates the deficit where it belongs — not in you.","You don't need a diagnosis to trust what interactions consistently do to you."],
+  reflect:"After a typical call with him, what state are you left in? Write it plainly — that's the data this course works with."},
+ {id:"k2",title:"You can't win the old game",min:3,sections:[
+  ["The validation isn't coming",`The game you grew up inside — achieve enough and the seeing, the pride, will finally arrive — has no winning move, because the goalposts serve his regulation, not your growth. The promotion gets minimised, or annexed ("I taught him everything"). More effort in that game produces more of the same. That's not pessimism; it's the audited accounts of decades.`],
+  ["Radical expectation-setting",`Much of the pain isn't the behaviour itself — it's the fresh surprise each time. So stop being surprised. Before the call, say it to yourself: "He will likely turn this to himself. He may diminish it." When it then happens on schedule, it lands as confirmation instead of a wound. This is acceptance, not approval — you're pricing in a known pattern instead of being blindsided by it every Sunday.`],
+  ["Redefine the win",`The win stops being "getting him to finally see me" — that outcome sits in his circle, not yours — and becomes "staying myself in his presence": keeping your calm, your boundaries, and your own account of reality intact through one phone call. That win is available every single time, because it depends only on you. It's the control map, applied to the hardest terrain there is.`]],
+  take:["The old game — achieve until he sees you — has no winning move; the goalposts serve him.","Expect the pattern out loud to yourself beforehand; predicted pain wounds less.","Redefine the win: not being seen by him, but staying yourself around him."],
+  reflect:"What would 'staying myself through one call' concretely look like — what would you not do that you usually do?"},
+ {id:"k3",title:"Boundaries he won't respect — that work anyway",min:4,sections:[
+  ["A boundary is your action, not his agreement",`With a parent who steamrolls rules, a boundary isn't a request you hope he'll honour — it's a decision about what you will do. "If the conversation turns to demeaning my choices, I'll say I need to go, warmly, and end the call." He doesn't have to agree with it, understand it, or even notice it for it to work. He just has to experience it, consistently, without drama.`],
+  ["Ration the supply and the ammunition",`Two practical rules. Share achievements sparingly — handed over, they become his trophies or his comparison material. Share vulnerabilities carefully — they can return later as weapons. This isn't dishonesty; it's giving the relationship only the weight it can actually carry, and saving your full self for the people who've earned it. A narrower channel with less pain beats a wide one that keeps flooding.`],
+  ["Don't JADE",`Justify, Argue, Defend, Explain — the four hooks. Every explanation opens a debate you cannot win, because the argument was never about the topic; it's about engagement itself. The alternative is the calm broken record: "That doesn't work for me." "I've decided." No elaboration. Time-box the calls, have a warm exit line ready, and remember: shorter and warmer beats longer and wounded — for both of you.`]],
+  take:["Boundaries with him are actions you take, not agreements he honours.","Achievements shared become trophies; vulnerabilities can become ammunition — ration both.","Don't JADE: justify, argue, defend, explain. The broken record, said warmly, ends the old game."],
+  reflect:"What's your exit line — the warm, rehearsed sentence that ends a call going bad?",
+  scenario:{prompt:`You're promoted to Director. On the Sunday call, your father: "Director? They hand that out to everyone these days. Ravi's son made partner at your age. Anyway — my knee has been terrible and nobody here takes it seriously..." What's the move?`,options:[
+   {t:"Walk him through why this promotion actually is a big deal — the competition, the numbers, who else was up for it.",best:false,fb:"That's JADE — justifying to someone whose dismissal wasn't a misunderstanding but a move in the old game. You've handed him the judge's seat again, and the verdict was never going to change."},
+   {t:"Evenly: 'I'm pleased with it.' Then: 'How's the knee?' — and decide separately how much of your life this channel gets from now on.",best:true,fb:"You kept the win yours (no appeal filed), declined the comparison bait entirely, and stayed warm without surrendering anything. That's 'staying yourself in his presence' — and notice it cost you two sentences, not an evening of stewing."},
+   {t:"Go cold, wrap up the call fast, and resolve to stop telling him anything at all.",best:false,fb:"Understandable — but a reactive exit hands him the wounded-party story, and absolute resolutions made hot rarely hold. The rationing decision is right; make it deliberately, calmly, later — not as a door slam."}]}},
+ {id:"k4",title:"The guilt, the grief, and the good life anyway",min:4,sections:[
+  ["Guilt is conditioning, not a compass",`In cultures where filial duty is sacred, boundaries with a parent feel like betrayal — the guilt arrives on schedule, heavy and fluent in your mother tongue. But duty was designed as two-way care, not a licence for one person to spend another. You can honour a parent — presence, respect, practical support — without surrendering your inner life to his pattern. The guilt will still fire; it's an old alarm, wired young. Feel it, thank it for its service, and don't obey it.`],
+  ["Grieve the father you needed",`Underneath the anger at the father you have is usually grief for the father you needed — the one who would ask about your life and listen to the answer, who could be proud without taking ownership. That grief is real, and it deserves to be felt on purpose rather than managed around forever. Grief felt through becomes peace. Grief avoided becomes bitterness, or the endless exhausting one-more-try.`],
+  ["Build the mirrors he couldn't be",`The need he couldn't meet — being seen, delighted in, backed without conditions — doesn't expire. It gets met sideways: chosen family, the friends who knew you before the title, a partner, a mentor, someday perhaps your own children, where the pattern can end with you. And plainly: this exact terrain — adult children of narcissistic parents — is what good therapists are genuinely trained for. Using one isn't weakness; it's the same judgement as bringing in the best advisor for the hardest deal of your life.`]],
+  take:["Guilt here is conditioning firing, not a moral verdict — feel it without obeying it.","Grieve the father you needed; felt-through grief becomes peace, avoided grief becomes bitterness.","The unmet need gets met sideways — chosen family, partner, mentor, therapy. It doesn't expire."],
+  reflect:"What would you have wanted him to say, just once? Write it — then notice who in your life today could actually say it, and mean it."},
+ {id:"k5",title:"Whose voice is your ambition?",min:3,sections:[
+  ["Achievement wired to survival",`When a parent's warmth was conditional on performance, ambition gets welded to fear early: succeed and you're safe, slip and you're worthless. That wiring can build an objectively impressive career sitting on top of a miserable nervous system — where every setback feels existential, because once, in a child's economy, it was.`],
+  ["Audit the voice",`When your inner critic speaks, listen for the accent. "Not good enough. Embarrassing. Look at what Ravi's son has done." Is that your voice — or his, internalised so long ago it feels like yours? The Steel course taught the critic-to-coach conversion; this adds a prior step: recognising imported material. You are allowed to decline the inheritance.`],
+  ["Ambition, re-signed",`The work is not to want less — you're good at what you do and entitled to love it. The work is re-signing the contract: from "achieve so that he finally—" or "achieve or I'm nothing" to "achieve because it's mine: my craft, my team, the life I chose." Same drive, different fuel. The clean fuel burns longer — and it doesn't need his signature.`]],
+  take:["Conditional warmth welds ambition to fear; setbacks feel existential because once they were.","Audit the critic's accent — much of it is his voice, internalised. Decline the inheritance.","Re-sign the contract: same ambition, your reasons, no counter-signature required."],
+  reflect:"Finish both sentences honestly: 'I achieve so that he…' and 'I achieve because I…' — which one was driving this week?"}]},
 {id:"steel",title:"Steel",subtitle:"Endurance for the long game",icon:"🛡️",tint:"var(--steel)",lessons:[
  {id:"st1",title:"Stress is a cycle, not a state",min:3,sections:[
   ["The load that never unloads",`Biologists call it allostatic load: stress chemistry that never fully clears because the next trigger arrives before the last one settles. On finance hours, your baseline is already elevated — which means recovery can't be left to chance. Performance under chronic load decays slowly, then suddenly; the people who last are the ones who unload deliberately.`],
   ["Complete the cycle",`Here's the catch: the stressor ending doesn't end the stress. Sending the email closes the task, but the adrenaline is still in your bloodstream, waiting for a physical full stop. The body needs its own signal: movement, a long exhale pattern, warmth, laughter, real conversation. That's why you can win the day and still lie awake at 1am — the cycle was never completed.`],
-  ["Train recovery like a skill",`Elite athletes periodise; elite desks should too. Oscillation beats grinding: 90 focused minutes, then a genuine 5 — stand, walk, look out a window, no feeds. A completed stress cycle at day's end (gym, walk home, breathing) isn't self-care garnish; it's what keeps next Tuesday's judgement sharp.`]],
+  ["Train recovery like a skill",`Elite athletes periodise; elite teams should too. Oscillation beats grinding: 90 focused minutes, then a genuine 5 — stand, walk, look out a window, no feeds. A completed stress cycle at day's end (gym, walk home, breathing) isn't self-care garnish; it's what keeps next Tuesday's judgement sharp.`]],
   take:["Chronic stress accumulates as allostatic load — it must be actively cleared.","The task ending doesn't end the stress; the body needs a physical full stop.","Oscillate: hard focus, real breaks, and a deliberate cycle-completion daily."],
   reflect:"What actually completes the cycle for you — moves the stress out of your body, not just off your screen?"},
  {id:"st2",title:"Sleep is a market edge",min:3,sections:[
@@ -368,7 +406,7 @@ const COURSES=[
    {t:"Translate it: 'I misread the ask. Next time I confirm scope in writing before building.' One fix, then sleep.",best:true,fb:"That's the coach's voice: the miss is fully acknowledged, the fix is specific, and your nervous system gets to stand down. Same standard as the critic — minus the part that was never helping."},
    {t:"Drown it out — put on a show, scroll, pour a drink, don't engage.",best:false,fb:"Suppression is a loan, not a payment. The critic comes back at 3am with interest. Thirty seconds of translation costs less than a night of avoidance."}]}},
  {id:"st4",title:"You are not your thoughts",min:3,sections:[
-  ["Thoughts are events, not verdicts",`Your mind produces thousands of thoughts a day — forecasts, replays, verdicts, noise. Treating each one as truth is like executing every trade idea anyone shouts across the floor. Psychologists call the alternative defusion: seeing a thought as an event in the mind, generated content — not a command, not a fact.`],
+  ["Thoughts are events, not verdicts",`Your mind produces thousands of thoughts a day — forecasts, replays, verdicts, noise. Treating each one as truth is like acting on every idea shouted out in a brainstorm. Psychologists call the alternative defusion: seeing a thought as an event in the mind, generated content — not a command, not a fact.`],
   ["Label the process",`The technique is almost embarrassingly simple. Take the sticky thought — "I'll be found out" — and restate it as "I'm having the thought that I'll be found out." Say it again slower. The content hasn't changed; your position relative to it has. You've stepped from inside the thought to beside it, and from beside it, it loses its grip.`],
   ["Let the stream carry them",`The classic practice: picture a stream with leaves drifting past, and place each thought on a leaf as it arises. The goal is not to stop thinking — minds don't stop — but to stop boarding every leaf. Two minutes of this after a hard day teaches the skill; the 90-second wave lesson is its emotional twin.`]],
   take:["A thought is an event in the mind, not a verdict on reality.","Prefix it: 'I'm having the thought that…' — distance changes everything.","The goal isn't stopping thoughts; it's not boarding every one."],
@@ -449,6 +487,7 @@ function load(){
   if(!S.theme) S.theme="auto";
   if(!S.worries) S.worries=[];
   if(!S.resetLog) S.resetLog=[];
+  if(!S.profile) S.profile=[];
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 function effectiveTheme(){
@@ -523,8 +562,12 @@ function viewOnboard(){
       <div class="take"><b>🪞</b><span><b>Quiet progress</b> — milestones and patterns. No streaks, no guilt mechanics.</span></div>
       <div class="take"><b>🔒</b><span><b>Private</b> — everything stays in this browser. No account, no cloud.</span></div>
     </div>
-    <div style="max-width:300px; margin:0 auto">
-      <input type="text" id="obname" placeholder="What should I call you?" style="text-align:center; font-size:17px; margin-bottom:12px">
+    <div style="max-width:340px; margin:0 auto">
+      <input type="text" id="obname" placeholder="What should I call you?" style="text-align:center; font-size:17px; margin-bottom:16px">
+      <div class="eyebrow" style="margin-bottom:8px">What's your world? (shapes what gets suggested)</div>
+      <div class="chips" style="justify-content:center; margin-bottom:16px">
+        ${PROFILE_OPTS.map(p=>`<button class="chip ob-p" data-p="${p}" onclick="this.classList.toggle('on')">${p}</button>`).join("")}
+      </div>
       <button class="btn" onclick="finishOnboard()">Begin</button>
     </div>
   </div>`;
@@ -532,7 +575,9 @@ function viewOnboard(){
 function finishOnboard(){
   const n=document.getElementById("obname").value.trim();
   if(!n) return;
-  S.name=n; S.onboarded=true; save(); render();
+  S.name=n;
+  S.profile=[...document.querySelectorAll(".ob-p.on")].map(el=>el.dataset.p);
+  S.onboarded=true; save(); render();
 }
 
 /* ---------- Today ---------- */
@@ -550,6 +595,18 @@ function suggestionCard(){
   const cutoff=Date.now()-18*3600000;
   const recent=[...S.checkIns].reverse().find(c=>new Date(c.date).getTime()>cutoff&&c.emotions.some(e=>DIFFICULT.has(e)));
   if(!recent) return "";
+  // A hard moment tagged Family gets its own path — the Kin course
+  if(recent.contexts.includes("Family")){
+    const kin=COURSES.find(c=>c.id==="kin");
+    const kl=kin.lessons.find(l=>!S.done.includes(l.id))||kin.lessons[0];
+    return `<div class="card">
+      <div class="eyebrow" style="color:var(--rose); margin-bottom:6px">For right now</div>
+      <p style="font-size:14.5px; margin:0 0 10px">A hard family moment, logged. Kin was written for exactly this — and a Reset helps first if it's still fresh.</p>
+      <div class="chips">
+        <button class="chip on" onclick="goPage('lesson',{cid:'kin',lid:'${kl.id}'})">🪷 ${kl.title}</button>
+        <button class="chip" onclick="openReset()">⏮️ Reset first</button>
+      </div></div>`;
+  }
   const e=recent.emotions.find(x=>DIFFICULT.has(x));
   const M={
     Angry:["That anger you logged — don't carry it into the next meeting.","⏮️ 60-second Reset","openReset()","🔁 Put it on trial","goPage('reframe')"],
@@ -712,6 +769,12 @@ function rsAdvance(){
 }
 function rsClose(){ if(rs.timer) clearInterval(rs.timer); rs.timer=null; closeOverlay("rs-overlay"); render(); }
 
+function togProfile(p){
+  const i=S.profile.indexOf(p);
+  if(i>=0) S.profile.splice(i,1); else S.profile.push(p);
+  save(); render();
+}
+
 /* ---------- Learn ---------- */
 function ring(pct,tint){
   const C=2*Math.PI*23;
@@ -720,8 +783,45 @@ function ring(pct,tint){
     <circle cx="27" cy="27" r="23" stroke="${tint}" stroke-width="4.5" stroke-linecap="round"
       stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg>`;
 }
+// Profile- and pattern-driven lesson suggestions: which course matters most
+// to this person right now, given who they told us they are and what they log.
+function suggestedLessons(){
+  const firstUndone=cid=>{
+    const c=COURSES.find(x=>x.id===cid);
+    const l=c.lessons.find(x=>!S.done.includes(x.id));
+    return l?{c,l}:null;
+  };
+  const picks=[];
+  const addPick=(cid,why)=>{
+    const p=firstUndone(cid);
+    if(p&&!picks.some(x=>x.l.id===p.l.id)) picks.push({...p,why});
+  };
+  // Recent difficult family check-ins outrank everything
+  const cutoff=Date.now()-14*86400000;
+  const famHard=S.checkIns.filter(c=>new Date(c.date).getTime()>cutoff
+    &&c.contexts.includes("Family")&&c.emotions.some(e=>DIFFICULT.has(e))).length;
+  if(famHard>=1||S.profile.includes("Family is complicated")) addPick("kin","Because family is complicated");
+  if(S.profile.includes("I manage a team")) addPick("presence","Because you lead a team");
+  if(S.profile.includes("High-stakes meetings")) addPick("presence","For the rooms that matter");
+  if(S.profile.includes("Long hours")) addPick("steel","For the long hours");
+  if(S.profile.includes("Far from home")) addPick("roots","For the distance from home");
+  const nl=nextLesson();
+  if(nl&&!picks.some(x=>x.l.id===nl[1].id)) picks.push({c:nl[0],l:nl[1],why:"Next in your path"});
+  return picks.slice(0,2);
+}
+
 function viewLearn(){
-  return `<h1>Learn</h1>`+COURSES.map(c=>{
+  const sug=suggestedLessons();
+  return `<h1>Learn</h1>`+
+  (sug.length?`<div class="eyebrow" style="margin:2px 2px 10px">Suggested for you</div>`+
+    sug.map(s=>`<button class="tap card" onclick="goPage('lesson',{cid:'${s.c.id}',lid:'${s.l.id}'})"><div class="row">
+      <span class="icon">${s.c.icon}</span>
+      <div class="grow"><div class="eyebrow" style="color:${s.c.tint}">${s.why}</div>
+        <b style="font-size:15px">${s.l.title}</b>
+        <div class="tiny">${s.c.title} · ${s.l.min} min</div></div>
+      <span class="chev">›</span></div></button>`).join("")+
+    `<div class="eyebrow" style="margin:14px 2px 10px">All courses</div>`:"")+
+  COURSES.map(c=>{
     const p=courseProg(c);
     return `<button class="tap card" onclick="goPage('course',{id:'${c.id}'})"><div class="row">
       <div style="position:relative; width:54px; height:54px; flex:none">${ring(p,c.tint)}
@@ -1168,10 +1268,12 @@ function insights(){
       const [e,x]=topP[0].split("|");
       out.push(`“${e}” and “${x}” travel together in your check-ins — ${topP[1]} times in two weeks. That exact pairing is worth one thought record.`);
     }
+    const famHard=diff.filter(c=>c.contexts.includes("Family")).length;
+    if(famHard>=2) out.push(`Family appears in ${famHard} of your harder check-ins this fortnight. The Kin course was written for exactly that terrain — gently, and at your pace.`);
     const ctx={};
     recent.forEach(c=>c.contexts.forEach(x=>ctx[x]=(ctx[x]||0)+1));
     const top=Object.entries(ctx).sort((a,b)=>b[1]-a[1])[0];
-    if(top&&top[1]>=3) out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
+    if(top&&top[1]>=3&&top[0]!=="Family") out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
     const fr=recent.filter(c=>c.emotions.includes("Frustrated")||c.emotions.includes("Angry")).length;
     if(fr>=3) out.push(`Frustration has come up ${fr} times in two weeks. The Heat course and the 60-second Reset are built exactly for this.`);
     const avg=recent.reduce((a,c)=>a+c.mood,0)/recent.length;
@@ -1232,6 +1334,11 @@ function viewSettings(){
   <h1 style="margin-top:2px">Settings</h1>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">You</div>
     <input type="text" value="${esc(S.name)}" onchange="S.name=this.value.trim(); save()"></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">Your world</div>
+    <div class="hint" style="margin-bottom:8px">Shapes which lessons and tools get suggested to you.</div>
+    <div class="chips">
+      ${PROFILE_OPTS.map(p=>`<button class="chip${S.profile.includes(p)?" on":""}" onclick="togProfile('${p}')">${p}</button>`).join("")}
+    </div></div>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">Appearance</div>
     <div class="chips">
       <button class="chip${S.theme==="auto"?" on":""}" onclick="setTheme('auto')">Match device</button>

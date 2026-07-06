@@ -12,7 +12,7 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 **For right now** — after a difficult check-in, Today quietly surfaces the one or two tools built for that exact state (anger → Reset or thought record; anxiety → physiological sigh + worry parking; helplessness → the control map).
 
-**Learn** — six courses, 27 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience:
+**Learn** — seven courses, 32 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience, with a "Suggested for you" path driven by your profile and check-ins:
 
 | Course | What it covers |
 |---|---|
@@ -21,6 +21,7 @@ A private, native iPhone app for building emotional intelligence under real pres
 | **Ground** | Helplessness → agency: the control map, micro-moves, asking for help without losing face |
 | **Presence** | Leading with EQ: emotional contagion, regulating in meetings, SBI feedback, stepping pressure down instead of passing it through |
 | **Roots** | Code-switching between cultures, the Sunday call home, friendship on a banker's calendar, rest as a skill |
+| **Kin** | The family relationships that hurt: seeing the narcissistic pattern clearly, refusing the unwinnable game, boundaries that don't need their agreement, guilt and grief, reclaiming your ambition |
 | **Steel** | Endurance for the long game: stress-recovery cycles, sleep as an edge, the inner critic, defusion, values |
 
 Many lessons end with an interactive scenario — a realistic moment (an MD dismissing your team's work, an analyst quietly slipping, restructuring rumours) where you choose a response and get honest feedback on it.
@@ -28,6 +29,14 @@ Many lessons end with an interactive scenario — a realistic moment (an MD dism
 **Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided CBT thought record with intensity ratings and evidence weighing; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
 
 **Reflect** — your mood over the last 14 days, a cross-tool insight engine (your most frequent cognitive distortion with the lesson aimed at it, average intensity drop across thought records, what percentage of parked worries never happened, which emotion travels with which trigger), a private journal, and quiet milestones.
+
+## How it adapts to you
+
+- **Profile** — at onboarding (and any time in Settings) you tell it your world: corporate finance, managing a team, long hours, high-stakes meetings, complicated family, distance from home. This drives the "Suggested for you" lessons on Learn.
+- **Check-ins steer the day** — a difficult check-in surfaces a "For right now" card on Today pointing at the tools built for that state; a hard moment tagged *Family* routes to the Kin course.
+- **The insight engine learns your patterns** — your most frequent cognitive distortion (with the lesson aimed at it), the average intensity drop across your thought records, how often your parked worries actually happened, your dominant Reset trigger, and which emotion travels with which context.
+
+All of this is rule-based and runs entirely on-device — nothing is sent anywhere.
 
 ## Design principles
 
