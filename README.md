@@ -46,7 +46,7 @@ All of this is rule-based and runs entirely on-device — nothing is sent anywhe
 
 - **Frictionless** — a check-in takes 15 seconds; a Reset takes 60. Nothing demands daily attendance.
 - **Gamified, lightly** — progress rings, milestones, calm minutes. Deliberately **no streaks** and no guilt mechanics.
-- **Uncluttered** — a restrained palette (deep sea teal, warm sand, soft ink), serif headings, generous whitespace, full dark-mode support.
+- **Uncluttered** — a calm-tech design system — cool-mist neutrals with a deep-aqua accent, SF Pro display typography, layered soft shadows, a frosted-glass tab bar, staggered entrance animations and tactile press feedback, full dark-mode support.
 - **Private by design** — everything is stored on-device as local JSON. No account, no cloud, no analytics, no network access at all.
 
 ## Running it

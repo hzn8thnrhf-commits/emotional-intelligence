@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#eae2d0">
+<meta name="theme-color" content="#f3f6f7">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Samatva</title>
@@ -13,44 +13,46 @@
 <body>
 <style>
 :root{
-  --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
+  --teal:#1f7a8c; --teal-soft:#5fa9ba; --ember:#bf6449; --indigo:#4a5185;
   --moss:#5f7d59; --plum:#815a7a;
-  --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
-  --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
+  --bg:#f3f6f7; --card:#ffffff; --ink:#17242a; --muted:#5c6f75; --faint:#95a6ab;
+  --chip:#e9eef0; --line:#e3eaec; --shadow:0 1px 2px rgba(15,35,42,.05), 0 10px 30px rgba(15,35,42,.07);
   --steel:#54748c; --rose:#96555f;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
-    --chip:#2a3235; --line:#2b3336; --shadow:none;
-    --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
-    --steel:#93aec2; --rose:#c78e97;
+    --bg:#0d1417; --card:#151d21; --ink:#e6ecee; --muted:#94a7ad; --faint:#5f7178;
+    --chip:#1f292e; --line:#233035; --shadow:none;
+    --teal:#5cb3c4; --teal-soft:#3b8ea0; --ember:#d2795c; --moss:#84a57e; --indigo:#93a0d8; --plum:#b08bab;
+    --steel:#8fb0c4; --rose:#c98f9a;
   }
 }
 :root[data-theme="light"]{
-  --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
+  --teal:#1f7a8c; --teal-soft:#5fa9ba; --ember:#bf6449; --indigo:#4a5185;
   --moss:#5f7d59; --plum:#815a7a;
-  --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
-  --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
+  --bg:#f3f6f7; --card:#ffffff; --ink:#17242a; --muted:#5c6f75; --faint:#95a6ab;
+  --chip:#e9eef0; --line:#e3eaec; --shadow:0 1px 2px rgba(15,35,42,.05), 0 10px 30px rgba(15,35,42,.07);
   --steel:#54748c; --rose:#96555f;
 }
 :root[data-theme="dark"]{
-  --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
-  --chip:#2a3235; --line:#2b3336; --shadow:none;
-  --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
-  --steel:#93aec2; --rose:#c78e97;
+  --bg:#0d1417; --card:#151d21; --ink:#e6ecee; --muted:#94a7ad; --faint:#5f7178;
+  --chip:#1f292e; --line:#233035; --shadow:none;
+  --teal:#5cb3c4; --teal-soft:#3b8ea0; --ember:#d2795c; --moss:#84a57e; --indigo:#93a0d8; --plum:#b08bab;
+  --steel:#8fb0c4; --rose:#c98f9a;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html,body{margin:0; padding:0;}
 body{
   background:var(--bg); color:var(--ink);
-  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
   min-height:100vh;
 }
 #app{max-width:520px; margin:0 auto; padding:18px 16px calc(86px + env(safe-area-inset-bottom));}
-h1,h2,h3,.serif{font-family:ui-serif,Georgia,"Times New Roman",serif; letter-spacing:.1px;}
-h1{font-size:26px; margin:8px 2px 16px; font-weight:650;}
-h2{font-size:19px; margin:0 0 6px; font-weight:650;}
+.serif,.quote{font-family:ui-serif,Georgia,"Times New Roman",serif;}
+h1,h2,h3{letter-spacing:-0.02em;}
+h1{font-size:27px; margin:8px 2px 16px; font-weight:700;}
+h2{font-size:19px; margin:0 0 6px; font-weight:700;}
 h3{font-size:16.5px; margin:0 0 6px; font-weight:650;}
 .sub{color:var(--muted); font-size:14px;}
 .tiny{color:var(--faint); font-size:12px;}
@@ -121,9 +123,13 @@ input[type=range]{width:100%; accent-color:var(--teal);}
 @keyframes medpulse{0%,100%{transform:scale(.82)} 50%{transform:scale(1)}}
 .tabbar{
   position:fixed; bottom:0; left:0; right:0; z-index:30;
-  background:var(--card); border-top:1px solid var(--line);
+  background:color-mix(in srgb, var(--card) 80%, transparent);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
   padding:8px 0 calc(8px + env(safe-area-inset-bottom));
 }
+.tabbar button{transition:color .2s ease, transform .25s cubic-bezier(.16,1,.3,1);}
+.tabbar button.on{transform:translateY(-2px);}
 .tabbar .inner{max-width:520px; margin:0 auto; display:flex;}
 .tabbar button{flex:1; text-align:center; color:var(--faint); font-size:11px; font-weight:600;}
 .tabbar button.on{color:var(--teal);}
@@ -165,10 +171,23 @@ input[type=range]{width:100%; accent-color:var(--teal);}
 .progress-ring{flex:none;}
 .fade{animation:fade .25s ease;}
 @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+.fade>*{animation:rise .55s cubic-bezier(.16,1,.3,1) both;}
+.fade>*:nth-child(2){animation-delay:.05s}
+.fade>*:nth-child(3){animation-delay:.1s}
+.fade>*:nth-child(4){animation-delay:.15s}
+.fade>*:nth-child(5){animation-delay:.19s}
+.fade>*:nth-child(6){animation-delay:.23s}
+.fade>*:nth-child(7){animation-delay:.27s}
+.fade>*:nth-child(n+8){animation-delay:.3s}
+@keyframes rise{from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;}}
+.tap,.btn,.chip,.opt,.famhead{transition:transform .16s cubic-bezier(.16,1,.3,1), background .2s ease, box-shadow .2s ease, color .2s ease;}
+.tap:active,.btn:active,.opt:active,.famhead:active{transform:scale(.985);}
+.chip:active{transform:scale(.93);}
+#quote-body{transition:opacity .18s ease, transform .18s ease;}
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important; animation:none !important;}
 }
-label.q{display:block; font-weight:650; font-family:ui-serif,Georgia,serif; margin:16px 0 4px; font-size:16px;}
+label.q{display:block; font-weight:650; letter-spacing:-0.01em; margin:16px 0 4px; font-size:16px;}
 .hint{font-size:12.5px; color:var(--muted); margin-bottom:6px;}
 .grid2{display:flex; flex-direction:column; gap:0;}
 svg.ring circle{fill:none;}
@@ -194,7 +213,21 @@ const QUOTES=[
 ["Nothing gives one person so much advantage over another as to remain always cool and unruffled.","Thomas Jefferson"],
 ["You can't stop the waves, but you can learn to surf.","Jon Kabat-Zinn"],
 ["The obstacle is the way.","Marcus Aurelius"],
-["Slow is smooth, smooth is fast.","Old operator's maxim"]];
+["Slow is smooth, smooth is fast.","Old operator's maxim"],
+["We suffer more often in imagination than in reality.","Seneca"],
+["It's not what happens to you, but how you react to it that matters.","Epictetus"],
+["If you can keep your head when all about you are losing theirs…","Rudyard Kipling"],
+["You can't cross the sea merely by standing and staring at the water.","Rabindranath Tagore"],
+["The wound is the place where the light enters you.","Rumi"],
+["Yoga is the journey of the self, through the self, to the self.","Bhagavad Gita 6.20"],
+["Smile, breathe and go slowly.","Thich Nhat Hanh"],
+["Confine yourself to the present.","Marcus Aurelius"],
+["The man who moves a mountain begins by carrying away small stones.","Confucius"],
+["Be like water making its way through cracks.","Bruce Lee"],
+["No man steps in the same river twice.","Heraclitus"],
+["Let everything happen to you: beauty and terror. Just keep going.","Rainer Maria Rilke"],
+["When there is no enemy within, the enemies outside cannot hurt you.","African proverb"],
+["Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude.","Viktor Frankl"]];
 
 // Emotion taxonomy: 8 colour-coded families expanding to ~70 named emotions.
 const EMOFAM=[
@@ -947,9 +980,29 @@ function keeperCard(){
   </div>`;
 }
 
+let quoteIdx=null;
+function currentQuote(){
+  if(quoteIdx==null) quoteIdx=Math.floor(Date.now()/86400000)%QUOTES.length;
+  return QUOTES[quoteIdx];
+}
+function newQuote(){
+  let n; do{ n=Math.floor(Math.random()*QUOTES.length); }while(n===quoteIdx);
+  quoteIdx=n;
+  const el=document.getElementById("quote-body");
+  if(!el) return;
+  el.style.opacity=0; el.style.transform="translateY(8px)";
+  setTimeout(()=>{
+    const q=QUOTES[quoteIdx];
+    el.innerHTML=quoteInner(q);
+    el.style.opacity=1; el.style.transform="none";
+  },190);
+}
+function quoteInner(q){
+  return `<div class="quote" style="font-size:17px; line-height:1.5">“${q[0]}”</div>
+    <div class="tiny" style="margin-top:8px; letter-spacing:.04em; text-transform:uppercase; font-size:10.5px">${q[1]}</div>`;
+}
 function viewToday(){
-  const day=Math.floor(Date.now()/86400000);
-  const q=QUOTES[day%QUOTES.length];
+  const q=currentQuote();
   const t=todayCheckIn();
   const nl=nextLesson();
   return `
@@ -996,8 +1049,11 @@ function viewToday(){
   </div>
   ${keeperCard()}
   <div class="card" style="margin-top:12px">
-    <div class="quote">“${q[0]}”</div>
-    <div class="tiny" style="margin-top:6px">— ${q[1]}</div>
+    <div class="row" style="align-items:flex-start">
+      <div class="grow" id="quote-body">${quoteInner(q)}</div>
+      <button onclick="newQuote()" aria-label="New quote"
+        style="color:var(--faint); font-size:19px; padding:2px 4px; flex:none">⟳</button>
+    </div>
   </div>`;
 }
 
