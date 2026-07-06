@@ -12,7 +12,7 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 **For right now** — after a difficult check-in, Today quietly surfaces the one or two tools built for that exact state (anger → Reset or thought record; anxiety → physiological sigh + worry parking; helplessness → the control map).
 
-**Learn** — seven courses, 33 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience, with a "Suggested for you" path driven by your profile and check-ins, a **Scenario Gym** (15 interactive scenarios about the people who press your buttons — boss, peers, team, clients, family, partner — each revealing the psychological mechanism behind your reaction), and **Test your knowledge** quizzes per course with tracked best scores:
+**Learn** — seven courses, 33 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience, with a "Suggested for you" path driven by your profile and check-ins, a **Scenario Gym** (95 interactive scenarios across 10 arenas — boss, peers, your team, clients, meetings & politics, messages & email, family, partner & friends, yourself, and out in the world — each revealing the psychological mechanism behind your reaction and what's driving the other person; with per-arena progress and a Surprise Me button), and **Test your knowledge** quizzes per course with tracked best scores:
 
 | Course | What it covers |
 |---|---|

@@ -674,7 +674,567 @@ const GYM=[
   options:[
    {t:"Let it ring tonight, and start letting it ring generally.",best:false,fb:"Ghosting punishes him for a rule he was never told. Slow withdrawal ends friendships that one honest sentence could have fixed."},
    {t:"Answer, and say it plainly once: 'I want to hear all of it — and I've had a brutal week myself, so I need the first ten minutes. Deal?'",best:true,fb:"You renegotiate the ledger by finally showing your column. Real friends adjust instantly when told — and 'lead with the real state, not the highlight reel' has to start with you."},
-   {t:"Take the call, listen resentfully, say nothing about your week. Again.",best:false,fb:"Resentful listening isn't generosity — it's an invoice you're accruing in secret. He experiences a fine friendship while you experience an unfair one; only one of you can fix that, and it's not him."}]}];
+   {t:"Take the call, listen resentfully, say nothing about your week. Again.",best:false,fb:"Resentful listening isn't generosity — it's an invoice you're accruing in secret. He experiences a fine friendship while you experience an unfair one; only one of you can fix that, and it's not him."}]},
+ {id:"b4",who:"Your boss",title:"Half-listening",
+  prompt:`You're walking your boss through the plan you built for him — and he's on his phone. "Keep going, I'm listening." He isn't.`,
+  mech:`STATUS and RELATEDNESS: divided attention reads as 'you don't matter'. What's driving him: overload, not verdict — seniors triage attention badly and rarely notice the cost.`,
+  options:[
+   {t:"Stop talking and wait in pointed silence until he looks up.",best:false,fb:"The silent standoff wins the moment and sours the room — he'll feel policed, and the plan still won't get real attention."},
+   {t:"Pause at a natural break: 'This next part needs your eyes — want me to grab you later for ten focused minutes?'",best:true,fb:"You protect the work without indicting him. Most bosses take the out gratefully — and the rescheduled ten minutes beats a distracted thirty."},
+   {t:"Rush through the rest, deflated, and hope the deck speaks for itself.",best:false,fb:"Decks don't defend themselves. You'd be trading your one live shot for a maybe-read attachment."}]},
+ {id:"b5",who:"Your boss",title:"The vague verdict",
+  prompt:`"It's not quite there yet. Make it better." No specifics, no direction — and the deadline hasn't moved.`,
+  mech:`CERTAINTY starved: you can't hit a target nobody will describe. What's driving her: she may not know what 'there' is either — vagueness often hides an unformed opinion.`,
+  options:[
+   {t:"Rework everything overnight, guessing at what 'better' means.",best:false,fb:"Guessing multiplies work and randomises the outcome. If you guess wrong you're 'still not there' — twice as tired."},
+   {t:"Extract the criteria on the spot: 'Help me calibrate — is it the storyline, the numbers, or the format? What does \"there\" look like to you?'",best:true,fb:"Three options force her vague feeling into a decision. Even 'the story is flat' is a target; and if she can't answer, you've learned the real problem isn't your draft."},
+   {t:"Defend the current draft — it addressed everything from the last review.",best:false,fb:"True, maybe — but you'd be arguing against a feeling, and feelings don't lose arguments. Get the feeling converted into criteria first."}]},
+ {id:"b6",who:"Your boss",title:"The favourite",
+  prompt:`Third quarter running, the plum assignments go to the same peer. Your work is solid; the visibility keeps landing elsewhere.`,
+  mech:`FAIRNESS plus STATUS, on a slow drip — the kind that curdles into resentment before it's ever said out loud. What's driving him: often pure inertia; he staffs whoever's proven the exact thing before.`,
+  options:[
+   {t:"Work even harder on the unglamorous work until it's impossible to ignore.",best:false,fb:"Quiet excellence at invisible work earns you more invisible work. The pattern needs words, not volume."},
+   {t:"Make the direct, forward-looking ask: 'I want the next client-facing mandate. Here's why I'm ready — what would you need to see to give me one?'",best:true,fb:"No complaint about the peer, no litigation of the past — a specific ask plus the request for criteria. Bosses grant asks like this far more often than people make them."},
+   {t:"Raise the fairness pattern: point out that he's given the peer three in a row.",best:false,fb:"Scorekeeping puts him on trial for the past and makes the peer your rival on record. The forward ask gets the same outcome without the friction."}]},
+ {id:"b7",who:"Your boss",title:"The reversed decision",
+  prompt:`Monday he agreed to your approach. Thursday, in front of the team: "I never signed off on that." You remember the conversation clearly.`,
+  mech:`CERTAINTY shaken hard — being contradicted about shared reality is uniquely destabilising — plus STATUS in front of your team. What's driving him: usually sloppy memory under overload, occasionally deniability. Either way, the fix is the same.`,
+  options:[
+   {t:"Produce the receipts in the room: 'Monday, 3pm, your office — you approved exactly this.'",best:false,fb:"Even when you win, you lose: cornering your boss publicly converts a memory dispute into a loyalty question. Save the receipts; don't brandish them."},
+   {t:"Bridge in the room — 'we may be remembering differently; let me recap where we are in writing after this' — then start confirming decisions by email, routinely.",best:true,fb:"Calm in the moment, structural for the future. A two-line recap email after every decision meeting protects you both — and it never has to be announced as distrust."},
+   {t:"Doubt yourself and absorb it — maybe you misread the Monday conversation.",best:false,fb:"Once, maybe. As a pattern, absorbing it trains you to distrust your own record — which is exactly backwards. Write things down; trust your notes."}]},
+ {id:"b8",who:"Your boss",title:"Hoarded information",
+  prompt:`A peer casually mentions a restructure that will hit your team — your boss has known for weeks and told you nothing. You lead these people.`,
+  mech:`CERTAINTY, RELATEDNESS and STATUS in one hit: kept in the dark, out of the circle, undermined as a leader. What's driving him: information hoarding is usually anxiety management — control of news feels like control of outcomes.`,
+  options:[
+   {t:"Confront it hot: 'Why am I hearing this from him and not you?'",best:false,fb:"A fair question ruined by its temperature. Accusation triggers justification, and you'll get a defence of secrecy instead of a change in behaviour."},
+   {t:"Make it about your job, not your feelings: 'I heard about the restructure secondhand. To lead the team well I need this class of news from you first — can we agree on that?'",best:true,fb:"You convert the grievance into an operating requirement he can say yes to. 'I need it to do my job' is un-arguable in a way 'you hurt me' never is at work."},
+   {t:"Start building your own intelligence network and stop relying on him.",best:false,fb:"Useful as a supplement, corrosive as a substitute — you'd be institutionalising the distrust instead of repairing the channel."}]},
+ {id:"b9",who:"Your boss",title:"The impossible promise",
+  prompt:`In the client meeting, your boss commits your team to a timeline you know is fiction. The client is delighted. You are doing maths.`,
+  mech:`AUTONOMY and FAIRNESS: your team's nights sold without consent. What's driving him: the pull of a happy client in the room beats an abstract delivery problem later — classic temporal discounting under pressure.`,
+  options:[
+   {t:"Gently correct the timeline in front of the client before it sets.",best:false,fb:"Contradicting your boss mid-pitch costs him face and you trust, and clients smell disunity instantly. The room is not the venue."},
+   {t:"Say nothing in the room; immediately after: 'That timeline needs surgery. Here's what's actually possible and two options to close the gap — and going forward, can we sanity-check commitments before they're made?'",best:true,fb:"You bring the problem with options while the promise is hours old and still cheap to amend — and the 'going forward' clause quietly addresses the pattern, not just the incident."},
+   {t:"Absorb it and drive the team to deliver the fiction.",best:false,fb:"Heroics ratify the behaviour: every rescued impossible promise buys the next one. Your team pays the interest on his optimism."}]},
+ {id:"b10",who:"Your boss",title:"Praise for the wrong thing",
+  prompt:`He raves — publicly — about a summary slide that took you twenty minutes. The three-week analysis underneath it goes unmentioned.`,
+  mech:`A STATUS misfire rather than a wound: recognition landed on the wrong target. What's driving him: he praises what he can see; the engine room is invisible from the bridge.`,
+  options:[
+   {t:"Correct him: 'That slide was the easy part, actually.'",best:false,fb:"You'd be refusing a gift and lecturing the giver. Praise corrected is praise withdrawn — from both sides."},
+   {t:"Take it graciously, then steer: 'Glad it landed. The engine behind it is the three-week dataset — worth ten minutes sometime, it can answer much bigger questions.'",best:true,fb:"Accept the coin, then show the vault. You convert misdirected praise into curiosity about the real work — and position the analysis for reuse."},
+   {t:"Note that effort is invisible here and quietly stop going deep.",best:false,fb:"One misread compliment is thin evidence for a career strategy. Make the deep work visible before concluding it doesn't pay."}]},
+ {id:"pe4",who:"A peer",title:"The idea, re-branded",
+  prompt:`Your suggestion from last week's coffee chat comes out of his mouth in the team meeting — polished, confident, and his.`,
+  mech:`STATUS and FAIRNESS: authorship taken. What's driving him: sometimes theft, often genuine memory-blur — ideas absorbed in conversation really do resurface feeling self-made.`,
+  options:[
+   {t:"Flag it flatly: 'That was my idea — I told you last week.'",best:false,fb:"True, unprovable, and it makes you the small one in the room. Paternity disputes over ideas rarely have a winner."},
+   {t:"Join and extend, planting the timestamp: 'Glad you ran with what we discussed last week — the next step I'd add is X.'",best:true,fb:"One clause reclaims authorship without an accusation, and extending the idea proves you're its source better than any protest could. Then guard future ideas: float them in writing."},
+   {t:"Say nothing, and stop sharing thinking with him.",best:false,fb:"Half right — calibrate what you share. But total silence in the meeting cedes the idea's history, and withdrawal without words teaches him nothing."}]},
+ {id:"pe5",who:"A peer",title:"The slow-roll",
+  prompt:`His team has sat on your data request for three weeks — always a plausible reason, never a delivery. Your deadline is dying of it.`,
+  mech:`AUTONOMY and FAIRNESS: your outcomes hostage to his queue. What's driving him: your priority isn't his priority — this is misaligned incentives wearing a person's face.`,
+  options:[
+   {t:"Send the chaser email with his boss and yours in cc.",best:false,fb:"Escalation-by-cc gets this one request moved and every future one slow-rolled harder. You'd win the battle and fund the war."},
+   {t:"Fix the plumbing in person: 'Three requests have averaged three weeks — walk me through your queue? Let's agree what turnaround is realistic, and I'll escalate jointly with you if you're under-resourced.'",best:true,fb:"You attack the process, offer him an out (under-resourcing), and make any escalation collaborative. Slow-rolls usually die when the cost becomes visible and shared."},
+   {t:"Build the workaround and stop depending on his team.",best:false,fb:"Sometimes necessary tactically — but as a strategy it duplicates work, hides the dysfunction from management, and leaves the next person to rediscover it."}]},
+ {id:"pe6",who:"A peer",title:"The corridor recruiter",
+  prompt:`You learn he's been quietly sounding out your best analyst about moving to his team. No word to you.`,
+  mech:`RELATEDNESS and territory: it lands as betrayal-adjacent even though talent moves are normal. What's driving him: ambition plus cowardice about the awkward conversation with you.`,
+  options:[
+   {t:"Warn your analyst off him and his team.",best:false,fb:"Blocking your best person's options to protect your roster is the fastest way to actually lose them — people smell a cage."},
+   {t:"Address him directly, light but clear: 'If you're interested in my people, come through me first — I'd do the same for you. And if it's genuinely a great move for her, we'll do it properly.'",best:true,fb:"You set the norm without hoarding the human. The second sentence is what makes the first credible — you're defending process, not property."},
+   {t:"Raise it with your shared boss as a trust issue.",best:false,fb:"Escalating before the direct word makes it political and makes you look rattled. He gets the direct sentence first; the boss only if the pattern survives it."}]},
+ {id:"pe7",who:"A peer",title:"The credit auditor",
+  prompt:`In the project retro, he notes — accurately — that your win 'leaned heavily' on his team's data feed. The implication hangs there.`,
+  mech:`STATUS under audit. The sting is sharpest because it's partially true — half-truths are harder to wave off than lies. What's driving him: his team's work was invisible in your applause, and he's correcting the ledger clumsily.`,
+  options:[
+   {t:"Minimise it: 'The data was table stakes — the model was the hard part.'",best:false,fb:"Now you're doing to him exactly what the applause did — erasing contribution. He escalates, you both shrink."},
+   {t:"Practise generous accuracy: 'Completely — your feed was essential, and I should've said so louder. The modelling on top was ours. Team sport.'",best:true,fb:"Generosity costs you nothing real: credit isn't zero-sum, and the person who allocates it graciously reads as the senior one in the room."},
+   {t:"Over-correct: thank his team so effusively that your own work disappears.",best:false,fb:"Appeasement isn't accuracy either. Name both contributions; erase neither."}]},
+ {id:"pe8",who:"A peer",title:"One-upmanship",
+  prompt:`Every story you tell, he tops. Your deal, his bigger deal. Your bad week, his worse one. It's exhausting and slightly ridiculous.`,
+  mech:`BELONGING corroded by competition where connection was offered. What's driving him: chronic toppers are usually running a status anxiety loop — your stories register as threats, not conversation.`,
+  options:[
+   {t:"Escalate your stories until he can't top them.",best:false,fb:"Now there are two people playing a game nobody enjoys. Arms races bore everyone within earshot."},
+   {t:"Step off the ladder: notice the game, stop competing, and ask him questions instead. Let him have the podium you never wanted.",best:true,fb:"The topping reflex is his need, not your scoreboard. Questions cost you nothing, starve the competition, and occasionally uncover the actual person under the highlight reel."},
+   {t:"Start avoiding him entirely.",best:false,fb:"Avoidance is heavy machinery for a light annoyance — and in a team, distance you can't explain reads as coldness you have to manage."}]},
+ {id:"pe9",who:"A peer",title:"Sandbagged in steering",
+  prompt:`In the steering committee he voices 'concerns about the readiness' of your project. He has never once raised them with you.`,
+  mech:`CERTAINTY (ambushed) and STATUS (doubted in the room that matters). What's driving him: raising concerns upward looks diligent and costs him nothing — the venue was the strategy.`,
+  options:[
+   {t:"Dismiss it in the room: 'That's the first I'm hearing of these concerns — odd timing.'",best:false,fb:"The jab lands but reads as defensive, and now the committee remembers friction, not facts. Insinuation is his weapon; don't borrow it."},
+   {t:"Take it head-on and re-route it: 'Which risks specifically? Let's go through them together after this — and bring them to me first next time so we arrive aligned.'",best:true,fb:"Specificity is kryptonite for vague concerns — they either materialise into fixable items or evaporate on request. The 'next time' clause names the venue game without theatrics."},
+   {t:"Return the favour at his next steering review.",best:false,fb:"Tit-for-tat institutionalises the sandbag. You'd be building the exact culture that just bit you."}]},
+ {id:"pe10",who:"A peer",title:"The joke with teeth",
+  prompt:`Third time this month: 'Look who's still here — some of us have actual lives.' Delivered as banter, in front of others, always at your hours.`,
+  mech:`STATUS via mockery with deniability — 'it's just banter' is the armour. What's driving him: often discomfort with his own choices; your hours are a mirror he keeps joking at.`,
+  options:[
+   {t:"Snap back publicly next time: 'Some of us have actual careers.'",best:false,fb:"Now it's a public duel of insults with an audience scoring it. He got exactly the reaction the joke was fishing for."},
+   {t:"Kill it with flatness in the moment — a level look, no laugh, subject change — and if it persists, one private sentence: 'The hours jokes have run their course.'",best:true,fb:"Banter dies without laughter. The flat non-response removes the payoff; the private sentence, if needed, names it once without making it a scene."},
+   {t:"Laugh along every time and quietly resent it.",best:false,fb:"Your laughter is the licence. Resentment you fund yourself is the most expensive kind."}]},
+ {id:"pe11",who:"A peer",title:"The salary discovery",
+  prompt:`Through a slip in a shared document, you learn a peer at your level earns fifteen percent more. You can't unsee it.`,
+  mech:`FAIRNESS, the purest hit of it — pay is the scoreboard of how the institution values you. What's driving the gap: rarely a verdict on you; usually negotiation history, market timing at hire, or a retention scare you never had.`,
+  options:[
+   {t:"Take the number to your boss: 'I know what he makes. Explain this.'",best:false,fb:"You'd burn the source, put him on the defensive about confidentiality instead of your comp, and anchor the conversation to grievance rather than value."},
+   {t:"Use it as intelligence, not ammunition: gather market data, build your case on your scope and results, and negotiate at the next natural window — hard, calm, and without citing his number.",best:true,fb:"The number told you the ceiling is higher than you thought — that's leverage. Cases built on 'here's my market value' get funded; cases built on 'it's not fair' get sympathy."},
+   {t:"Quietly recalibrate your effort down to what they apparently pay for.",best:false,fb:"Quiet-quitting punishes your own trajectory to spite the ledger. It guarantees the gap becomes deserved."}]},
+ {id:"tm4",who:"Your team",title:"The silent meeting",
+  prompt:`You ask the team for input. Silence. Later you discover a lively debate about exactly that topic — in a group chat without you.`,
+  mech:`RELATEDNESS (excluded) and STATUS (the real meeting isn't yours) — but flip it: silence-then-side-chat is a psychological safety readout, and the reading is about the room, not their character.`,
+  options:[
+   {t:"Tell them you know about the chat and expect points raised with you first.",best:false,fb:"Policing the backchannel drives it deeper underground. You can't mandate safety; you can only demonstrate it."},
+   {t:"Change what speaking up costs: seed questions to individuals before meetings, ask for written thoughts first, and — above all — respond to the next piece of dissent like it's a gift.",best:true,fb:"Silence is a price signal. Your reaction to the first risky opinion sets the price for all the rest — this is your own 'demanding and safe' lesson, pointed at you."},
+   {t:"Get a trusted lieutenant to report what the chat is saying.",best:false,fb:"An informant converts a safety problem into a surveillance problem. When it surfaces — and it will — you'll have proven the silence right."}]},
+ {id:"tm5",who:"Your team",title:"The over-promiser",
+  prompt:`'Done by tonight, definitely.' It never is. Fourth time. You're starting to plan around his words meaning nothing, and it feels like being played.`,
+  mech:`CERTAINTY eroded — you can't build on his commitments. What's driving him: over-promising is usually fear of disappointing you in the moment, paid for by disappointing you later. It's anxiety, not manipulation.`,
+  options:[
+   {t:"Silently double-check and shadow-plan everything he owns.",best:false,fb:"Your workaround hides the problem and doubles your load. He stays inaccurate; you become his buffer forever."},
+   {t:"Make honesty cheaper than optimism: 'I'd rather have a true Thursday than a fictional Tuesday — I plan on your dates. Let's rebuild this estimate together and find what keeps inflating them.'",best:true,fb:"You name the cost, lower the fear, and coach the skill in one pass. Chronic over-promisers usually just need permission to say the real number."},
+   {t:"Impose a rule: everything he estimates gets 50% added, and tell him so.",best:false,fb:"Public discounting humiliates without teaching. He'll just start sandbagging — same inaccuracy, opposite direction."}]},
+ {id:"tm6",who:"Your team",title:"'Above my pay grade'",
+  prompt:`A capable analyst escalates every judgement call to you — even ones squarely inside his role. 'Just wanted to check' arrives hourly.`,
+  mech:`Your AUTONOMY is being consumed by his fear of blame. What's driving him: somewhere he learned that decisions are dangerous — a past boss, or your own reactions to early misses.`,
+  options:[
+   {t:"Keep deciding — it's genuinely faster than coaching.",best:false,fb:"Faster today, structural tomorrow: you're paying the tuition for a dependence habit. In a year you'll have a senior analyst who can't make a call."},
+   {t:"Give him a decision band and a safety net: 'Anything under X, make the call and tell me after. Wrong calls inside the band cost nothing — that's what the band is for.' Then ratify his first few loudly.",best:true,fb:"The band converts vague permission into explicit licence, and how you treat his first wrong call inside it decides everything. Praise the deciding, coach the decision."},
+   {t:"Force growth: hand him a big decision cold and let him sink or swim.",best:false,fb:"Trial by fire teaches fear of fire. Confidence builds on survivable stakes, not spectacular ones."}]},
+ {id:"tm7",who:"Your team",title:"The resignation you resent",
+  prompt:`Second resignation this quarter. You feel abandoned — and exposed, because leadership will ask what's wrong with your team.`,
+  mech:`RELATEDNESS ('after everything') tangled with STATUS (what this says about you upstairs). Separate them: her career move is not a referendum on you — but two in a quarter is data worth mining honestly.`,
+  options:[
+   {t:"Go cold and procedural: minimal handover, done by Friday.",best:false,fb:"The freeze punishes her for a normal career move and broadcasts to the team that leaving costs the relationship. Alumni are networks, not traitors."},
+   {t:"Exit her with genuine grace, then mine it: a real conversation about what would have kept her, an honest look at the pattern, and a pre-emptive note to your boss framing the retention plan.",best:true,fb:"Grace protects the relationship and the team's read of you; the mining converts the loss into intelligence; the upward framing answers the optics question before it's asked."},
+   {t:"Counter-offer aggressively and lean on loyalty: 'after everything this team gave you.'",best:false,fb:"Guilt-based retention buys months and poisons them. If the reasons she's leaving are real, money delays the same conversation."}]},
+ {id:"tm8",who:"Your team",title:"Two claims, one win",
+  prompt:`The client win lands — and two of your reports each privately claim it was mostly theirs. Both are in your office by Friday.`,
+  mech:`You're the FAIRNESS arbiter now, and whatever you decide becomes team case law. What's driving them: scarcity thinking — they believe credit divides. Your job is to prove it multiplies.`,
+  options:[
+   {t:"Split the difference vaguely: praise 'the team' and name no one.",best:false,fb:"Vague collective praise starves the very people who did the work — and teaches them that being specific with you is pointless."},
+   {t:"Get specific and additive: name each person's actual contribution publicly — 'her model, his client instinct' — and say plainly that the win needed both.",best:true,fb:"Specific credit, accurately allocated, ends the dispute better than any ruling — and it sets the norm that visibility comes from contribution, not from claiming."},
+   {t:"Reward the more convincing claimant.",best:false,fb:"You'd be paying the best self-marketer, and the team will learn the lesson instantly: lobbying beats delivering."}]},
+ {id:"tm9",who:"Your team",title:"The Friday 4:55 disclosure",
+  prompt:`At 4:55pm Friday, a report confesses an error he found on Monday. Five days of decisions were built on it. The lateness angers you more than the error.`,
+  mech:`The error presses your CERTAINTY; the concealment presses TRUST. But read the causality: five days of silence is a fear readout — of you, or of the last boss who punished bad news.`,
+  options:[
+   {t:"Address the concealment first, hard: 'Monday. You knew Monday.'",best:false,fb:"Justified — and it guarantees the next error arrives even later. Heat now sets the price of every future disclosure."},
+   {t:"Triage first, teach second: 'Thank you for telling me — let's contain it now.' Then, calmly, next week: 'What made it hard to bring me this on Monday?' And actually listen to the answer.",best:true,fb:"Contain, then learn. The question matters more than any lecture — his answer tells you whether the fear is inherited or earned, and both are fixable once named."},
+   {t:"Fix it quietly yourself and file it away for his year-end review.",best:false,fb:"The silent ledger is the worst of all worlds: he learns nothing, you carry resentment for months, and the feedback arrives too stale to use."}]},
+ {id:"tm10",who:"Your team",title:"Managing your friend",
+  prompt:`You were promoted over a good friend. Now he's testing it — talking over you in meetings, relitigating your calls, invoking the friendship when challenged.`,
+  mech:`RELATEDNESS and STATUS in a knot: every act of authority feels like a betrayal of the friendship; every act of friendship undermines the authority. What's driving him: loss — of the peer relationship, and maybe of the promotion.`,
+  options:[
+   {t:"Over-correct: be visibly harder on him than anyone, so nobody can allege favouritism.",best:false,fb:"Punishing him for your promotion is its own unfairness — and he'll feel the friendship weaponised against him."},
+   {t:"Have the two-hats conversation privately and explicitly: 'The friendship matters and it's not going anywhere. At work I have to hold the same line with you as everyone — here's how I need meetings to work. Call out if I ever get the hats wrong.'",best:true,fb:"Naming the awkwardness dissolves most of it. The explicit contract — plus inviting him to police your side too — makes the new geometry mutual instead of imposed."},
+   {t:"Let the meeting behaviour slide — it's the tax on the friendship.",best:false,fb:"The team is watching him relitigate you in public. What you tolerate from a friend becomes the ceiling of your authority with everyone."}]},
+ {id:"cl3",who:"A client",title:"The scope creep smile",
+  prompt:`"While you're in there, could you just also model the downside case? Shouldn't take long." Third 'just also' this month, delivered with total charm.`,
+  mech:`FAIRNESS eroded by niceness — charm makes the extraction feel unchargeable. What's driving them: it works. Every absorbed 'just also' prices the next one at zero.`,
+  options:[
+   {t:"Absorb it again — the relationship is worth more than the hours.",best:false,fb:"The relationship isn't what's being tested; your boundary is. Absorbed creep compounds until the account is unprofitable and your team is bitter."},
+   {t:"Yes-and-price it, warmly: 'Happy to — that's beyond the current scope, so let me send you the impact on timeline and fees today, and you decide.'",best:true,fb:"You never say no; you attach the price tag and hand them the decision. Charm meets commerce — most 'just alsos' quietly evaporate when they cost something."},
+   {t:"Draw the line: 'That's out of scope, I'm afraid.'",best:false,fb:"Right boundary, brittle delivery. A flat no with no path forward reads as unhelpful; the priced yes gets the same protection with none of the friction."}]},
+ {id:"cl4",who:"A client",title:"The screamer",
+  prompt:`The client director is shouting — actually shouting — on the call about a delay that was substantially his own team's doing. Your people are on the line, listening.`,
+  mech:`FAIRNESS (misassigned blame) and the raw contagion of someone else's rage. What's driving him: he's performing for someone — his boss is probably angrier at him than he is at you.`,
+  options:[
+   {t:"Correct the record now: walk through whose approvals came late.",best:false,fb:"Accurate and fatal. A man mid-performance cannot concede causality; you'd be feeding the fire evidence to burn."},
+   {t:"Drop your voice low and slow, acknowledge the impact without accepting the causality — 'this delay is hurting you, and we're going to fix it; here's the next 48 hours' — and park the post-mortem for later, in writing.",best:true,fb:"Low and slow is physiologically disarming. You validate the pain, commit to motion, and defer the blame question to a venue where facts beat volume. Your team hears composure under fire."},
+   {t:"Match his energy so he knows you can't be bullied.",best:false,fb:"Two people shouting is a relationship ending in real time — with your analysts as the audience."}]},
+ {id:"cl5",who:"A client",title:"Ghost, then grenade",
+  prompt:`Three weeks of silence on every email. Then Friday, 6pm: 'Need the full pack Monday 9am. Where are we?' As if the silence were yours.`,
+  mech:`FAIRNESS and AUTONOMY: their disorganisation delivered as your emergency. What's driving them: internal chaos on their side — someone senior just asked THEM the same question.`,
+  options:[
+   {t:"Point out, politely, the three weeks of unanswered emails before committing to anything.",best:false,fb:"The receipts are real, but Friday 6pm is not the tribunal. Scorekeeping while they're in crisis reads as unhelpfulness with a timestamp."},
+   {t:"Deliver what's genuinely possible — 'here's what you'll have Monday 9, full pack Wednesday' — then, once the fire's out, reset the cadence: a standing 30-minute weekly so this can't recur.",best:true,fb:"Help first, fix the system second. The weekly cadence is the real move — it converts their chaos from your recurring emergency into a managed rhythm."},
+   {t:"Pull the all-nighter and deliver the full pack Monday, again.",best:false,fb:"Heroics teach the client that silence-then-grenade works perfectly. You'd be rewarding the exact behaviour that's burning you."}]},
+ {id:"cl6",who:"A client",title:"Your junior, condescended to",
+  prompt:`On every call, the client VP talks over your analyst, dismisses her answers, then asks you the identical question. She's visibly shrinking.`,
+  mech:`Her STATUS is being ground down and — watch it — your RELATEDNESS to her is being tested: the team is learning whether you protect people or revenue. What's driving him: cheap dominance where he thinks it's costless.`,
+  options:[
+   {t:"Coach her privately to toughen up — clients are like this.",best:false,fb:"You'd be socialising his behaviour as her deficiency. She doesn't need thicker skin; she needs a leader who redirects the grinding."},
+   {t:"Re-route in the moment — 'She's closest to the data, I'd let her finish' — hand questions back to her deliberately, and if it persists, one quiet word with the client lead about how the sessions run best.",best:true,fb:"Live redirection restores her standing where it was taken; the offline word handles the pattern without a scene. Your analyst will remember this call for years — one way or the other."},
+   {t:"Absorb her airtime yourself so there's nothing for him to dismiss.",best:false,fb:"Shielding by erasure completes his work for him — she disappears from her own account."}]},
+ {id:"cl7",who:"A client",title:"The competitor whisper",
+  prompt:`'I'll be honest — the other firm came in well under you. I like you guys, but I have to justify this upstairs.' It smells like a squeeze.`,
+  mech:`CERTAINTY (is the deal dying?) and FAIRNESS (is this real or theatre?). What's driving them: sometimes a genuine budget bind, often a standard procurement lever. Panic is the only wrong read.`,
+  options:[
+   {t:"Protect the deal: offer a discount on the spot.",best:false,fb:"An instant concession confirms your price was padded and teaches them that this whisper works annually. Discounts requested casually should never be granted casually."},
+   {t:"Hold, calmly, and reframe the axis: 'Understood — help me see what they scoped, because pricing only compares on identical work. Here's what ours includes and where it earns its fee. If budget is the binding constraint, we can re-scope rather than re-price.'",best:true,fb:"Scope-versus-price is the professional's ground: you respect the pressure, refuse the squeeze, and offer a path that trades work for money instead of just money."},
+   {t:"Call the bluff: 'Then take the cheaper firm.'",best:false,fb:"Machismo as strategy. Even if it's a bluff, you've made continuing feel like a defeat for him — and he has a boss watching too."}]},
+ {id:"cl8",who:"A client",title:"Wrong, and very senior",
+  prompt:`In the board-adjacent meeting, the client CEO confidently states a 'fact' about your model that is simply wrong — and builds his next point on it.`,
+  mech:`CERTAINTY versus STATUS at maximum altitude: let the error stand and it becomes the record; correct him flatly and you've corrected a CEO in his own boardroom.`,
+  options:[
+   {t:"Correct it precisely and immediately — accuracy is what you're paid for.",best:false,fb:"Accuracy delivered as public correction of a CEO costs more than the error did. There's a version that gets truth AND keeps face — use it."},
+   {t:"Offer the exit ramp: 'There's a version of the model where that holds — for this one, the driver is X, which actually strengthens your point about Y. Happy to walk anyone through the detail after.'",best:true,fb:"You fix the record while handing him a bridge — 'a version where that holds' lets him be almost-right, and tying the truth to HIS point makes correction feel like support."},
+   {t:"Let it stand and correct it quietly in the follow-up note.",best:false,fb:"Decisions were being built on it in the room. A correction that arrives after the concrete sets is a memo, not a fix."}]},
+ {id:"cl9",who:"A client",title:"The nudge to soften the numbers",
+  prompt:`'Could the downside scenario feel a bit less... alarming? The committee gets nervous.' He isn't asking you to lie. He's asking you to make the truth quieter.`,
+  mech:`Integrity pressure wrapped in politeness — FAIRNESS to yourself and to whoever relies on the work. What's driving him: fear of his own committee, borrowing your credibility to manage it.`,
+  options:[
+   {t:"Soften it — the base case is unchanged, and the relationship matters.",best:false,fb:"Today it's tone; the next ask is substance, and you've already shown the line moves. Numbers that bend for nerves aren't analysis, they're decoration."},
+   {t:"Hold the numbers, offer legitimate framing: 'The scenarios stay as modelled — that's what protects you if it's ever questioned. What I can do is add context: likelihood, mitigants, and what would have to be true. That usually settles committees better than softer numbers.'",best:true,fb:"A calm boundary plus a genuine alternative — you refuse the massage while solving his actual problem, which was the committee's fear, not the font size of the downside."},
+   {t:"Refuse on principle, with a short lecture about integrity.",best:false,fb:"Right answer, wrong music. The sermon humiliates him for asking; the boundary-plus-alternative gets compliance AND keeps him."}]},
+ {id:"fa3",who:"Family",title:"The loan that isn't a loan",
+  prompt:`A relative asks to 'borrow' a sum everyone silently knows will never return. Your father has already implied that saying yes is what family does.`,
+  mech:`FAIRNESS versus duty, with the family honour economy as enforcement. What's driving them: real need, probably — and a system where the London salary is presumed communal.`,
+  options:[
+   {t:"Lend the full amount, resentfully — refusing costs too much politically.",best:false,fb:"Resentful lending buys neither peace nor gratitude: you'll be angry about the money AND the next ask, which your yes just scheduled."},
+   {t:"Decide what you can give freely — as a gift in your own head, sized so its loss costs you nothing — offer that, and hold it: 'This is what I can do.'",best:true,fb:"The reframe from loan to mental gift removes the resentment engine entirely — no repayment to track, no betrayal to feel. The cap does the boundary work without a confrontation."},
+   {t:"Escape with a soft fiction: money's tied up right now, markets, you know how it is.",best:false,fb:"Fictions need maintenance and relatives compare notes. One honest capped offer beats a decade of remembering what you told whom."}]},
+ {id:"fa4",who:"Family",title:"The report card at thirty",
+  prompt:`Sunday call. Your father, casually: 'And the bonus this year? Ravi's son cleared how much, you think?' The audit has begun.`,
+  mech:`STATUS inside the oldest hierarchy, and for a father who runs a narcissistic pattern, your numbers are his currency. Remember the ration: achievements shared become trophies or comparisons.`,
+  options:[
+   {t:"Give him the number — it's good this year, and maybe it finally settles something.",best:false,fb:"It settles nothing; it restocks. A good number becomes his bragging chip and next year's floor. The audit is not passable — that's the design."},
+   {t:"The warm broken record: 'Work's going well, I'm happy with the year.' Repeat as needed, unchanged, then ask about his garden.",best:true,fb:"No numbers, no JADE, no coldness — a boundary in the shape of a pleasant sentence. The pivot to his world isn't evasion; it's steering toward the relationship that's actually possible."},
+   {t:"Deflect with a joke about London taxes eating everything.",best:false,fb:"Humour works once, but jokes about the topic keep the topic alive — and self-deprecation about money invites the audit to dig deeper 'in concern'."}]},
+ {id:"fa5",who:"Family",title:"The WhatsApp landmine",
+  prompt:`The extended-family group chat: an uncle posts inflammatory politics, then tags you — 'what does our London banker think?' Forty relatives watching.`,
+  mech:`A BELONGING trap: engage and you're the arrogant foreign liberal; ignore and you're too grand for family. The tag is the game — your discomfort is the entertainment.`,
+  options:[
+   {t:"Write the careful, sourced, three-paragraph reply the topic deserves.",best:false,fb:"Nobody in a family group chat has ever been persuaded by paragraphs. You'd be feeding an arena that only wants the spectacle of you in it."},
+   {t:"One light line that declines the bait without disrespect — 'above my pay grade, uncle 😄 — someone post the wedding photos instead' — and take anything real to a private chat.",best:true,fb:"Deflection with warmth beats both silence and essays: you stay in the family without entering the ring. The photo request redirects the room better than any argument."},
+   {t:"Mute the group and stop responding entirely.",best:false,fb:"Muting is fine for sanity — but pure silence gets narrated for you ('too important for us now'). One light line every so often keeps your absence from becoming a story."}]},
+ {id:"fa6",who:"Family",title:"The visit inspection",
+  prompt:`Your parents are visiting London. By day two your mother has reorganised the kitchen, commented on your fridge, your hours, and the 'state' of a flat you find perfectly clean.`,
+  mech:`AUTONOMY pressed in the one territory that's yours — but decode the behaviour: reorganising your kitchen is how she still gets to mother you from eight time zones away. The control IS the love, badly translated.`,
+  options:[
+   {t:"Assert the boundary on everything: this is my home, my systems, please stop.",best:false,fb:"Winning every square metre turns the visit into a border dispute. She'll comply, hurt — and you'll have spent the week defending cutlery placement."},
+   {t:"Choose two battles and release the rest: let the kitchen reorganisation land as the care it is, and hold the line warmly on the one or two comments that actually cut.",best:true,fb:"Strategic surrender on the harmless stuff costs you nothing and gives her the mothering she flew eleven hours to do. Saving the boundary for what matters makes it audible when you use it."},
+   {t:"Go quiet and endure the week — it's only ten days.",best:false,fb:"Teenage silence in a thirty-year-old body. You'd protect nothing and connect with no one, and she'll feel the wall without understanding it."}]},
+ {id:"fa7",who:"Family",title:"Praised at your sibling",
+  prompt:`Family gathering. 'Look at him — London, big job. And you?' — the last two words aimed at your struggling sibling, using your success as the stick.`,
+  mech:`A poisoned STATUS gift: the praise is real but it's being weaponised against someone you love, and the pedestal comes with guilt pre-installed.`,
+  options:[
+   {t:"Accept the praise graciously and let the moment pass — it's not your comparison.",best:false,fb:"Silence co-signs it. Your sibling won't remember who made the comparison; they'll remember you standing comfortably on it."},
+   {t:"Redirect the frame in the moment — 'careers aren't a race, and she's building something real' — and find your sibling privately later: solidarity, not charity.",best:true,fb:"The public redirect defuses the weapon without a scene; the private word is what your sibling will actually keep. Refusing the pedestal costs you nothing you wanted."},
+   {t:"Deflate your own success — 'it's just a job, mostly spreadsheets, honestly it's nothing.'",best:false,fb:"Self-erasure doesn't protect your sibling; it just adds a second casualty. The problem was the comparison, not your career."}]},
+ {id:"fa8",who:"Family",title:"The health news, withheld",
+  prompt:`Your aunt lets it slip: your father had a health scare three weeks ago. Hospital, tests, the works. Nobody told you. 'We didn't want to worry you in London.'`,
+  mech:`RELATEDNESS breached from the outside — excluded from your own family's emergency — with distance-guilt detonating on top: the move abroad made them protect you like a guest.`,
+  options:[
+   {t:"Call and let the hurt lead: 'How could you keep this from me?'",best:false,fb:"The accusation lands on people who were frightened and made a clumsy loving choice. They'll defend the secrecy instead of changing it."},
+   {t:"Answer the fear under the secrecy: 'I want to be worried — that's my job. Being in the dark is worse than any news.' Then build the channel: regular calls with the doctor cousin, and a visit in the diary now.",best:true,fb:"You correct the premise — protection-by-silence — without punishing the protectors, and the concrete channel plus the booked flight does more than any promise to 'communicate better'."},
+   {t:"Spiral privately: this is what moving abroad costs; maybe they're right that you're not really there.",best:false,fb:"The guilt is real; its verdict is not. Distance changed the logistics of belonging, not the fact of it — build the channel instead of prosecuting yourself."}]},
+ {id:"pf3",who:"Partner & friends",title:"The neutral face",
+  prompt:`Third dinner party of theirs you've arrived late to, straight from the office. This time there's no annoyance when you slip in — just a neutral 'hey'. The neutrality scares you more than anger did.`,
+  mech:`Read the signal: anger is investment; neutrality is withdrawal-in-progress. Their FAIRNESS protest went unanswered so long it stopped being worth making.`,
+  options:[
+   {t:"Explain the deal timeline again — this quarter is genuinely exceptional.",best:false,fb:"Every quarter has been genuinely exceptional. The explanation is true and irrelevant: they stopped needing reasons around the second dinner."},
+   {t:"Name it and repair with behaviour: 'I've been late to three of these and I hate what that says. The next one, I'm there at seven, phone off' — and then be there at seven, phone off.",best:true,fb:"Withdrawal reverses on evidence, not apology. One fully-present arrival rebuilds more than any speech — and naming the pattern yourself tells them you saw it before losing them entirely."},
+   {t:"Send something generous tomorrow — great wine, a proper gift, a long message.",best:false,fb:"Gifts are presence substitutes, and they've had enough substitutes. The currency they're owed is you, at seven, phone off."}]},
+ {id:"pf4",who:"Partner & friends",title:"'You're rich, you get it'",
+  prompt:`Every bill, the same joke: 'Banker's got it, right?' You've quietly covered the last four dinners. It's stopped being funny and started being policy.`,
+  mech:`FAIRNESS in the friendship ledger, tangled with guilt about earning more — which is exactly what the joke leans on. What's driving them: drift, mostly; comfortable arrangements calcify unless someone speaks.`,
+  options:[
+   {t:"Keep paying — you CAN afford it, and money shouldn't matter between friends.",best:false,fb:"It's not the money, it's the assumption — and resentment funded quietly compounds. 'Shouldn't matter' is doing a lot of unpaid work in that sentence."},
+   {t:"Name it once, lightly, and set the new normal: 'I'm happy to treat sometimes — but let's split as the default, it keeps things clean.' Then just split, without ceremony.",best:true,fb:"One clean sentence beats forty silent invoices. Real friends recalibrate instantly; the awkwardness lasts a minute, the resentment would have lasted years."},
+   {t:"Start ordering less and reaching slowly for the bill until they notice.",best:false,fb:"Passive signalling makes them guess at a grievance you won't name. Nobody decodes a slow reach; they just notice you got weird about dinner."}]},
+ {id:"pf5",who:"Partner & friends",title:"Solutions at the wrong moment",
+  prompt:`Brutal day. You start telling your partner about it and within ninety seconds they're fixing: 'Have you tried talking to HR? You should just—'. You feel yourself shutting down mid-sentence.`,
+  mech:`A care mis-tune, not a care failure: they're pressing CERTAINTY (solve it!) when you needed RELATEDNESS (see me). Your shutdown reads to them as rejection of help — two good intentions missing in the dark.`,
+  options:[
+   {t:"Snap the honest thing: 'You never just listen.'",best:false,fb:"'Never' converts a mis-tune into an indictment. They'll defend their helpfulness, and now there are two hurt people and still no listening."},
+   {t:"Ask for the mode you need, explicitly: 'Can I get ten minutes of just venting first? Then I genuinely want your take.' — and later, agree the shorthand for next time.",best:true,fb:"Nobody can tune to an unnamed channel. The explicit ask gets you tonight's listening; the shorthand ('venting or fixing?') upgrades every future hard day. This is emotional granularity as a couple's skill."},
+   {t:"Stop bringing work home — it's easier to decompress alone.",best:false,fb:"Easier tonight, expensive forever: you'd be solving a tuning problem with distance, and the distance becomes its own problem."}]},
+ {id:"pf6",who:"Partner & friends",title:"The success that stings",
+  prompt:`Your closest friend's startup just exited. Life-changing money. You're genuinely happy for him — and underneath, unmistakably, something green and sour you're ashamed of.`,
+  mech:`Envy and love coexisting — both real, neither cancelling the other. The shame is the only unnecessary part: comparison with a friend's peak is wiring, not character.`,
+  options:[
+   {t:"Create a little distance until the feeling settles — see him less for a while.",best:false,fb:"Distance protects your comfort at the exact moment friendship is being tested. He'll notice the flatness precisely because it's his biggest week."},
+   {t:"Congratulate him at full volume — the friendship deserves it whole — and privately treat the envy as data: what exactly does his exit make you want? Freedom? A swing of your own? Take that to your values, not your shame.",best:true,fb:"You can celebrate him completely AND mine the sting — envy is the most honest career counsellor you have, once it's read instead of suppressed. Both moves beat pretending either feeling isn't there."},
+   {t:"Perform the enthusiasm and quietly stew — the feeling is too ugly to look at.",best:false,fb:"Suppressed envy leaks — as edge, as absence, as the joke with teeth. Looking at it directly is what defuses it."}]},
+ {id:"pf7",who:"Partner & friends",title:"'Too big for us now'",
+  prompt:`The Singapore group chat is planning the reunion. You can't make the dates — again. Someone writes: 'Leave him, lah. Too big for us now.' A joke. Mostly.`,
+  mech:`BELONGING strained by distance and by the story forming in your absence — the chat is writing your character while you're not in the room. What's driving them: they miss you, and mockery is how the group grieves.`,
+  options:[
+   {t:"Type the long message: work realities, time zones, flight costs, how unfair 'too big' is.",best:false,fb:"A defence brief confirms the distance it argues against. Nobody wanted the explanation; they wanted the person."},
+   {t:"Send a voice note — your actual voice: 'Oi. I miss you idiots. These dates are impossible, but I'm booking for [real date] — who's in?' Then book it.",best:true,fb:"Voice carries what text can't — warmth, accent, home. And a concrete counter-date converts 'he never comes' into 'he's coming in March'. The story dies of contact with the person."},
+   {t:"Go quiet in the chat — the joke stung more than they know.",best:false,fb:"Silence waters the exact seed they planted. The wound wants tending, but in person — or by voice — not by withdrawal."}]},
+ {id:"pf8",who:"Partner & friends",title:"'Where is this going?'",
+  prompt:`Your partner asks the question you've deferred twice already: 'Where is this going?' And you hear yourself begin, again, with 'once this deal closes—'`,
+  mech:`Their CERTAINTY about their own life is hostage to your calendar — and your deferral IS an answer, just the worst available one. What's driving the dodge: not doubt about them, usually — fear of deciding anything else while everything feels mid-flight.`,
+  options:[
+   {t:"'After this quarter, I promise — I just can't think about this properly right now.'",best:false,fb:"Third deferral reads as verdict regardless of intent. There will always be a quarter. They're not asking for a wedding date; they're asking if they're a priority or a default."},
+   {t:"Stop the reflex mid-sentence and give the conversation real time this week — phones off, honest, whatever the answer actually is. If it's 'I want this, and here's what the next year looks like,' say that. If you genuinely don't know, say THAT — with a date by which you will.",best:true,fb:"The deal will survive one honest evening; the relationship may not survive another deferral. Even 'I don't know, and here's when I will' is a real answer — it treats them as someone with a life to plan."},
+   {t:"Answer with a gesture — book the big trip, let it speak for itself.",best:false,fb:"Grand gestures are eloquent about affection and silent about direction. They asked a question; book the conversation before the flights."}]},
+ {id:"pf9",who:"Partner & friends",title:"Cancelled on, for once",
+  prompt:`You moved mountains to protect this evening — and your friend cancels forty minutes before, with a flimsy reason. The irony of your own rage is not lost on you.`,
+  mech:`FAIRNESS with a mirror in it: you've been the canceller for years, and the fury has a guilt-lining. Their flimsy reason presses the same button your 'deal closing' pressed on them.`,
+  options:[
+   {t:"Fire back the loaded 'no worries!! 👍' and add it to a private ledger.",best:false,fb:"The exclamation marks fool no one. Ledgered grievances pay out eventually — always at the worst moment, always with interest."},
+   {t:"Say the plain true thing without the ledger: 'Ah, that's genuinely disappointing — I'd carved tonight out. Rebook for next week?' And privately, let the sting teach you what your own cancellations have been landing like.",best:true,fb:"Disappointment expressed cleanly is intimacy, not conflict — friends can hold it. And the mirror is the real gift: now you know the feeling from the inside. Spend it on your own reliability."},
+   {t:"Let it go completely — you of all people have no standing to mind.",best:false,fb:"Your history doesn't disqualify your feelings; it contextualises them. Swallowed disappointment plus guilt is a worse cocktail than either alone."}]},
+ {id:"mp1",who:"Meetings & politics",title:"Interrupted, again",
+  prompt:`Third time this meeting: you're four words into your point and he's talking over you. The room lets it happen.`,
+  mech:`STATUS trimmed in public, in slices too thin to protest individually — that's what makes interruption patterns so corrosive. What's driving him: conversational habit plus a room that's never priced it.`,
+  options:[
+   {t:"Yield each time — fighting for airtime looks needy.",best:false,fb:"Habitual yielding teaches the room your points are optional. Airtime isn't vanity; it's how your work gets weighed."},
+   {t:"Hold the floor calmly and physically: a raised hand, level voice — 'Let me land this point' — then finish, unhurried. If the pattern survives, one private word.",best:true,fb:"'Let me land this point' is five words that reclaim the floor without a duel — no accusation, no heat, just continuation. Rooms recalibrate fast when someone holds ground gracefully."},
+   {t:"Interrupt him right back at his next point.",best:false,fb:"Symmetry feels like justice but reads as squabbling — and he's better at it than you, from practice."}]},
+ {id:"mp2",who:"Meetings & politics",title:"Ninety seconds at the end",
+  prompt:`You were given ten minutes on the agenda. The meeting ran long, everyone's packing up, and the chair says: 'Quick version? Ninety seconds.'`,
+  mech:`FAIRNESS (your slot consumed by others' overruns) and a status test in miniature: how you handle compression IS the presentation now.`,
+  options:[
+   {t:"Race through all twelve slides at double speed.",best:false,fb:"A sprint through twelve slides communicates exactly one thing: panic. Nobody retains sprayed content."},
+   {t:"Deliver the headline like it was the plan all along: 'One slide, one ask — here's the finding, here's the decision I need, detail is in your inboxes tonight.' Then pre-book a real slot next time, first on the agenda.",best:true,fb:"Grace under compression is a senior signal — arguably better than the ten minutes would have been. The follow-up note carries the detail; the composure carries you."},
+   {t:"Decline pointedly: 'This needs the full ten minutes — I'll wait for a proper slot.'",best:false,fb:"Technically fair, practically self-defeating: you'd convert a scheduling accident into a visible sulk, and the decision you needed slips a month."}]},
+ {id:"mp3",who:"Meetings & politics",title:"The meeting before the meeting",
+  prompt:`Halfway through the 'decision meeting' you realise the decision is already made — settled on a call you weren't invited to. This meeting is theatre.`,
+  mech:`CERTAINTY (blindsided) and RELATEDNESS (outside the real circle). What's driving it: pre-alignment isn't necessarily conspiracy — it's how organisations actually decide. The question is why you weren't in the pre-round.`,
+  options:[
+   {t:"Relitigate the decision in the room — the arguments weren't properly tested.",best:false,fb:"Arguing with a decision that's already social reality makes you the person who 'doesn't read rooms'. The meeting was never the venue; it was the announcement."},
+   {t:"Play the actual game: log the decision gracefully today, then start doing your own pre-alignment before big meetings — and ask your sponsor directly how to get into the pre-rounds that touch your remit.",best:true,fb:"Pre-alignment is a skill, not a scandal. The ask to your sponsor is the key move: naming that you want in — calmly, once — is how the circle usually opens."},
+   {t:"Disengage: if decisions happen elsewhere, stop investing in the theatre.",best:false,fb:"Cynicism reads instantly and compounds the exclusion. Absent from the theatre AND the pre-rounds is the worst seat in the house."}]},
+ {id:"mp4",who:"Meetings & politics",title:"'Can you take the notes?'",
+  prompt:`For the fourth consecutive leadership meeting, the chair turns to you — the same seniority as everyone at the table: 'Can you do the honours with notes?'`,
+  mech:`STATUS by a thousand small assignments: the note-taker is heard less and remembered less. What's driving it: unexamined habit — you did it well once and became the default.`,
+  options:[
+   {t:"Take them again, resentfully — it's not worth a scene.",best:false,fb:"It's never worth a scene, which is how it becomes permanent. Roles assigned four times are yours until you speak."},
+   {t:"Accept once more while installing the fix: 'Happy to — and let's rotate it going forward; I'll set up the rota today.' Then actually send the rota.",best:true,fb:"You solve it structurally in one breath — no grievance, no confrontation, just a system that makes the default impossible. Sending the rota same-day is what makes it real."},
+   {t:"Decline flatly: 'I did them last time. Someone else's turn.'",best:false,fb:"Correct in substance, sharp in a room that hasn't heard the pattern named. The rota gets the same result and makes you the organised one instead of the prickly one."}]},
+ {id:"mp5",who:"Meetings & politics",title:"The pile-on",
+  prompt:`An absent colleague is getting shredded — some of it fair, most of it sport. Someone turns to you, grinning: 'You've worked with him. Go on.'`,
+  mech:`BELONGING offered at someone else's expense — the cheapest membership fee there is. Whatever you say lands twice: on the absent colleague eventually, and on the room's read of your character now.`,
+  options:[
+   {t:"Add something mild and jokey — refusing outright reads as sanctimonious.",best:false,fb:"Mild contributions still co-sign the pile-on, and corridors have excellent acoustics. Everyone in that room now also knows what happens when THEY'RE absent."},
+   {t:"Decline without the sermon: 'He's had a rough stretch — anything real here, let's put it to him directly.' Then move the topic along.",best:true,fb:"One neutral sentence ends your part in it without indicting anyone. Quietly refusing pile-ons is one of the fastest reputations you can build — people file away who's safe."},
+   {t:"Call out the room: 'This is exactly the gossip culture that's poisoning this team.'",best:false,fb:"The lecture converts you from non-participant to prosecutor. You wanted out of the game, not a starring role in a new one."}]},
+ {id:"mp6",who:"Meetings & politics",title:"Blank, on the spot",
+  prompt:`The CFO turns to you: 'What's our exposure on that book?' You know this number. You knew it an hour ago. Your mind is a white corridor.`,
+  mech:`Acute STATUS threat triggering the exact freeze it fears — working memory is the first casualty of the spotlight. Everyone at that table has had this moment; composure about the blank matters more than the blank.`,
+  options:[
+   {t:"Approximate confidently — a wrong-ish number beats a silence.",best:false,fb:"A guessed number to a CFO is a landmine with your name etched on it. Confidence plus wrongness is the worst available combination."},
+   {t:"Buy the seconds without apology: 'Pulling that up — two seconds.' Breathe, check, answer. If it won't surface: 'I'll confirm the exact figure before end of meeting' — then do.",best:true,fb:"No apology spiral, no performance of panic — just a person retrieving a fact, which is all this ever was. The recovery, delivered precisely, erases the blank entirely."},
+   {t:"Apologise, explain you're stretched across three deals, apologise again.",best:false,fb:"The triple apology converts a two-second retrieval delay into a competence question. Nobody was doubting you until the third sorry."}]},
+ {id:"mp7",who:"Meetings & politics",title:"The devil's advocate",
+  prompt:`Every proposal you've brought this quarter has met the same voice: 'Just playing devil's advocate, but—'. The advocate never brings proposals of his own.`,
+  mech:`Your CERTAINTY taxed by someone whose scepticism is free — critique without stake is the cheapest seat in the room. What's driving him: relevance. Objection is his production function.`,
+  options:[
+   {t:"Armour every proposal with twenty pre-emptive appendix slides.",best:false,fb:"You'd be doing his job for him at your expense — and thoroughness aimed at one heckler bloats every deck for everyone."},
+   {t:"Give the advocate a portfolio: 'Genuinely useful — take the risk column. Bring the top three risks WITH mitigations to Thursday and we'll pressure-test together.'",best:true,fb:"Assigning ownership converts free-floating scepticism into accountable work. Either he delivers (your proposal gets stronger) or he declines (the room notices whose scepticism was decorative)."},
+   {t:"Puncture it publicly: 'The devil has enough advocates — bring a proposal sometime.'",best:false,fb:"A great line that costs more than it earns: he becomes a committed enemy, and the room learns you have a temper worth probing."}]},
+ {id:"mp8",who:"Meetings & politics",title:"The vulnerability exercise",
+  prompt:`Team offsite. The facilitator beams: 'Now everyone share a moment of real personal struggle.' You're a private person. Your turn approaches like weather.`,
+  mech:`AUTONOMY over your own disclosure — the one territory that should never be conscripted. Forced vulnerability isn't intimacy; it's compliance wearing intimacy's clothes.`,
+  options:[
+   {t:"Match the room's deepest sharer — anything less reads as closed.",best:false,fb:"Disclosure under social pressure is the kind you wake up regretting at 3am. Depth on demand isn't authenticity; it's performance with a hangover."},
+   {t:"Prepare a middle-depth truth you can share freely — real, meaningful, and yours to give: the early-career failure, the hard year, what it taught you. Deliver it warmly and fully own its boundary.",best:true,fb:"A prepared authentic story satisfies the exercise without surrendering the private core. Boundaries held gracefully read as self-possession — often the strongest presence in the room."},
+   {t:"Pass, visibly uncomfortable: 'I'd rather not.'",best:false,fb:"Your right, entirely — but a cold pass in a warm room writes its own story. The middle-depth option protects the same core at zero social cost."}]},
+ {id:"mp9",who:"Meetings & politics",title:"Corrected from below",
+  prompt:`You quote a figure with full confidence. Your own analyst, from the end of the table: 'Actually — it's 340, not 390.' He's right. The room waits.`,
+  mech:`STATUS inverted in public — corrected by someone junior, in front of peers. But the room isn't scoring the error; it's scoring the next five seconds.`,
+  options:[
+   {t:"Defend the nuance: 'Well, it depends how you cut the data—'",best:false,fb:"It doesn't, and half the room knows it. Face-saving wriggle costs more status than the correction did — errors are forgotten, wriggling is remembered."},
+   {t:"Own it instantly and cleanly: 'You're right — 340. Good catch.' Move on without ceremony.",best:true,fb:"Five words, zero drama. You just showed the room that accuracy outranks ego at your table — which raises your standing AND teaches every junior watching that correcting you is safe. Composure over the error IS the status recovery."},
+   {t:"Thank him smoothly now, have a word later about the right channel for corrections.",best:false,fb:"The 'later word' undoes the public grace and teaches him to sit on your errors. You'd be optimising for face over accuracy — backwards."}]},
+ {id:"mp10",who:"Meetings & politics",title:"The ask that met silence",
+  prompt:`You made the headcount case — clean, costed, rehearsed. A beat of silence. Then the chair: 'Right, next item.' Nobody said no. Nobody said anything.`,
+  mech:`CERTAINTY denied its verdict: silence is the hardest answer to metabolise because it might mean no, later, or nothing at all. Don't let the ambiguity write itself as rejection.`,
+  options:[
+   {t:"Read the room's silence as a soft no and quietly shelve the ask.",best:false,fb:"Self-rejection on ambiguous evidence — the most common way good asks die. Silence in a crowded agenda usually means 'not now', not 'never'."},
+   {t:"Re-enter once, crisply, before the close: 'Before we wrap — I need a decision path on the headcount ask. Who should I follow up with, and by when?' Then work that path offline with your sponsor.",best:true,fb:"You convert silence into process — a name and a date — which is all an unanswered ask ever needs. The offline follow-up is where headcount actually gets won anyway."},
+   {t:"Raise it again mid-meeting, louder and with more slides.",best:false,fb:"Volume against silence reads as desperation. The ask didn't fail on decibels; it needs an owner and a deadline, not a reprise."}]},
+ {id:"em1",who:"Messages & email",title:"'Fine.'",
+  prompt:`Your proposal took two evenings: eight sections, three options, a recommendation. The reply, fourteen hours later, in full: 'fine.'`,
+  mech:`CERTAINTY starved by compression — one word carrying anything from enthusiasm to dismissal. What's driving it: senior inboxes run on triage; brevity is bandwidth, not verdict.`,
+  options:[
+   {t:"Reread the thread for tone clues, then draft three interpretations of 'fine' with a friend.",best:false,fb:"Forensic analysis of four letters is anxiety cosplay as diligence. The word contains exactly no additional information — stop mining."},
+   {t:"Bank it as the approval it most likely is, confirm scope in one line — 'Great, proceeding with option B, first milestone Friday' — and move.",best:true,fb:"The confirmation line does double duty: locks the decision on record and flushes out any real objection. If 'fine' didn't mean yes, you'll hear back in minutes."},
+   {t:"Reply asking whether everything's okay with the proposal.",best:false,fb:"'Is everything okay?' converts his two-second triage into your emotional weather — and reads as needing reassurance you shouldn't need at your level."}]},
+ {id:"em2",who:"Messages & email",title:"Left on read",
+  prompt:`Your promotion case — carefully argued, personally vulnerable — shows as read two days ago. No reply. The read receipt sits there like a verdict.`,
+  mech:`CERTAINTY plus stakes: ambiguity hurts in proportion to what's riding on it. 'Read' means his eyes crossed it between meetings — not that he's drafting a rejection.`,
+  options:[
+   {t:"Follow up across channels — a Slack nudge, a mention after standup, maybe a corridor pass.",best:false,fb:"Multi-channel pursuit of a two-day silence reads as anxiety in surround sound. The case was strong; don't dilute it with chase energy."},
+   {t:"One nudge with an easy handle after a respectable interval: 'Whenever you've had a chance — happy to walk through it in 15 minutes this week.' Then park it on the worry ledger and work.",best:true,fb:"The nudge does its job once; the calendar handle makes replying frictionless. The ledger will teach you what these silences almost always were: nothing."},
+   {t:"Take the silence as the answer and start recalibrating expectations.",best:false,fb:"Two days is an inbox, not a verdict. Pre-emptive disappointment doesn't soften outcomes; it just doubles the days you feel bad."}]},
+ {id:"em3",who:"Messages & email",title:"The cc landmine",
+  prompt:`A peer replies to your email correcting a footnote — technically right, utterly minor — and adds your boss to the cc line for the occasion.`,
+  mech:`STATUS via audience engineering: the correction is the pretext, the cc is the payload. What's driving him: visibility hunger — your footnote is his stage prop.`,
+  options:[
+   {t:"Reply-all with a robust defence of the original footnote's methodology.",best:false,fb:"A footnote duel in front of your boss makes the cc gambit a success — he wanted a spectacle with you in it."},
+   {t:"Reply to him alone — 'good catch, fixed' — and let the thread die in front of the audience it was staged for.",best:true,fb:"De-escalation by de-amplification: the audience sees a non-event, which is exactly what it was. Your boss notices composure; the sniper's stage collapses quietly."},
+   {t:"Counter-cc: find his next slip and return the audience with interest.",best:false,fb:"Cc warfare has no winners, only participants — and seniors reading the crossfire remember both names, not who fired first."}]},
+ {id:"em4",who:"Messages & email",title:"The 22:47 ping",
+  prompt:`Your boss WhatsApps at 22:47: 'quick thought on the deck when you get a sec'. Not urgent. Never urgent. But the tick marks are on, and your evening is now a waiting room.`,
+  mech:`AUTONOMY over your own evening, eroded by ambient availability. What's driving her: she's clearing HER backlog at 22:47 — the timestamp is her workflow, not your deadline.`,
+  options:[
+   {t:"Reply within minutes, every time — responsiveness is your brand.",best:false,fb:"Instant replies at 23:00 train the system that you're always on — and the asks will expand to fill the availability you've advertised. Your brand becomes 'no boundaries'."},
+   {t:"Answer at 8am, consistently, unless something is flagged urgent — and let the pattern itself teach the norm. If needed once: 'Evenings I'm offline unless it's marked urgent — I'll always catch it first thing.'",best:true,fb:"Consistency is the boundary — no announcement required in most cases. The 8am reply that's crisp and complete proves the system works; most seniors adjust without ever discussing it."},
+   {t:"Reply at 23:40 with a pointed one-worder so she senses the imposition.",best:false,fb:"Passive signal, actively bad: you still worked the evening AND transmitted resentment she has to decode. Boundaries whispered in subtext protect nothing."}]},
+ {id:"em5",who:"Messages & email",title:"Misrepresented on a list",
+  prompt:`A teammate's email to a wide distribution — seniors included — describes your workstream as 'delayed pending her analysis'. Your analysis was delivered nine days ago. The heat rises as you read.`,
+  mech:`FAIRNESS and STATUS: a false record propagating at inbox speed. What's driving him: possibly a stale status doc, possibly blame-drift — either way the record needs correcting more than he needs prosecuting.`,
+  options:[
+   {t:"Reply-all with the full timeline: delivery date, read receipts, the works.",best:false,fb:"A forensic reply-all wins the fact and stages a public trial nobody asked to attend. The seniors will remember the friction longer than the timeline."},
+   {t:"Correct the record briefly and generously on the list — 'small update: that analysis landed on the 12th, happy to resend — flag anything else blocking' — then sort the real story with him directly, off-list.",best:true,fb:"Two sentences fix the record without a scent of blood; the generosity ('happy to resend') makes the correction unanswerable. The off-list conversation handles whether it was sloppiness or spin."},
+   {t:"Let it slide — people who matter know your work was done.",best:false,fb:"Wide-list errors become institutional memory with terrifying speed. 'People who matter' includes people who only know what the thread told them."}]},
+ {id:"em6",who:"Messages & email",title:"Forwarded with a '?'",
+  prompt:`Your boss forwards a client complaint about your workstream. His entire commentary: '?'. One character, infinite readings.`,
+  mech:`CERTAINTY vacuum plus STATUS threat — a complaint plus an ambiguous grunt from above is premium anxiety fuel. Decode it plainly: '?' means 'handle this and tell me what I need to know', not 'defend your existence'.`,
+  options:[
+   {t:"Reply with a thorough account of why the complaint is largely unfair.",best:false,fb:"He didn't ask whose fault it was; he asked (in one keystroke) for ownership. A defence brief answers a question nobody posed — and reads as rattled."},
+   {t:"Respond like the owner he's hoping you are: 'On it. Root cause is X, client called, fix lands Thursday — I'll confirm when done.' Short, factual, closed-loop.",best:true,fb:"The one-character forward is a delegation test. Facts, action, deadline — that's the entire correct answer, and it's also the reply that stops these forwards feeling like threats."},
+   {t:"Acknowledge with 'looking into it' and investigate thoroughly before saying more.",best:false,fb:"'Looking into it' followed by silence reads as drift precisely when he's watching. Even a holding reply needs a time-stamped next step."}]},
+ {id:"em7",who:"Messages & email",title:"The 👍 on your risk flag",
+  prompt:`You flagged a genuine delivery risk in the team channel — carefully worded, clearly serious. It received one 👍 and the conversation moved to lunch plans.`,
+  mech:`Your CERTAINTY need (is this handled or not?) met by emoji ambiguity. What's driving it: channel physics — chat flattens everything to the same weight, and a 👍 costs nothing to give.`,
+  options:[
+   {t:"Repost the risk, longer and bolder, maybe with red text.",best:false,fb:"Escalating formatting in the same channel is shouting into the same wind. The channel is the problem, not the font."},
+   {t:"Change the venue to match the stakes: put it on the next meeting agenda or book 15 minutes with the owner — 'flagging this properly because I don't think chat carried the weight.'",best:true,fb:"Serious things need synchronous venues — that's the whole lesson. Moving it deliberately also models the norm for your team: chat for coordination, meetings for risk."},
+   {t:"Drop it — you flagged it, it's on the record, your conscience is clear.",best:false,fb:"'I did technically flag it' is a post-mortem sentence. If the risk is real, the record won't matter; the outcome will."}]},
+ {id:"em8",who:"Messages & email",title:"The typo, discovered after send",
+  prompt:`You spot it eleven minutes after sending to the exec floor: 'pubic markets'. Your stomach drops through the building.`,
+  mech:`SHAME'S favourite genre: the tiny, laughable, unrecallable error. The spotlight effect is lying to you — your typo is enormous in your evening and a half-second smirk in theirs.`,
+  options:[
+   {t:"Send the correction email with an apology paragraph and a small joke to defuse it.",best:false,fb:"A paragraph-length correction of a one-letter typo gives it a second act it never earned. You'd be the only person still reading about it."},
+   {t:"Calibrate to materiality: a wrong number gets a one-line correction now; a comic typo gets nothing but your own forgiveness. Nobody archives your typos — file it under human.",best:true,fb:"The materiality test is the whole skill: correct what misleads, release what merely embarrasses. The execs have sent worse; the smirk lasted half a second; the replay loop is optional."},
+   {t:"Recall the email, resend corrected, then message the key recipients to disregard the earlier version.",best:false,fb:"The recall-resend-explain cascade is a marching band announcing what three people had scrolled past. Maximum amplification, minimum benefit."}]},
+ {id:"em9",who:"Messages & email",title:"The chat that went quiet",
+  prompt:`You posted in the team channel and the lively conversation... stopped. Twenty minutes of silence. You're now fairly sure there's a side-channel, and that it's about you.`,
+  mech:`Textbook MIND READING with a data set of one silence — chat rhythms break for a hundred reasons, and 'they've moved to talk about me' is the reading your threat system prefers, not the likeliest one.`,
+  options:[
+   {t:"Test the theory: post something minor and time the response gap.",best:false,fb:"Running experiments on your own team's chat rhythm is surveillance dressed as science — and any result will feed the story, not settle it."},
+   {t:"Treat one silence as noise; watch the pattern over days instead. If engagement genuinely sags, ask a trusted report an open question — 'how's the channel feeling lately?' — and make the main room safer, not the side rooms scarcer.",best:true,fb:"Pattern over incident is the anti-mind-reading discipline. And if there IS a side channel, the cause is safety, not conspiracy — same fix as the silent meeting: make candour cheaper where you are."},
+   {t:"Ask someone straight out whether there's a side chat about you.",best:false,fb:"The question puts them in an impossible spot and broadcasts insecurity in one move. Even a honest 'no' can't reassure the part of you that asked."}]},
+ {id:"em10",who:"Messages & email",title:"The thread heating up",
+  prompt:`The Slack exchange with your peer has gone four rounds, each sharper than the last. Colleagues are quietly watching the channel. Your next message is drafted, and it's a good one — sharp as glass.`,
+  mech:`Text strips tone and adds audience — the two ingredients that turn disagreement into performance. The drafted zinger is your flooded brain optimising for the watching room, not the outcome.`,
+  options:[
+   {t:"Send it. It's accurate, well-crafted, and he started the sharpness.",best:false,fb:"Accuracy is not the question at round five — the medium is. Zingers win channels and lose colleagues, and the audience remembers the temperature, not the scorer."},
+   {t:"Kill the arena: 'This deserves better than Slack — calling you in five.' Then be genuinely warm on the call.",best:true,fb:"Voice restores tone, removes the audience, and collapses most text-fights in ninety seconds — half these wars are two reasonable people misreading flatness as hostility. The one who moves it to a call reads as the grown-up."},
+   {t:"Stop replying mid-thread and let your silence make the point.",best:false,fb:"Pointed silence in a watched channel is its own performance — ambiguous to him, awkward for the audience, and the disagreement is still unresolved tomorrow."}]},
+ {id:"sf1",who:"Yourself",title:"Passed over",
+  prompt:`The promotion went to your peer. You found out an hour ago, and the team announcement — with clapping-hands emojis expected — is in five minutes.`,
+  mech:`STATUS wound at full depth plus a FAIRNESS audit running hot. And a timer: the next five minutes are public; the grief can be private and honoured later. Both are real; they need different rooms.`,
+  options:[
+   {t:"Skip the announcement — you can't perform enthusiasm right now and shouldn't have to.",best:false,fb:"The absence will be read with total accuracy by everyone, including the people who decide the next promotion. Five minutes of grace now buys you the privacy to feel it fully later."},
+   {t:"Deliver clean congratulations — brief, genuine, done — then take the evening for the real feelings, and book a career conversation for next week: 'What was the gap, and what's the path?' Data, not grievance.",best:true,fb:"Dignity in the moment, grief in private, strategy within the week — in that order. The gap conversation, held calm, often does more for the next cycle than the last year of work did."},
+   {t:"Congratulate him, then ask your boss today — while it's raw — why it wasn't you.",best:false,fb:"Today the question comes out as an accusation wearing a query's clothes. The same conversation next week, with the wave passed, is the one that actually gets answered."}]},
+ {id:"sf2",who:"Yourself",title:"The 2am replay",
+  prompt:`You said something slightly off in a meeting eleven hours ago. Your brain has now staged the eighty-fifth re-enactment, with commentary. It is 2:14am.`,
+  mech:`Rumination — the replay IS the re-trigger, each loop refreshing a 90-second wave that would otherwise have died before dinner. The night amplifies: at 2am every thought gains false profundity.`,
+  options:[
+   {t:"Draft the clarifying email now, while the wording is vivid.",best:false,fb:"Nothing composed at 2am should meet an audience. And the clarification would enlarge a moment that — check the evidence — nobody else has thought about since lunch."},
+   {t:"Break the loop physically: write the worry in one sentence on the pad by your bed — 'parked until 9am' — then 4-7-8 breathing until the body outvotes the brain. If it still matters at 9, it gets a thought record.",best:true,fb:"The written parking note satisfies the brain's fear of forgetting, which is half of what fuels the loop. Almost nothing survives the 9am review — daylight reprices these things brutally."},
+   {t:"Rehearse tomorrow's recovery: how you'll re-raise the point and correct the impression.",best:false,fb:"Rehearsal feels productive but it's the replay loop in a work costume — same wave, new trigger, still 2am."}]},
+ {id:"sf3",who:"Yourself",title:"The LinkedIn spiral",
+  prompt:`Twenty idle minutes on LinkedIn: a peer's promotion, a classmate's fund launch, a junior's — a JUNIOR'S — startup raise. You arrived content. You leave behind.`,
+  mech:`Comparison mechanics at industrial scale: a feed is everyone's peak spliced into one scroll, and your STATUS system can't not keep score against it. The input created the feeling — that's the whole diagnosis.`,
+  options:[
+   {t:"Counter-post: you have wins worth announcing too.",best:false,fb:"Posting from the sting means joining the machine that just processed you. Your announcement becomes someone else's 2am spiral — the wheel turns, nobody wins."},
+   {t:"Name the mechanism — 'the feed did this, not my career' — then treat any real residue as data: which post stung most? That's a signal about what you actually want. Take it to your values, and prune the scroll.",best:true,fb:"Twenty minutes ago you were content and your career was identical. The sting-audit is the useful part: envy is precise even when it's unpleasant — it points at wants your plans should know about."},
+   {t:"Keep scrolling to the bottom of the feeling — exposure is how you toughen up.",best:false,fb:"There is no bottom; the feed regenerates faster than resilience does. This isn't exposure therapy, it's just exposure."}]},
+ {id:"sf4",who:"Yourself",title:"Your error, found late",
+  prompt:`Re-checking an old model, you find it: your mistake, three weeks old, and decisions have been built on it since. Nobody knows. You could probably patch it quietly.`,
+  mech:`SHAME advocating for concealment — its favourite policy, and always its worst. The status maths is counterintuitive: disclosure done well builds more trust than the error costs.`,
+  options:[
+   {t:"Patch it quietly and adjust the numbers going forward — surfacing it now helps no one.",best:false,fb:"Quiet patches metastasise: the decisions built on the error stay uncorrected, and if it surfaces later — errors surface — the concealment becomes the story, not the mistake."},
+   {t:"Own it upward today, in the shape leaders trust: 'Found an error in the March model — here's the impact, here's the corrected view, here's what I've changed so it can't recur.' Error, impact, fix. No flagellation.",best:true,fb:"The structure does the work: impact quantified, correction attached, process improved. Delivered that way, disclosure reads as exactly the person you'd want running the model — this is 'own your misses out loud', applied to yourself."},
+   {t:"Disclose it with full ceremony — how badly you feel, how you can't believe you missed it, how you'll understand any loss of trust.",best:false,fb:"Self-flagellation makes your error everyone else's emotional labour — they end up consoling you for your mistake. State it clean; save the feelings for your journal."}]},
+ {id:"sf5",who:"Yourself",title:"The imposter at the offsite",
+  prompt:`Leadership offsite. Oxbridge accents, HBS anecdotes, someone's father who 'was at the Bank'. A familiar voice starts up: you got in through the side door, and today's the day they notice.`,
+  mech:`BELONGING alarm wearing your oldest wiring — and note whose voice the critic borrows. The evidence audit matters: you were promoted by people with complete information about your background. The side door is a story; the results are the record.`,
+  options:[
+   {t:"Stay quiet and observational today — safer to contribute once you've calibrated the room.",best:false,fb:"The spell feeds on silence: every unspoken hour confirms you don't belong at the volume everyone else talks. Calibration becomes camouflage becomes invisibility."},
+   {t:"Contribute early — first ten minutes, anything solid — and let the spell break on contact. Privately, run the audit: who hired you, who promoted you, what your book says. They're not wrong about you; the wiring is.",best:true,fb:"Early contribution is the pattern-interrupt: the room responds to your point like a point, and the imposter script loses its evidence. The audit handles the residue — feelings aren't findings."},
+   {t:"Overcorrect: drop your own credentials and biggest deals early and often.",best:false,fb:"Credential-broadcasting is the imposter voice negotiating, not defeated — and rooms like this read it instantly. Substance early beats biography loudly."}]},
+ {id:"sf6",who:"Yourself",title:"Sunday, 4pm",
+  prompt:`The weekend was good. Then, around four on Sunday, the chest tightens — the week ahead arriving early, uninvited, while you're still at lunch.`,
+  mech:`Anticipatory dread, usually an UNPROCESSED LIST rather than a real threat: the brain previews Monday because nothing is written down and everything is therefore urgent. Vagueness is the fuel.`,
+  options:[
+   {t:"Give in productively: open the laptop and work the evening so Monday feels covered.",best:false,fb:"You'd be paying Sunday's hours to buy Monday's calm — a trade that consumes the weekend that was supposed to restore you. The dread doesn't need labour; it needs specificity."},
+   {t:"Twenty contained minutes: list the week, mark the two real priorities, write Monday's first move. Then close it — the desk is shut — and do the evening ritual you'd defend for anyone else.",best:true,fb:"The dread is almost always the unwritten list. Twenty minutes converts fog into items, and items are survivable. The hard close after matters as much as the list — detachment is the skill."},
+   {t:"Distract through it: the tightness fades once the film starts.",best:false,fb:"Distraction mutes the alarm without reading the message, so it re-fires at bedtime with interest. Process first, then the film actually works."}]},
+ {id:"sf7",who:"Yourself",title:"The hollow win",
+  prompt:`The number you chased for two years landed this week. Bonus, title, the congratulations. You feel... administrative. A flicker, then inbox.`,
+  mech:`Arrival fallacy: goal-chasing brains treat targets as happiness futures, then reprice instantly on delivery. The flatness isn't ingratitude or brokenness — it's how the machinery works when wins go unmarked and unexamined.`,
+  options:[
+   {t:"Set the next, bigger target today — momentum is the point and flatness proves you're built for more.",best:false,fb:"That's the exact treadmill setting that made this win weightless. Stacking targets without marking arrivals guarantees the next one lands hollow too."},
+   {t:"Mark it deliberately — the dinner, the call to the person who believed early, the thing you said you'd do 'when this lands' — and then sit with the useful question: which parts of the CHASE fed you? Those, not the number, are what the next goal should be built from.",best:true,fb:"Celebration isn't indulgence; it's how wins get metabolised. And the chase-audit reroutes ambition toward what actually generated the aliveness — craft, the team, the build — before the next number gets picked by default."},
+   {t:"Take the flatness as the verdict: the ladder's against the wrong wall, time to rethink everything.",best:false,fb:"One unmarked win is thin evidence for demolition. Mark it, mine it, THEN ask the wall question with real data — the Steel course's values lesson, not a Tuesday crisis."}]},
+ {id:"sf8",who:"Yourself",title:"The wrong target",
+  prompt:`Brutal call at 4. At 4:20 you were short with the barista; at 4:40 you snapped at a junior over a formatting nit. Neither of them was on the call. You caught yourself in the lift, ashamed.`,
+  mech:`Pressure transmission, one hop downstream: the charge from the call discharged onto whoever was nearest and safest. The shame you feel is actually good sensor data — it caught the pattern within the hour.`,
+  options:[
+   {t:"Let it go — everyone has days; they'll understand, and revisiting it makes it weird.",best:false,fb:"Unrepaired snaps compound quietly: the junior now carries a data point about you that a ten-second repair would have deleted. Small ruptures are cheap to fix only while fresh."},
+   {t:"Repair fast and plainly — 'that was my afternoon landing on you, not your work; sorry' — then trace the circuit: where did the charge come from, and what's your discharge move for next time? A walk before re-entering the floor. A Reset in the lift.",best:true,fb:"The repair costs ten seconds and models everything: pressure gets owned, not relayed. The trace is what stops the rerun — you can't uncatch the call, but the block-walk before the floor is a choice available every time."},
+   {t:"Over-repair: apologise today, again tomorrow, and once more with coffee on Thursday.",best:false,fb:"The triple apology converts your discomfort into their burden — now they're managing your guilt. One clean repair, then behave differently. Done."}]},
+ {id:"sf9",who:"Yourself",title:"The reflex yes",
+  prompt:`'Can you take the Zurich workshop too?' 'Of course.' The yes was out before the calendar loaded. Tonight, looking at the week, you understand what you agreed to — and who'll pay for it.`,
+  mech:`People-pleasing wiring: the yes protects the moment's harmony by mortgaging the week — a tiny RELATEDNESS win purchased with AUTONOMY. The skill isn't never agreeing; it's noticing the reflex has a signature.`,
+  options:[
+   {t:"Deliver it — a yes is a yes, and renegotiating looks flaky.",best:false,fb:"Delivering resentfully costs more than the awkward correction: the work arrives thin, the resentment leaks sideways, and the reflex gets reinforced for next time."},
+   {t:"Renegotiate early, while it's cheap: 'I said yes too fast — looking at the week, here's what's possible: Zurich OR the pitch prep at full quality, or Zurich with the analysis pushed to Monday. Your call.' Then install the buffer: 'let me check the calendar' as your default reply.",best:true,fb:"A correction within a day reads as diligence; the same correction on deadline eve reads as failure. And the calendar-check phrase is the structural fix — it inserts five seconds between the ask and your wiring."},
+   {t:"Keep the yes but quietly trim scope on something else to make room.",best:false,fb:"The silent trade means someone downstream gets surprise-shortchanged without a decision ever being made. Trades are fine — invisible ones aren't."}]},
+ {id:"sf10",who:"Yourself",title:"The pool with a phone in it",
+  prompt:`First real leave in a year. Day two, and you've checked the phone eleven times before noon. The handover was thorough. The team is fine. Your thumb disagrees.`,
+  mech:`Detachment failure with a physiological engine: a year of vigilance doesn't switch off at the gate — checking IS the withdrawal symptom. The vigilance was adaptive at the desk; at the pool it's just the habit outliving its habitat.`,
+  options:[
+   {t:"Compromise: work a light hour each morning to stay calm for the rest of the day.",best:false,fb:"The workation hour re-arms the vigilance daily — you'd be taking eleven small doses of the desk. Recovery research is blunt: partial detachment restores almost nothing."},
+   {t:"Structure the detox: one defined check window (or none) agreed with your deputy, notifications off outside it, phone physically elsewhere at the pool. Expect the twitchiness for two days — it's withdrawal, and it passes.",best:true,fb:"The defined window satisfies the vigilance system without feeding it — 'the check is at 5pm' quiets the thumb at noon. By day four the twitch fades and actual restoration starts. This is rest as a skill, practised."},
+   {t:"Cold turkey with willpower: phone in the safe, white knuckles at the pool.",best:false,fb:"Willpower against wiring loses by day three — and the anxiety of total blackout can outcost the checking. Structure beats abstinence: a window, a deputy, a taper."}]},
+ {id:"ow1",who:"Out in the world",title:"The Central line shove",
+  prompt:`Rush hour. A shoulder catches you hard boarding at Bank — no glance back, no apology, gone into the crowd. The surge arrives instantly, absurdly large for what happened.`,
+  mech:`A FAIRNESS-and-STATUS microdose: anonymous disrespect with no venue for redress — which is exactly why it burns; the account can never be settled. The 90-second wave, in its purest lab conditions.`,
+  options:[
+   {t:"Catch up and make the point — people shouldn't get away with that.",best:false,fb:"A confrontation with a stranger over a shove has no winning outcome: best case an empty apology, worst case an incident. The account you'd be settling doesn't exist to them."},
+   {t:"Let the wave be a wave: name it — 'that's anger, fair enough' — breathe out long, and let the walk from the platform metabolise it. It was weather; you were rained on.",best:true,fb:"This is the cheapest 90-second practice rep the city offers — no relationship at stake, pure wave-riding. Handled here, the skill is warmer when it matters at 2pm with an MD."},
+   {t:"Replay it up the escalator, compose the retort you didn't make, arrive at the office still boarding that train.",best:false,fb:"The stranger spent zero seconds on this; the replay bills you for twenty minutes. Whoever you greet first at the office inherits the residue."}]},
+ {id:"ow2",who:"Out in the world",title:"The queue jumper",
+  prompt:`Pret, 12:40, queue out the door. Someone slides in three places ahead with practised nonchalance. Nobody says anything. The injustice is microscopic and somehow enormous.`,
+  mech:`FAIRNESS again — the button fires identically for queue theft and credit theft; only the stakes differ. Useful data: your fairness sensitivity is calibrated hot, which serves you in deals and taxes you at lunch.`,
+  options:[
+   {t:"Announce it to the room: 'Excuse me, the queue is back THERE.'",best:false,fb:"Public prosecution over ninety seconds of queue time — the room's discomfort will outweigh the justice, and your heart rate pays either way."},
+   {t:"Choose deliberately: one calm line — 'mate, queue's back there' — if it matters to you today, or a conscious let-it-go if it doesn't. The key is CHOOSING, not swallowing.",best:true,fb:"Both options are composure when chosen; only the involuntary swallow-and-seethe costs you. Chosen tolerance and chosen assertion are the same skill wearing different coats."},
+   {t:"Say nothing and prosecute him silently through your entire sandwich.",best:false,fb:"The unspoken version is the expensive one: he's forgotten you exist and you're still holding court at 1:15. Speak or release — the middle path is where the tax lives."}]},
+ {id:"ow3",who:"Out in the world",title:"Gate C47, cancelled",
+  prompt:`The red-eye to Zurich is cancelled — client meeting at nine tomorrow. The gate agent has a queue of forty and control over none of it. The man ahead of you is already shouting.`,
+  mech:`CERTAINTY and AUTONOMY vaporised at once — trapped, late, powerless. And a live demonstration ahead of you: the shouter is negotiating with the one person present who didn't cancel anything.`,
+  options:[
+   {t:"When your turn comes, make the stakes vivid — this meeting matters more than a leisure trip; press hard.",best:false,fb:"The agent can't weigh your meeting against anyone's anything — she has a rebooking screen and a queue. Pressure spends her goodwill, which is the only currency at this desk."},
+   {t:"Run parallel tracks: on the app and with your travel desk while queueing, then give the agent the easiest case of her hour — 'I know none of this is yours; here's what would save me: anything landing Zurich by 8.' Warm, specific, brief.",best:true,fb:"Kindness-as-strategy is real: agents quietly do more for the civil ones, and the parallel rebooking usually wins the race anyway. Save the feedback for the airline survey; the person at the desk is not the airline."},
+   {t:"Accept doom: the meeting's blown, draft the apologetic email from the queue.",best:false,fb:"Catastrophe declared before options explored — there are two other airlines, a 6am, and a train. Forecast after the facts, not before."}]},
+ {id:"ow4",who:"Out in the world",title:"The wrong dish, mid-pitch",
+  prompt:`Client dinner, the relationship kind. Your main arrives wrong — properly wrong. The conversation is flowing, the client mid-story, the waiter hovering with a question mark.`,
+  mech:`A tiny AUTONOMY blip against a large context: the dinner's actual purpose is trust, and everything at the table — including how you treat a wrong plate — is content.`,
+  options:[
+   {t:"Handle it properly but discreetly: pause, explain the error to the waiter, get it re-fired.",best:false,fb:"Even a polite correction inserts a fifteen-minute asymmetry — the client eating while you wait — and moves the table's attention to logistics. High cost for a plate."},
+   {t:"Wave it through with a smile and stay in the conversation — the dinner is the meal.",best:true,fb:"The client's story doesn't get interrupted, and what the table registers is someone unbothered by small friction — which is quietly excellent content. You can eat properly tomorrow; the trust is tonight."},
+   {t:"Make it a lightly comic bit with the waiter to show you're easy-going.",best:false,fb:"The performance of easy-going is not easy-going — it still redirects the room to your plate and your bit. The genuinely unbothered version needs no audience."}]},
+ {id:"ow5",who:"Out in the world",title:"The near-miss",
+  prompt:`Cycling in, a cab pulls out without looking — you brake into a skid, heart slamming, inches from real damage. The driver shrugs. You arrive at the office six minutes later, fully flooded, first meeting at nine.`,
+  mech:`This isn't metaphorical threat — it's the survival system doing its actual job, and the adrenaline is fully justified. The risk is transmission: a body in genuine fight-or-flight walking straight into a budget discussion.`,
+  options:[
+   {t:"Straight to the desk — coffee, emails, the meeting. Motion will burn it off.",best:false,fb:"Desk adrenaline doesn't burn off; it re-targets. The first ambiguous email becomes the cab, and someone innocent takes the horn you didn't get to sound."},
+   {t:"Give the chemistry its exit before the floor: two minutes walking the block, physiological sighs, name it — 'near-miss, system did its job, standing down.' THEN the lift.",best:true,fb:"Completing the stress cycle takes minutes when you do it deliberately and hours when you don't. The block-walk is the difference between arriving as yourself and arriving as the skid."},
+   {t:"Recount it vividly to the first three colleagues you see, driver's shrug included.",best:false,fb:"One telling is discharge; three tellings is rehearsal — each rerun re-fires the wave. Tell it once, then let the walk do the rest."}]},
+ {id:"ow6",who:"Out in the world",title:"The 1am bassline",
+  prompt:`Your neighbour's party finds its second wind at 1am. Presentation at nine. The bassline is now personally addressed to you, and you're composing wall-bangs of increasing eloquence.`,
+  mech:`AUTONOMY (your sleep hostage), FAIRNESS (their fun, your bill) — amplified by night-brain, which converts nuisance into persecution and tomorrow's meeting into ruins-in-advance.`,
+  options:[
+   {t:"Doorstep them now, at 1am, in the state you're in.",best:false,fb:"A flooded confrontation with a party crowd at 1am has every bad ending and no good one. The doorstep conversation exists — it's tomorrow's, sober and daylit."},
+   {t:"Solve tonight tactically — earplugs, white noise, the far room — and decouple the catastrophe: you've presented well on short sleep before. Tomorrow, one civil doorstep line: 'heads-up when it's a late one, and Thursdays are brutal for me.'",best:true,fb:"Tonight is triage, tomorrow is diplomacy — separating the two is the skill. And the sleep-catastrophe deflation matters: the presentation dies from doom-forecasting at 1:30, not from the bassline."},
+   {t:"Lie there prosecuting them, checking the clock at 1:40, 2:10, 2:35 — filing each timestamp as evidence.",best:false,fb:"The clock-checking ritual is co-hosting their party from your bed. The earplugs are IN THE DRAWER. Rage is optional; the drawer is right there."}]},
+ {id:"ow7",who:"Out in the world",title:"Your friend and the waiter",
+  prompt:`Dinner with friends. The food's slow, and one of your group starts in on the waiter — sarcastic, sharp, enjoying it slightly. The waiter is about nineteen. Your toes curl.`,
+  mech:`Vicarious SHAME plus a values collision: someone at your table is spending status on the one person who can't spend it back. Complicity is the quiet risk — the waiter experiences 'the table', not the individual.`,
+  options:[
+   {t:"Stay out of it — not your conversation, and correcting a friend publicly breaks its own rule.",best:false,fb:"Half right — no public correction — but full silence makes the table unanimous. The waiter needs a counter-signal from SOMEONE, and counter-signals don't require confrontation."},
+   {t:"Counter-signal in real time — warm eye contact, 'no rush at all, thanks so much' — visibly tip well, and if it's a pattern, one private word later: 'you're better than how that landed.'",best:true,fb:"You repair the waiter's ledger without prosecuting your friend at the table — kindness as a counterweight rather than a courtroom. The private word, friend-to-friend, is where the actual correction lives."},
+   {t:"Call it at the table: 'Mate, don't take it out on him.'",best:false,fb:"Public correction converts embarrassment into a standoff — your friend defends the sarcasm to save face, the waiter becomes the arena, dinner curdles. Same message travels better in private."}]},
+ {id:"ow8",who:"Out in the world",title:"The quiet carriage",
+  prompt:`The 7:14, quiet carriage, clearly marked. A man settles in and starts a speakerphone call of magnificent volume and no urgency. Every third passenger performs a sigh. Nobody speaks.`,
+  mech:`FAIRNESS at commuter scale — a rule you honour, flouted at your expense — plus the peculiar rage of collective silence: everyone waiting for someone else to be the enforcement.`,
+  options:[
+   {t:"Deploy the escalating stare-and-sigh repertoire until he senses the carriage's judgement.",best:false,fb:"Passive signalling is invisible to phone-callers by definition — the audience seethes for forty minutes and he exits unaware anyone existed. Maximum cost, zero delivery."},
+   {t:"Decide the price and act once: either one civil line — 'quiet carriage, would you mind?' — delivered friendly, or headphones and a genuine release. Renting him forty minutes of your head is the only losing trade.",best:true,fb:"Most people comply instantly when asked pleasantly — the ask is cheaper than the resentment. And if you choose headphones instead, choose them fully: released is released."},
+   {t:"Hold the principle: you shouldn't NEED headphones in the quiet carriage — someone must uphold the standard, silently and bitterly.",best:false,fb:"'Shouldn't need to' is correct and useless — the standard isn't being upheld by your suffering; it's just suffering. Principles need enforcement or release, and glaring is neither."}]}];
 
 // Test-your-knowledge quizzes, one per course.
 const QUIZZES={
@@ -742,6 +1302,7 @@ const MILESTONES=[
  {id:"script-1",t:"Said It Cleanly",d:"Built a difficult-conversation script",i:"🗣️",f:s=>s.journal.some(j=>j.kind==="Script")},
  {id:"worry-5",t:"Calibrated",d:"Reviewed 5 parked worries",i:"⚖️",f:s=>(s.worries||[]).filter(w=>w.status!=="open").length>=5},
  {id:"gym-10",t:"Sparring Partner",d:"Practised 10 gym scenarios",i:"🎭",f:s=>(s.gymDone||[]).length>=10},
+ {id:"gym-50",t:"Ring General",d:"Practised 50 gym scenarios",i:"🥋",f:s=>(s.gymDone||[]).length>=50},
  {id:"quiz-3",t:"Examined",d:"Scored 75%+ on 3 course quizzes",i:"🎓",f:s=>Object.values(s.quizScores||{}).filter(q=>q.best/q.total>=0.75).length>=3},
  {id:"course-all",t:"Samatva",d:"Completed every course",i:"🏛️",f:s=>COURSES.every(c=>c.lessons.every(l=>s.done.includes(l.id)))}];
 
@@ -870,6 +1431,7 @@ function render(){
   else if(nav.page==="med") html=viewMed(nav.p.id);
   else if(nav.page==="review") html=viewReview();
   else if(nav.page==="gym") html=viewGym();
+  else if(nav.page==="gymgroup") html=viewGymGroup(nav.p.who);
   else if(nav.page==="gymrun") html=viewGymRun(nav.p.id);
   else if(nav.page==="quiz") html=viewQuiz(nav.p.id);
   else if(nav.page==="unwind") html=viewUnwind();
@@ -1376,40 +1938,63 @@ function completeLesson(cid,lid){
 }
 
 /* ---------- Scenario gym ---------- */
-const GYM_GROUPS=["Your boss","A peer","Your team","A client","Family","Partner & friends"];
+const GYM_GROUPS=[
+ ["Your boss","👔"],["A peer","🤝"],["Your team","👥"],["A client","💼"],
+ ["Meetings & politics","🏛️"],["Messages & email","📨"],
+ ["Family","🏠"],["Partner & friends","❤️"],
+ ["Yourself","🪞"],["Out in the world","🌆"]];
 function viewGym(){
+  const nextUp=GYM.find(x=>!S.gymDone.includes(x.id));
   return `<button class="back" onclick="goTab('learn')">‹ Learn</button>
   <h1 style="margin-top:2px">Scenario gym</h1>
-  <p class="sub" style="margin:-6px 2px 12px">The hardest moments are other people. Each scenario names what their action pressed in you — and what's likely driving them. ${S.gymDone.length}/${GYM.length} practised.</p>`+
-  GYM_GROUPS.map(g=>{
+  <p class="sub" style="margin:-6px 2px 12px">The hardest moments are other people. ${GYM.length} scenarios — each one names what their action pressed in you, and what's likely driving them.</p>
+  ${nextUp?`<button class="btn" style="margin-bottom:14px" onclick="gymSurprise()">🎲 Surprise me — ${S.gymDone.length}/${GYM.length} practised</button>`
+          :`<div class="card center"><b>All ${GYM.length} practised.</b><div class="sub">Retake any — the reps are the point.</div></div>`}
+  ${GYM_GROUPS.map(([g,icon])=>{
     const items=GYM.filter(x=>x.who===g);
     if(!items.length) return "";
-    return `<div class="eyebrow" style="margin:12px 2px 8px">${g}</div>`+
-      items.map(x=>`<button class="tap card" onclick="goPage('gymrun',{id:'${x.id}'})"><div class="row">
-        <span style="flex:none; width:24px; text-align:center; color:${S.gymDone.includes(x.id)?"var(--moss)":"var(--faint)"}">${S.gymDone.includes(x.id)?"✓":"·"}</span>
-        <div class="grow"><b style="font-size:15px">${x.title}</b></div>
-        <span class="chev">›</span></div></button>`).join("");
-  }).join("");
+    const done=items.filter(x=>S.gymDone.includes(x.id)).length;
+    return `<button class="tap card" onclick="goPage('gymgroup',{who:'${g.replace(/'/g,"\'")}'})"><div class="row">
+      <span class="icon">${icon}</span>
+      <div class="grow"><h3>${g}</h3><div class="tiny">${done} of ${items.length} practised</div></div>
+      <span class="chev">›</span></div></button>`;
+  }).join("")}`;
 }
+function gymSurprise(){
+  const pool=GYM.filter(x=>!S.gymDone.includes(x.id));
+  const g=pool[Math.floor(Math.random()*pool.length)]||GYM[Math.floor(Math.random()*GYM.length)];
+  goPage('gymrun',{id:g.id});
+}
+function viewGymGroup(who){
+  const items=GYM.filter(x=>x.who===who);
+  return `<button class="back" onclick="goPage('gym')">‹ Scenario gym</button>
+  <h1 style="margin-top:2px">${who}</h1>`+
+  items.map(x=>`<button class="tap card" onclick="goPage('gymrun',{id:'${x.id}'})"><div class="row">
+    <span style="flex:none; width:24px; text-align:center; color:${S.gymDone.includes(x.id)?"var(--moss)":"var(--faint)"}">${S.gymDone.includes(x.id)?"✓":"·"}</span>
+    <div class="grow"><b style="font-size:15px">${x.title}</b></div>
+    <span class="chev">›</span></div></button>`).join("");
+}
+let gymOrder=[];
 function viewGymRun(id){
   const g=GYM.find(x=>x.id===id);
-  return `<button class="back" onclick="goPage('gym')">‹ Scenario gym</button>
-  <div class="eyebrow" style="margin:4px 2px 6px">${g.who}</div>
-  <h1 style="margin:0 2px 12px">${g.title}</h1>
+  gymOrder=g.options.map((_,i)=>i).sort(()=>Math.random()-0.5);
+  return `<button class="back" onclick="goPage('gymgroup',{who:'${g.who.replace(/'/g,"\'")}'})">‹ ${g.who}</button>
+  <h1 style="margin:4px 2px 12px">${g.title}</h1>
   <div class="card">
     <p style="font-size:15px; line-height:1.55; margin:0 0 4px">${g.prompt}</p>
-    ${g.options.map((o,i)=>`<button class="opt" id="gopt-${i}" onclick="gymPick('${id}',${i})">${o.t}</button>`).join("")}
+    ${gymOrder.map((oi,pos)=>`<button class="opt" id="gopt-${pos}" onclick="gymPick('${id}',${pos})">${g.options[oi].t}</button>`).join("")}
     <div id="gym-fb"></div>
   </div>
   <div id="gym-after"></div>`;
 }
-function gymPick(id,i){
+function gymPick(id,pos){
   const g=GYM.find(x=>x.id===id);
-  const o=g.options[i];
-  g.options.forEach((_,j)=>{
-    const el=document.getElementById("gopt-"+j);
+  const o=g.options[gymOrder[pos]];
+  gymOrder.forEach((oi,p2)=>{
+    const el=document.getElementById("gopt-"+p2);
     el.disabled=true;
-    if(j===i) el.classList.add(o.best?"best":"notbest");
+    if(p2===pos) el.classList.add(o.best?"best":"notbest");
+    else if(g.options[oi].best&&!o.best) el.classList.add("best");
   });
   const best=g.options.find(x=>x.best);
   document.getElementById("gym-fb").innerHTML=`<div style="margin-top:12px">
@@ -1417,13 +2002,15 @@ function gymPick(id,i){
     <p class="sub" style="margin:5px 0 0; font-size:14px">${o.fb}</p>
     ${!o.best?`<p style="font-size:14px; margin:8px 0 0"><b>Stronger move:</b> ${best.t}</p>`:""}</div>`;
   if(!S.gymDone.includes(id)){ S.gymDone.push(id); save(); }
-  const next=GYM.find(x=>!S.gymDone.includes(x.id));
+  const inGroup=GYM.find(x=>x.who===g.who&&!S.gymDone.includes(x.id));
+  const anywhere=GYM.find(x=>!S.gymDone.includes(x.id));
+  const next=inGroup||anywhere;
   document.getElementById("gym-after").innerHTML=`
     <div class="card">
       <div class="eyebrow" style="color:var(--indigo); margin-bottom:6px">What just happened in you</div>
       <p style="font-size:14.5px; line-height:1.55; margin:0">${g.mech}</p>
     </div>
-    ${next?`<button class="btn" onclick="goPage('gymrun',{id:'${next.id}'})">Next scenario</button>`
+    ${next?`<button class="btn" onclick="goPage('gymrun',{id:'${next.id}'})">Next scenario${inGroup?"":" (new arena)"}</button>`
           :`<button class="btn moss" onclick="goPage('gym')">All ${GYM.length} practised — back to the gym</button>`}`;
 }
 
