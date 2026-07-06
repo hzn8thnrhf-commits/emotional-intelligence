@@ -396,7 +396,7 @@ function load(){
   try{ S=JSON.parse(localStorage.getItem("samatva"))||null; }catch(e){ S=null; }
   if(!S) S={name:"",onboarded:false,checkIns:[],journal:[],done:[],calmSec:0,reframes:0,resets:0};
 }
-function save(){ localStorage.setItem("samatva",JSON.stringify(S)); }
+function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 load();
 
 let nav={tab:"today",page:null,p:{}};
