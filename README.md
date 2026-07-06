@@ -26,6 +26,10 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 Many lessons end with an interactive scenario — a realistic moment (an MD dismissing your team's work, an analyst quietly slipping, restructuring rumours) where you choose a response and get honest feedback on it.
 
+**Audio & voice** — spoken guidance throughout, using the device's built-in speech engine (free, on-device, private — no downloads, nothing sent anywhere): breathing exercises and Resets speak their cues, every lesson has a "Listen" button that reads it aloud, and four guided meditations (Arrive · Before the storm · Leaves on a stream · The evening line) play as timed, spoken scripts. Toggle in Settings → Voice guidance.
+
+**Worth keeping** — light spaced repetition: one takeaway from your completed lessons resurfaces on Today each day, so lessons compound instead of fading.
+
 **Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided CBT thought record with intensity ratings and evidence weighing; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
 
 **Reflect** — your mood over the last 14 days, a cross-tool insight engine (your most frequent cognitive distortion with the lesson aimed at it, average intensity drop across thought records, what percentage of parked worries never happened, which emotion travels with which trigger), a private journal, and quiet milestones.

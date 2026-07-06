@@ -112,6 +112,13 @@ input[type=range]{width:100%; accent-color:var(--teal);}
   color:#fff; font-family:ui-serif,Georgia,serif; font-size:19px;
   transform:scale(.55); transition:transform 4s ease-in-out;
 }
+.medorb{
+  width:190px; height:190px; border-radius:50%; margin:34px auto 20px;
+  background:radial-gradient(circle at 42% 38%, var(--teal-soft,#5a98a3), var(--indigo));
+  opacity:.92; transform:scale(.82);
+}
+.medorb.on{animation:medpulse 9s ease-in-out infinite;}
+@keyframes medpulse{0%,100%{transform:scale(.82)} 50%{transform:scale(1)}}
 .tabbar{
   position:fixed; bottom:0; left:0; right:0; z-index:30;
   background:var(--card); border-top:1px solid var(--line);
@@ -450,6 +457,55 @@ const PATTERNS={
  f478:{name:"4-7-8 wind-down",sub:"For the end of the day, or 2am thoughts",phases:[["Breathe in",4,1],["Hold",7,1],["Slow exhale",8,.55]]},
  coherent:{name:"Coherent 5.5",sub:"Five minutes to an even keel",phases:[["Breathe in",5.5,1],["Breathe out",5.5,.55]]}};
 
+// Guided meditations: scripted lines with timed pauses, spoken via on-device voice.
+const MEDITATIONS=[
+ {id:"arrive",title:"Arrive",sub:"Land between meetings",min:3,icon:"🧘",script:[
+  ["Sit back, and let the chair take your full weight.",8],
+  ["Close your eyes if you can. One slow breath in through the nose… and a long breath out.",12],
+  ["Let the shoulders drop away from the ears. Unclench the jaw.",10],
+  ["Notice three points of contact. Your feet on the floor.",8],
+  ["Your seat in the chair.",8],
+  ["Your hands, resting.",10],
+  ["There is nothing to solve for the next few minutes. The inbox will keep.",12],
+  ["Breathe in for four… and out for six. I'll be quiet while you take five of those.",40],
+  ["If the mind has wandered to the next meeting, that's fine. Just come back to the breath. No verdict.",15],
+  ["Notice the body again. Heavier now. Softer at the edges.",12],
+  ["One more slow breath in… and all the way out.",12],
+  ["When you're ready, open your eyes. Carry this pace into whatever comes next.",8]]},
+ {id:"storm",title:"Before the storm",sub:"Two minutes before a hard meeting",min:2,icon:"🌩️",script:[
+  ["Stand or sit tall. One breath in… and a long, slow breath out.",10],
+  ["This meeting is one hour of one day. You have prepared what can be prepared.",10],
+  ["Name your intention silently. What does a good outcome look like?",15],
+  ["Now the spike. What's most likely to trigger you in there? See it happening — and see yourself pausing, taking a sip of water, staying level.",20],
+  ["You cannot control the room. You can control your pace, your breath, and your next sentence.",12],
+  ["Two more slow breaths. In… and out.",14],
+  ["In… and out.",14],
+  ["Walk in slow. Speak slow. You're ready.",6]]},
+ {id:"leaves",title:"Leaves on a stream",sub:"Defusion practice — you are not your thoughts",min:5,icon:"🍃",script:[
+  ["Settle in. Eyes closed if you can. A slow breath in… and out.",12],
+  ["Picture a stream. Water moving steadily. Leaves drifting past on the surface.",14],
+  ["Now, watch your mind. When a thought arrives — any thought — place it on a leaf, and let the stream carry it.",16],
+  ["A thought about work. On a leaf. Watch it drift.",14],
+  ["A worry about tomorrow. On a leaf.",14],
+  ["A judgement about how you're doing at this exercise — that's a thought too. On a leaf.",16],
+  ["You don't have to push the leaves. The stream does the work. Your only job is noticing.",16],
+  ["I'll be quiet for a while. Keep placing thoughts on leaves.",45],
+  ["If you drifted downstream with a thought, that's normal. Climb back onto the bank and watch again.",18],
+  ["Quiet again. Just watching.",40],
+  ["Last few moments. Notice — thoughts kept coming, and you kept being the one watching them. You are not your thoughts.",16],
+  ["A deeper breath in… and out. Open your eyes.",8]]},
+ {id:"evening",title:"The evening line",sub:"Close the day so it doesn't follow you home",min:4,icon:"🌆",script:[
+  ["This is the line between the desk and the rest of your life. Sit comfortably.",10],
+  ["Breathe in for four… hold for four… and out for eight. Twice more, at your own pace.",30],
+  ["Bring the day to mind — not to fix it. Just to see it. The meetings. The messages. The moments.",18],
+  ["Pick the hardest moment. Look at it once, plainly. It happened. It's over now.",16],
+  ["Now pick one thing you handled well — there is always one. Let it count.",16],
+  ["Whatever is unfinished will still be there tomorrow, and tomorrow-you will handle it. It doesn't need tonight.",16],
+  ["Say silently — the desk is closed.",12],
+  ["Feel the body. Shoulders down. Jaw loose. Breath slow.",14],
+  ["The evening is yours now. Not the quarter's. Not the deal's. Yours.",12],
+  ["One more long breath out… and open your eyes.",8]]}];
+
 const DISTORTIONS=[
  ["Mind reading",`"He thinks I'm not up to it" — you don't actually know.`],
  ["Catastrophising","One miss becomes a ruined career by step three."],
@@ -488,6 +544,7 @@ function load(){
   if(!S.worries) S.worries=[];
   if(!S.resetLog) S.resetLog=[];
   if(!S.profile) S.profile=[];
+  if(S.voice===undefined) S.voice=true;
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 function effectiveTheme(){
@@ -508,8 +565,68 @@ applyTheme();
 
 let nav={tab:"today",page:null,p:{}};
 function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function goTab(t){ stopBreath(); nav={tab:t,page:null,p:{}}; render(); window.scrollTo(0,0); }
-function goPage(pg,p){ stopBreath(); nav.page=pg; nav.p=p||{}; render(); window.scrollTo(0,0); }
+function goTab(t){ stopAllAudio(); nav={tab:t,page:null,p:{}}; render(); window.scrollTo(0,0); }
+function goPage(pg,p){ stopAllAudio(); nav.page=pg; nav.p=p||{}; render(); window.scrollTo(0,0); }
+
+/* ---------- Voice (on-device speech synthesis — free, private, no network) ---------- */
+const TTS={
+  enabled:("speechSynthesis" in window),
+  voice:null,
+  pick(){
+    if(!this.enabled) return;
+    const vs=speechSynthesis.getVoices();
+    this.voice=
+      vs.find(v=>/en(-|_)GB/i.test(v.lang)&&/kate|serena|sonia|stephanie|martha|female/i.test(v.name))||
+      vs.find(v=>/en(-|_)GB/i.test(v.lang))||
+      vs.find(v=>/^en/i.test(v.lang))||null;
+  },
+  speak(text,rate){
+    if(!this.enabled||!text) return null;
+    const u=new SpeechSynthesisUtterance(text);
+    if(this.voice) u.voice=this.voice;
+    u.rate=rate||0.95;
+    speechSynthesis.speak(u);
+    return u;
+  },
+  stop(){ if(this.enabled) speechSynthesis.cancel(); }
+};
+if(TTS.enabled){ TTS.pick(); speechSynthesis.onvoiceschanged=()=>TTS.pick(); }
+
+let reading=false;
+function stopAllAudio(){
+  stopBreath(); stopMed(); TTS.stop(); reading=false;
+}
+
+// Read a full lesson aloud: sections, takeaways, reflection prompt.
+function toggleRead(lid){
+  if(!TTS.enabled) return;
+  const btn=document.getElementById("read-btn");
+  if(reading){
+    TTS.stop(); reading=false;
+    if(btn) btn.textContent="🔊 Listen to this lesson";
+    return;
+  }
+  const l=COURSES.flatMap(c=>c.lessons).find(x=>x.id===lid);
+  reading=true;
+  if(btn) btn.textContent="⏹ Stop listening";
+  TTS.stop();
+  const parts=[
+    l.title+".",
+    ...l.sections.flatMap(s=>[s[0]+".", s[1]]),
+    "To keep. "+l.take.join(" … "),
+    "To reflect on. "+l.reflect
+  ];
+  parts.forEach((p,i)=>{
+    const u=TTS.speak(p,0.95);
+    if(u&&i===parts.length-1){
+      u.onend=()=>{
+        reading=false;
+        const b=document.getElementById("read-btn");
+        if(b) b.textContent="🔊 Listen to this lesson";
+      };
+    }
+  });
+}
 
 function todayCheckIn(){
   const t=new Date().toDateString();
@@ -537,6 +654,7 @@ function render(){
   else if(nav.page==="ground") html=viewGround();
   else if(nav.page==="reframe") html=viewReframe();
   else if(nav.page==="prepare") html=viewPrepare();
+  else if(nav.page==="med") html=viewMed(nav.p.id);
   else if(nav.page==="script") html=viewScript();
   else if(nav.page==="worries") html=viewWorries();
   else if(nav.page==="decompress") html=viewDecompress();
@@ -627,6 +745,23 @@ function suggestionCard(){
     </div></div>`;
 }
 
+// Spaced resurfacing: one takeaway per day, rotating through completed lessons,
+// so what you've learned keeps coming back instead of fading.
+function keeperCard(){
+  const pool=[];
+  COURSES.forEach(c=>c.lessons.forEach(l=>{
+    if(S.done.includes(l.id)) l.take.forEach(t=>pool.push([t,l.title]));
+  }));
+  if(!pool.length) return "";
+  const day=Math.floor(Date.now()/86400000);
+  const k=pool[day%pool.length];
+  return `<div class="card" style="margin-top:12px">
+    <div class="eyebrow" style="color:var(--moss); margin-bottom:6px">Worth keeping</div>
+    <p class="quote" style="margin:0 0 6px">${k[0]}</p>
+    <div class="tiny">from “${k[1]}” · a takeaway from your completed lessons resurfaces here each day</div>
+  </div>`;
+}
+
 function viewToday(){
   const day=Math.floor(Date.now()/86400000);
   const q=QUOTES[day%QUOTES.length];
@@ -674,6 +809,7 @@ function viewToday(){
     <button class="tap card" onclick="goPage('ground')"><div style="font-size:22px">✋</div><div style="font-size:13px; font-weight:600; margin-top:4px">Ground</div></button>
     <button class="tap card" onclick="goPage('decompress')"><div style="font-size:22px">🌙</div><div style="font-size:13px; font-weight:600; margin-top:4px">Decompress</div></button>
   </div>
+  ${keeperCard()}
   <div class="card" style="margin-top:12px">
     <div class="quote">“${q[0]}”</div>
     <div class="tiny" style="margin-top:6px">— ${q[1]}</div>
@@ -737,6 +873,7 @@ function rsStart(k){ rs.k=k; rs.i=0; rs.left=RESETS[k].steps[0][0]; rsTick(true)
 function rsTick(first){
   if(!first){ rs.left--; if(rs.left<=0){ rsAdvance(); return; } }
   const st=RESETS[rs.k].steps[rs.i];
+  if(first){ TTS.stop(); if(S.voice) TTS.speak(st[1]+". "+st[2],0.92); }
   const total=st[0], done=total-rs.left, C=2*Math.PI*62;
   document.getElementById("rs-inner").innerHTML=`
     <div class="sheetbar"><button onclick="rsClose()">Close</button><span></span><span></span></div>
@@ -767,7 +904,7 @@ function rsAdvance(){
       </div>`;
   }
 }
-function rsClose(){ if(rs.timer) clearInterval(rs.timer); rs.timer=null; closeOverlay("rs-overlay"); render(); }
+function rsClose(){ if(rs.timer) clearInterval(rs.timer); rs.timer=null; TTS.stop(); closeOverlay("rs-overlay"); render(); }
 
 function exportData(){
   const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
@@ -880,7 +1017,8 @@ function viewLesson(cid,lid){
   lessonState={picked:null,saved:false};
   return `<button class="back" onclick="goPage('course',{id:'${cid}'})">‹ ${c.title}</button>
   <div class="eyebrow" style="color:${c.tint}; margin:4px 2px 6px">${c.title} · ${l.min} min</div>
-  <h1 style="margin:0 2px 14px">${l.title}</h1>
+  <h1 style="margin:0 2px 10px">${l.title}</h1>
+  ${TTS.enabled?`<div style="margin-bottom:12px"><button class="chip" id="read-btn" onclick="toggleRead('${l.id}')">🔊 Listen to this lesson</button></div>`:""}
   ${l.sections.map(s=>`<div class="card"><h3>${s[0]}</h3><div class="lessonbody">${s[1]}</div></div>`).join("")}
   <div class="card"><div class="eyebrow" style="color:${c.tint}; margin-bottom:8px">Keep</div>
     ${l.take.map(t=>`<div class="take"><b>·</b><span>${t}</span></div>`).join("")}</div>
@@ -951,6 +1089,8 @@ function viewTools(){
   <div class="eyebrow" style="margin:14px 2px 10px">In the moment</div>
   ${row("🌬️","var(--teal)","Breathe","Box, physiological sigh, 4-7-8, coherent","goPage('breathe',{pat:'box'})")}
   ${row("✋","var(--indigo)","Ground: 5-4-3-2-1","Out of your head, back into the room","goPage('ground')")}
+  <div class="eyebrow" style="margin:14px 2px 10px">Guided meditations</div>
+  ${MEDITATIONS.map(m=>row(m.icon,"var(--teal)",m.title,`${m.sub} · ${m.min} min`,`goPage('med',{id:'${m.id}'})`)).join("")}
   <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
   ${row("🔁","var(--ember)","Thought record","Guided CBT: catch, test and rewrite one thought","goPage('reframe')")}
   ${row("🗣️","var(--moss)","Say it cleanly","Build the difficult-conversation script","goPage('script')")}
@@ -968,6 +1108,7 @@ function viewBreathe(pat){
     style="font:inherit; padding:8px 12px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink)">
     ${Object.keys(PATTERNS).map(k=>`<option value="${k}" ${k===pat?"selected":""}>${PATTERNS[k].name}</option>`).join("")}
   </select>
+  <button class="chip${S.voice?" on":""}" style="margin-left:8px" onclick="S.voice=!S.voice; save(); this.classList.toggle('on')">🔊 Voice</button>
   <div class="sub" id="br-sub" style="margin-top:8px">${PATTERNS[pat].sub}</div>
   <div class="breath-wrap"><div id="borb">Ready</div></div>
   <div class="center sub" id="br-time" style="min-height:22px"></div>
@@ -994,6 +1135,7 @@ function breathPhase(){
   orb.style.transitionDuration=ph[1]+"s";
   orb.style.transform=`scale(${ph[2]})`;
   orb.textContent=ph[0];
+  if(S.voice) TTS.speak(ph[0],1.05);
   br.task=setTimeout(()=>{ br.pi=(br.pi+1)%phases.length; breathPhase(); },ph[1]*1000);
 }
 function stopBreath(fromBtn){
@@ -1009,6 +1151,63 @@ function stopBreath(fromBtn){
     const tm=document.getElementById("br-time"); if(tm) tm.textContent="";
   }
   br.elapsed=0;
+}
+
+/* ---------- Guided meditations ---------- */
+let med={on:false,timer:null,clock:null,elapsed:0,i:0,m:null};
+function viewMed(id){
+  const m=MEDITATIONS.find(x=>x.id===id);
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">${m.title}</h1>
+  <p class="sub" style="margin:-6px 2px 0">${m.sub} · ${m.min} min${TTS.enabled?"":" · voice unavailable in this browser — lines will appear as text"}</p>
+  <div class="medorb" id="medorb"></div>
+  <p class="serif" id="med-line" style="text-align:center; min-height:84px; font-size:17px; padding:0 22px; margin:0 0 4px">Ready when you are.</p>
+  <div class="center sub" id="med-time" style="min-height:22px"></div>
+  <button class="btn" id="med-btn" style="max-width:240px; margin:10px auto 0" onclick="toggleMed('${id}')">Begin</button>`;
+}
+function toggleMed(id){
+  if(med.on){ stopMed(); TTS.stop(); goTab("tools"); }
+  else startMed(id);
+}
+function startMed(id){
+  med.m=MEDITATIONS.find(x=>x.id===id);
+  med.on=true; med.i=0; med.elapsed=0;
+  document.getElementById("med-btn").textContent="Finish";
+  document.getElementById("medorb").classList.add("on");
+  med.clock=setInterval(()=>{
+    med.elapsed++;
+    const el=document.getElementById("med-time");
+    if(el) el.textContent=`${Math.floor(med.elapsed/60)}:${String(med.elapsed%60).padStart(2,"0")}`;
+  },1000);
+  medLine();
+}
+function medLine(){
+  if(!med.on) return;
+  const [text,pause]=med.m.script[med.i];
+  const el=document.getElementById("med-line");
+  if(el) el.textContent=text;
+  if(S.voice) TTS.speak(text,0.88);
+  med.timer=setTimeout(()=>{
+    med.i++;
+    if(med.i<med.m.script.length) medLine(); else finishMed();
+  },pause*1000);
+}
+function finishMed(){
+  med.on=false;
+  clearTimeout(med.timer); clearInterval(med.clock);
+  if(med.elapsed>=30){ S.calmSec+=med.elapsed; save(); }
+  med.elapsed=0;
+  const line=document.getElementById("med-line"); if(line) line.textContent="Done. Take this pace with you.";
+  const orb=document.getElementById("medorb"); if(orb) orb.classList.remove("on");
+  const btn=document.getElementById("med-btn");
+  if(btn){ btn.textContent="Done"; btn.onclick=()=>goTab("tools"); }
+}
+function stopMed(){
+  if(!med.on) return;
+  med.on=false;
+  clearTimeout(med.timer); clearInterval(med.clock);
+  if(med.elapsed>=30){ S.calmSec+=med.elapsed; save(); }
+  med.elapsed=0;
 }
 
 /* ---------- Grounding ---------- */
@@ -1366,6 +1565,12 @@ function viewSettings(){
     <div class="hint" style="margin-bottom:8px">Shapes which lessons and tools get suggested to you.</div>
     <div class="chips">
       ${PROFILE_OPTS.map(p=>`<button class="chip${S.profile.includes(p)?" on":""}" onclick="togProfile('${p}')">${p}</button>`).join("")}
+    </div></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">Voice guidance</div>
+    <div class="hint" style="margin-bottom:8px">Spoken guidance for breathing, resets, meditations, and read-aloud lessons. Uses your device's built-in voices — nothing is downloaded or sent anywhere.</div>
+    <div class="chips">
+      <button class="chip${S.voice?" on":""}" onclick="S.voice=true; save(); render()">On</button>
+      <button class="chip${S.voice?"":" on"}" onclick="S.voice=false; save(); render()">Off</button>
     </div></div>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">Appearance</div>
     <div class="chips">
