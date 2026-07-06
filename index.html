@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f7f4ee">
+<meta name="theme-color" content="#eae2d0">
 <title>Samatva</title>
 </head>
 <body>
@@ -13,8 +13,8 @@
 :root{
   --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
   --moss:#5f7d59; --plum:#815a7a;
-  --bg:#f7f4ee; --card:#ffffff; --ink:#22302f; --muted:#6d7a78; --faint:#a3adab;
-  --chip:#eceae3; --line:#e8e4da; --shadow:0 4px 14px rgba(40,50,50,.06);
+  --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
+  --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -26,8 +26,8 @@
 :root[data-theme="light"]{
   --teal:#256a7a; --teal-soft:#5a98a3; --ember:#c05f41; --indigo:#4a5185;
   --moss:#5f7d59; --plum:#815a7a;
-  --bg:#f7f4ee; --card:#ffffff; --ink:#22302f; --muted:#6d7a78; --faint:#a3adab;
-  --chip:#eceae3; --line:#e8e4da; --shadow:0 4px 14px rgba(40,50,50,.06);
+  --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
+  --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
 }
 :root[data-theme="dark"]{
   --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
@@ -395,9 +395,24 @@ let S;
 function load(){
   try{ S=JSON.parse(localStorage.getItem("samatva"))||null; }catch(e){ S=null; }
   if(!S) S={name:"",onboarded:false,checkIns:[],journal:[],done:[],calmSec:0,reframes:0,resets:0};
+  if(!S.theme) S.theme="auto";
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
+function effectiveTheme(){
+  if(S.theme!=="auto") return S.theme;
+  return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+}
+function applyTheme(){
+  if(S.theme==="auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme",S.theme);
+}
+function toggleTheme(){
+  S.theme=effectiveTheme()==="dark"?"light":"dark";
+  save(); applyTheme(); render();
+}
+function setTheme(t){ S.theme=t; save(); applyTheme(); render(); }
 load();
+applyTheme();
 
 let nav={tab:"today",page:null,p:{}};
 function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
@@ -481,7 +496,10 @@ function viewToday(){
   return `
   <div class="row" style="justify-content:space-between">
     <h1 style="margin-bottom:12px">${greeting()}</h1>
-    <button onclick="goPage('settings')" style="font-size:20px; color:var(--muted)">⚙︎</button>
+    <div class="row" style="gap:16px">
+      <button onclick="toggleTheme()" title="Night mode" style="font-size:19px; color:var(--muted)">${effectiveTheme()==="dark"?"☀︎":"☾"}</button>
+      <button onclick="goPage('settings')" style="font-size:20px; color:var(--muted)">⚙︎</button>
+    </div>
   </div>
   <button class="tap card hero" onclick="openReset()">
     <div class="row">
@@ -721,7 +739,7 @@ function viewTools(){
   ${row("🌬️","var(--teal)","Breathe","Box, physiological sigh, 4-7-8, coherent","goPage('breathe',{pat:'box'})")}
   ${row("✋","var(--indigo)","Ground: 5-4-3-2-1","Out of your head, back into the room","goPage('ground')")}
   <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
-  ${row("🔁","var(--ember)","Reframe a thought","Catch the story, question it, rewrite it","goPage('reframe')")}
+  ${row("🔁","var(--ember)","Thought record","Guided CBT: catch, test and rewrite one thought","goPage('reframe')")}
   ${row("🌙","var(--plum)","Decompress","Close the day so it doesn't follow you home","goPage('decompress')")}`;
 }
 
@@ -799,38 +817,83 @@ function groundStep(){
   </div>`;
 }
 
-/* ---------- Reframe ---------- */
-let rfSel=[];
+/* ---------- Thought record (CBT) ---------- */
+const RF_EMOTIONS=["Anxious","Frustrated","Angry","Helpless","Overwhelmed","Guilty","Embarrassed","Low"];
+let rf={};
 function viewReframe(){
-  rfSel=[];
+  rf={sel:[],emo:null,before:70};
   return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
-  <h1 style="margin-top:2px">Reframe</h1>
-  <label class="q">1 · Catch the thought</label>
-  <div class="hint">Write the sentence your mind is repeating, verbatim.</div>
-  <textarea id="rf-thought" rows="2" placeholder='e.g. "If this deal slips, I&#39;ve failed the whole team"'></textarea>
-  <label class="q">2 · Spot the distortion</label>
+  <h1 style="margin-top:2px">Thought record</h1>
+  <p class="sub" style="margin:-6px 2px 4px">The core CBT exercise: catch one thought, put it on trial, rewrite it. Three honest minutes.</p>
+
+  <label class="q">1 · The situation</label>
+  <div class="hint">Just the facts a camera would record — one line.</div>
+  <textarea id="rf-sit" rows="2" placeholder='e.g. "MD reassigned my project in the Monday meeting without telling me first"'></textarea>
+
+  <label class="q">2 · The feeling, and how strong</label>
+  <div class="hint">Pick the closest one, then rate its intensity right now.</div>
+  <div class="chips" style="margin-bottom:10px">${RF_EMOTIONS.map(e=>`<button class="chip" id="rf-e-${e}" onclick="rfEmo('${e}')">${e}</button>`).join("")}</div>
+  <div class="row"><input type="range" min="0" max="100" step="5" value="70" oninput="rf.before=+this.value; document.getElementById('rf-b-val').textContent=this.value+'%'">
+    <b id="rf-b-val" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">70%</b></div>
+
+  <label class="q">3 · The automatic thought</label>
+  <div class="hint">The sentence your mind produced, verbatim — not the polished version.</div>
+  <textarea id="rf-thought" rows="2" placeholder='e.g. "He thinks I can&#39;t handle it. Everyone in that room now doubts me."'></textarea>
+
+  <label class="q">4 · Spot the distortion</label>
   <div class="hint">Which patterns is it running? (Pick any that fit.)</div>
   <div class="grid2">${DISTORTIONS.map((d,i)=>`
     <button class="opt" id="rf-d-${i}" onclick="rfTog(${i})" style="margin-top:7px">
       <b style="font-size:14px">${d[0]}</b><div class="tiny">${d[1]}</div></button>`).join("")}</div>
-  <label class="q">3 · Write the balanced version</label>
-  <div class="hint">Not fake positivity — what a fair-minded colleague who knows all the facts would say.</div>
-  <textarea id="rf-bal" rows="3" placeholder='e.g. "The timeline slipped for reasons beyond me; my part is on track and I&#39;ve flagged the risk early"'></textarea>
-  <button class="btn ember" style="margin-top:16px" onclick="saveReframe()">Save reframe</button>`;
+
+  <label class="q">5 · Put it on trial</label>
+  <div class="hint">Evidence FOR the thought — facts only, not feelings.</div>
+  <textarea id="rf-for" rows="2" placeholder='e.g. "He did reassign it without telling me"'></textarea>
+  <div class="hint" style="margin-top:10px">Evidence AGAINST it — what the thought conveniently ignores.</div>
+  <textarea id="rf-against" rows="2" placeholder='e.g. "He gave me the bigger mandate last quarter; reshuffles hit three other teams too"'></textarea>
+
+  <label class="q">6 · The balanced verdict</label>
+  <div class="hint">Not fake positivity — what a fair-minded colleague who saw all the evidence would conclude.</div>
+  <textarea id="rf-bal" rows="3" placeholder='e.g. "The process was poor and worth raising calmly — but one reshuffle isn&#39;t a verdict on me"'></textarea>
+
+  <label class="q">7 · Re-rate the feeling</label>
+  <div class="hint">Same feeling, now — after the trial. It rarely hits zero; lower is the win.</div>
+  <div class="row"><input type="range" min="0" max="100" step="5" value="40" oninput="rf.after=+this.value; document.getElementById('rf-a-val').textContent=this.value+'%'">
+    <b id="rf-a-val" style="width:52px; text-align:right; font-variant-numeric:tabular-nums">40%</b></div>
+
+  <button class="btn ember" style="margin-top:18px" onclick="saveReframe()">Close the record</button>`;
+}
+function rfEmo(e){
+  rf.emo=rf.emo===e?null:e;
+  RF_EMOTIONS.forEach(x=>document.getElementById("rf-e-"+x).classList.toggle("on",x===rf.emo));
 }
 function rfTog(i){
-  const j=rfSel.indexOf(i);
-  if(j>=0) rfSel.splice(j,1); else rfSel.push(i);
+  const j=rf.sel.indexOf(i);
+  if(j>=0) rf.sel.splice(j,1); else rf.sel.push(i);
   document.getElementById("rf-d-"+i).classList.toggle("notbest",j<0);
 }
 function saveReframe(){
+  const sit=document.getElementById("rf-sit").value.trim();
   const t=document.getElementById("rf-thought").value.trim();
   const b=document.getElementById("rf-bal").value.trim();
   if(!t||!b) return;
-  const pats=rfSel.map(i=>DISTORTIONS[i][0]).join(", ");
-  S.journal.unshift({date:new Date().toISOString(),kind:"Reframe",title:"Reframe",
-    body:`Thought: ${t}\nPatterns: ${pats||"—"}\nBalanced: ${b}`});
-  S.reframes++; save(); goTab("tools");
+  const after=rf.after??40;
+  const pats=rf.sel.map(i=>DISTORTIONS[i][0]).join(", ");
+  const evFor=document.getElementById("rf-for").value.trim();
+  const evAg=document.getElementById("rf-against").value.trim();
+  S.journal.unshift({date:new Date().toISOString(),kind:"Reframe",title:"Thought record",
+    body:`Situation: ${sit||"—"}\nFeeling: ${rf.emo||"—"} ${rf.before}% → ${after}%`
+      +`\nThought: ${t}\nPatterns: ${pats||"—"}\nFor: ${evFor||"—"}\nAgainst: ${evAg||"—"}\nBalanced: ${b}`});
+  S.reframes++; save();
+  const drop=rf.before-after;
+  document.getElementById("app").innerHTML=`<div class="fade center" style="padding-top:14vh">
+    <div style="font-size:48px">⚖️</div>
+    <h2 style="margin-top:12px">Record closed.</h2>
+    <p class="sub" style="max-width:320px; margin:8px auto 4px">${rf.emo?rf.emo:"The feeling"} went from <b>${rf.before}%</b> to <b>${after}%</b>${drop>0?" — that's the reframe doing its work.":"."}</p>
+    <p class="sub" style="max-width:320px; margin:0 auto 24px">${drop>0?"":"No drop this time is still a win — you now know this thought needs a different tool, or a real conversation."}</p>
+    <button class="btn" style="max-width:220px; margin:0 auto" onclick="goTab('tools')">Done</button>
+  </div>`;
+  window.scrollTo(0,0);
 }
 
 /* ---------- Decompress ---------- */
@@ -933,6 +996,12 @@ function viewSettings(){
   <h1 style="margin-top:2px">Settings</h1>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">You</div>
     <input type="text" value="${esc(S.name)}" onchange="S.name=this.value.trim(); save()"></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">Appearance</div>
+    <div class="chips">
+      <button class="chip${S.theme==="auto"?" on":""}" onclick="setTheme('auto')">Match device</button>
+      <button class="chip${S.theme==="light"?" on":""}" onclick="setTheme('light')">Day</button>
+      <button class="chip${S.theme==="dark"?" on":""}" onclick="setTheme('dark')">Night</button>
+    </div></div>
   <div class="card"><div class="eyebrow" style="margin-bottom:8px">About Samatva</div>
     <p style="font-size:14px; margin:0 0 8px">Samatva — Sanskrit for equanimity. "Samatvam yoga ucyate": evenness of mind is excellence in action (Bhagavad Gita 2.48).</p>
     <p class="sub" style="font-size:14px; margin:0">Built as a pocket support system for demanding days: short lessons, honest check-ins, and tools for the moments that run hot.</p></div>

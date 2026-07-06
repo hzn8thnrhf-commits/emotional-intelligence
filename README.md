@@ -22,7 +22,7 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 Many lessons end with an interactive scenario — a realistic moment (an MD dismissing your team's work, an analyst quietly slipping, restructuring rumours) where you choose a response and get honest feedback on it.
 
-**Toolkit** — breathing exercises with a live animation (box, physiological sigh, 4-7-8, coherent 5.5), 5-4-3-2-1 grounding, a three-step thought reframe (catch → spot the distortion → rewrite), and an end-of-day decompress ritual.
+**Toolkit** — breathing exercises with a live animation (box, physiological sigh, 4-7-8, coherent 5.5), 5-4-3-2-1 grounding, a guided CBT thought record (situation → feeling + intensity → automatic thought → distortions → evidence for and against → balanced verdict → re-rate), and an end-of-day decompress ritual.
 
 **Reflect** — your mood over the last 14 days, gentle pattern insights ("most of your harder moments land in the evening"), a private journal, and quiet milestones.
 
@@ -33,18 +33,18 @@ Many lessons end with an interactive scenario — a realistic moment (an MD dism
 - **Uncluttered** — a restrained palette (deep sea teal, warm sand, soft ink), serif headings, generous whitespace, full dark-mode support.
 - **Private by design** — everything is stored on-device as local JSON. No account, no cloud, no analytics, no network access at all.
 
-## Two ways to run it
+## Running it
 
-### Web app (no Mac needed)
+### Web app (primary)
 
-`web/index.html` is a complete port of the app as a single self-contained file — no frameworks, no build step, no server logic. All the same features: check-ins, the 60-second Reset, all 22 lessons with scenarios, breathing, grounding, reframe, decompress, mood chart, insights and milestones. Data persists in the browser's local storage.
+`index.html` at the repo root is the app — a single self-contained file with no frameworks, no build step and no server logic. Check-ins, the 60-second Reset, all 22 lessons with scenarios, breathing, grounding, the CBT thought record, decompress, mood chart, insights and milestones. Data persists in the browser's local storage. Day/night mode follows your device by default, with a manual toggle (moon button on Today, or Settings → Appearance).
 
-- **Try it locally:** `python3 -m http.server -d web` then open `http://localhost:8000`, or just open the file directly in any browser.
-- **On your iPhone:** host the file anywhere static (GitHub Pages, Netlify, Vercel — it's one file), open it in Safari, then Share → **Add to Home Screen**. It runs full-screen like an app, works offline after first load, and keeps your data on the device.
+- **Try it locally:** open `index.html` in any browser, or `python3 -m http.server` and visit `http://localhost:8000`.
+- **On your iPhone:** host it anywhere static — enabling GitHub Pages on this repo is enough since it's one file at the root. Open the URL in Safari, then Share → **Add to Home Screen**. It runs full-screen like an app, works offline after first load, and keeps your data on the device.
 
-### Native iOS app
+### Native iOS app (secondary)
 
-Requirements: Xcode 16+ and iOS 17+.
+A full SwiftUI implementation lives in `Samatva/` for when you want a proper App Store-ready native build. Requirements: Xcode 16+ and iOS 17+.
 
 1. Clone this repo and open `Samatva.xcodeproj` in Xcode.
 2. Select your team under *Signing & Capabilities* (automatic signing is preconfigured; the bundle id is `com.devangkabra.samatva`).
