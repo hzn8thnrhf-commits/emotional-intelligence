@@ -6,6 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#eae2d0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Samatva</title>
 </head>
 <body>
@@ -15,12 +17,14 @@
   --moss:#5f7d59; --plum:#815a7a;
   --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
   --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
+  --steel:#54748c;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
     --chip:#2a3235; --line:#2b3336; --shadow:none;
     --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
+    --steel:#93aec2;
   }
 }
 :root[data-theme="light"]{
@@ -28,11 +32,13 @@
   --moss:#5f7d59; --plum:#815a7a;
   --bg:#eae2d0; --card:#f6f1e4; --ink:#2a2f2c; --muted:#6d7268; --faint:#9c9c8d;
   --chip:#e0d7c1; --line:#d9cfb8; --shadow:0 4px 14px rgba(70,60,40,.07);
+  --steel:#54748c;
 }
 :root[data-theme="dark"]{
   --bg:#141a1c; --card:#1f2629; --ink:#e8e6e0; --muted:#9aa5a3; --faint:#6b7674;
   --chip:#2a3235; --line:#2b3336; --shadow:none;
   --teal:#5a98a3; --ember:#d07a5e; --moss:#83a07c; --indigo:#8b93c4; --plum:#a97f9f;
+  --steel:#93aec2;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html,body{margin:0; padding:0;}
@@ -59,7 +65,7 @@ button{font:inherit; cursor:pointer; border:none; background:none; color:inherit
   background:var(--teal); color:#fff; font-weight:600; font-size:16px;
 }
 .btn.ghost{background:var(--chip); color:var(--ink);}
-.btn.ember{background:var(--ember);} .btn.plum{background:var(--plum);} .btn.moss{background:var(--moss);} .btn.indigo{background:var(--indigo);}
+.btn.ember{background:var(--ember);} .btn.plum{background:var(--plum);} .btn.moss{background:var(--moss);} .btn.indigo{background:var(--indigo);} .btn.steel{background:var(--steel);}
 .btn:disabled{opacity:.4;}
 .row{display:flex; align-items:center; gap:13px;}
 .row .grow{flex:1; min-width:0;}
@@ -143,6 +149,9 @@ input[type=range]{width:100%; accent-color:var(--teal);}
 .progress-ring{flex:none;}
 .fade{animation:fade .25s ease;}
 @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important;}
+}
 label.q{display:block; font-weight:650; font-family:ui-serif,Georgia,serif; margin:16px 0 4px; font-size:16px;}
 .hint{font-size:12.5px; color:var(--muted); margin-bottom:6px;}
 .grid2{display:flex; flex-direction:column; gap:0;}
@@ -334,7 +343,42 @@ const COURSES=[
   ["Build a shutdown ritual",`The mind needs a boundary marker. Cal Newport's version: review open loops, write tomorrow's first move, say an explicit 'shutdown complete.' Yours might be the walk from the station, the gym, cooking, ten minutes of breathing in this app. The form matters less than the consistency — a repeated signal that tells your nervous system the desk is closed.`],
   ["Guard one non-negotiable",`You will never find time for rest inside a demanding calendar; you can only defend it. Pick one non-negotiable block a week — the Sunday ride, the Saturday morning that's yours, the evening class — and protect it the way you'd protect a client meeting. Composure on Monday is manufactured on the weekend.`]],
   take:["Restoration requires detachment, not just hours away from the desk.","A consistent shutdown ritual tells your nervous system the day is closed.","Defend one weekly non-negotiable block like a client meeting."],
-  reflect:"What could your shutdown ritual be — and what's the one weekly block worth defending?"}]}];
+  reflect:"What could your shutdown ritual be — and what's the one weekly block worth defending?"}]},
+{id:"steel",title:"Steel",subtitle:"Endurance for the long game",icon:"🛡️",tint:"var(--steel)",lessons:[
+ {id:"st1",title:"Stress is a cycle, not a state",min:3,sections:[
+  ["The load that never unloads",`Biologists call it allostatic load: stress chemistry that never fully clears because the next trigger arrives before the last one settles. On finance hours, your baseline is already elevated — which means recovery can't be left to chance. Performance under chronic load decays slowly, then suddenly; the people who last are the ones who unload deliberately.`],
+  ["Complete the cycle",`Here's the catch: the stressor ending doesn't end the stress. Sending the email closes the task, but the adrenaline is still in your bloodstream, waiting for a physical full stop. The body needs its own signal: movement, a long exhale pattern, warmth, laughter, real conversation. That's why you can win the day and still lie awake at 1am — the cycle was never completed.`],
+  ["Train recovery like a skill",`Elite athletes periodise; elite desks should too. Oscillation beats grinding: 90 focused minutes, then a genuine 5 — stand, walk, look out a window, no feeds. A completed stress cycle at day's end (gym, walk home, breathing) isn't self-care garnish; it's what keeps next Tuesday's judgement sharp.`]],
+  take:["Chronic stress accumulates as allostatic load — it must be actively cleared.","The task ending doesn't end the stress; the body needs a physical full stop.","Oscillate: hard focus, real breaks, and a deliberate cycle-completion daily."],
+  reflect:"What actually completes the cycle for you — moves the stress out of your body, not just off your screen?"},
+ {id:"st2",title:"Sleep is a market edge",min:3,sections:[
+  ["The amygdala on no sleep",`Sleep-deprived brains show roughly 60% more amygdala reactivity to negative stimuli. Translation: after one bad night, the same email reads as more hostile, the same setback as more catastrophic, the same colleague as more infuriating. Emotional intelligence degrades before analytical intelligence does — you'll still build the model fine; you'll just misread the room.`],
+  ["When late nights are the job",`Some weeks the hours are simply the hours. Be strategic rather than heroic: protect the night before your highest-stakes day the way you'd protect the meeting itself; bank recovery immediately after a crunch instead of 'powering through' the aftermath; and treat a 20-minute afternoon nap as an instrument, not an indulgence.`],
+  ["The wind-down is programmable",`You can't command sleep, but you can engineer its runway: a caffeine curfew ten hours before bed, screens off the last thirty minutes, the 4-7-8 pattern in this app, the Decompress ritual to close open loops. Consistency beats perfection — the nervous system learns the runway and starts descending on its own.`]],
+  take:["Sleep loss inflames emotional reactivity long before it dents analysis.","Protect sleep around your highest-stakes moments; bank recovery after crunches.","Build a consistent runway: caffeine curfew, screens off, 4-7-8, decompress."],
+  reflect:"Which reading of a situation did you get wrong recently that better sleep might have changed?"},
+ {id:"st3",title:"The inner critic",min:4,sections:[
+  ["The voice that thinks it's helping",`Somewhere along the way — school league tables, family pride, competitive desks — a voice moved in that treats contempt as motivation: "not good enough, should be further, everyone can see it." It claims to protect your standards. The research says otherwise: harsh self-attack raises fear and hiding; self-compassion raises accountability and persistence. The critic isn't your standards — it's your standards plus cruelty, and the cruelty adds nothing.`],
+  ["Would you say it to your analyst?",`Run the double-standard test. Your best analyst misses a deadline; do you tell them they're a fraud who never belonged? Never — you'd name the miss, find the cause, set the fix. You already know how to coach excellently. The skill is turning that coaching voice on yourself.`],
+  ["From critic to coach",`The conversion is mechanical: take the critic's sentence and restate it as specific, behavioural, forward-looking. "You embarrassed yourself in that meeting" becomes "I lost the thread when challenged on assumptions — next time I'll pre-write the three hardest questions." Same standard. Better fuel. This is also what the Self-criticism Reset walks you through in the moment.`]],
+  take:["Self-attack raises fear and hiding; self-coaching raises accountability.","The double-standard test: would you say it, in that tone, to your best analyst?","Convert critic to coach: specific, behavioural, forward — same standard, zero contempt."],
+  reflect:"What's your critic's favourite sentence? Write its coach's-voice translation.",
+  scenario:{prompt:`You misread what a client wanted and the deck landed flat. It's 11pm and the voice starts: "You're a fraud. This level was a mistake. Everyone in that room saw it." What do you do with that?`,options:[
+   {t:"Agree with it and channel the sting — fear keeps you sharp.",best:false,fb:"Fear fuel burns fast and dirty: it narrows thinking, kills sleep, and makes the next meeting worse, not better. Studies are consistent — self-attack predicts avoidance and hiding, not improvement."},
+   {t:"Translate it: 'I misread the ask. Next time I confirm scope in writing before building.' One fix, then sleep.",best:true,fb:"That's the coach's voice: the miss is fully acknowledged, the fix is specific, and your nervous system gets to stand down. Same standard as the critic — minus the part that was never helping."},
+   {t:"Drown it out — put on a show, scroll, pour a drink, don't engage.",best:false,fb:"Suppression is a loan, not a payment. The critic comes back at 3am with interest. Thirty seconds of translation costs less than a night of avoidance."}]}},
+ {id:"st4",title:"You are not your thoughts",min:3,sections:[
+  ["Thoughts are events, not verdicts",`Your mind produces thousands of thoughts a day — forecasts, replays, verdicts, noise. Treating each one as truth is like executing every trade idea anyone shouts across the floor. Psychologists call the alternative defusion: seeing a thought as an event in the mind, generated content — not a command, not a fact.`],
+  ["Label the process",`The technique is almost embarrassingly simple. Take the sticky thought — "I'll be found out" — and restate it as "I'm having the thought that I'll be found out." Say it again slower. The content hasn't changed; your position relative to it has. You've stepped from inside the thought to beside it, and from beside it, it loses its grip.`],
+  ["Let the stream carry them",`The classic practice: picture a stream with leaves drifting past, and place each thought on a leaf as it arises. The goal is not to stop thinking — minds don't stop — but to stop boarding every leaf. Two minutes of this after a hard day teaches the skill; the 90-second wave lesson is its emotional twin.`]],
+  take:["A thought is an event in the mind, not a verdict on reality.","Prefix it: 'I'm having the thought that…' — distance changes everything.","The goal isn't stopping thoughts; it's not boarding every one."],
+  reflect:"Which recurring thought would lose the most power if you stopped treating it as a fact?"},
+ {id:"st5",title:"What it's all for",min:3,sections:[
+  ["Pressure without purpose corrodes",`The same 70-hour week feels completely different depending on whether it's connected to something you chose. Burnout research keeps finding that meaning buffers load: people endure enormous demands when the work maps to their values, and crumble under lighter loads that feel pointless. If the pressure has been feeling heavier lately, check the connection before checking the workload.`],
+  ["Name your compass",`Pick the three values you'd actually defend — craft, family, fairness, growth, building people, security, adventure. Write them down. Decisions get faster ("does this serve any of the three?"), and your emotional life gets more legible: anger is almost always a value being stepped on, so knowing your values is emotional literacy by another route.`],
+  ["Audit the ladder",`Once or twice a year, ask the uncomfortable one: is this ladder leaning against my wall — or a wall assembled from Singapore expectations, London prestige, and momentum? Any answer is fine. Staying is powerful when it's chosen again, consciously. What corrodes is climbing on autopilot and calling the exhaustion fate.`]],
+  take:["Meaning buffers load: connected pressure is bearable, pointless pressure corrodes.","Three named values make decisions faster and emotions more legible.","Re-choose the ladder consciously — autopilot is what exhausts."],
+  reflect:"What are your three? And does this season of work serve any of them?"}]}];
 
 const RESETS={
  "Anger":{icon:"🔥",steps:[
@@ -356,7 +400,11 @@ const RESETS={
  "Anxiety":{icon:"〰️",steps:[
   [20,"Slow the system","Physiological sigh: two quick inhales through the nose, one long sigh out. Twice more. It's the fastest known downshift."],
   [20,"Separate fact from forecast","Anxiety trades in forecasts. What is actually true right now, versus what your mind is projecting? Say the facts only."],
-  [20,"Prepare, don't ruminate","If the worry has an action — a check, a prep note, an ask — name it and schedule it. If it has none, it's weather. Let it pass."]]}};
+  [20,"Prepare, don't ruminate","If the worry has an action — a check, a prep note, an ask — name it and schedule it. If it has none, it's weather. Let it pass."]]},
+ "Self-criticism":{icon:"🪞",steps:[
+  [20,"Hear the tone",`Catch the sentence the critic just said. Would you say it, in that tone, to your best analyst after a miss? Notice the double standard.`],
+  [20,"Zoom out","Everyone operating at your level misses. The miss is real; the verdict — 'fraud', 'not good enough' — is not a fact. It's a feeling doing an impression of one."],
+  [20,"Switch to the coach","Restate it the way your best coach would: one specific thing to do differently, zero contempt. Same standard, better fuel."]]}};
 
 const PATTERNS={
  box:{name:"Box breathing",sub:"4-4-4-4 · steady focus before a big meeting",phases:[["Breathe in",4,1],["Hold",4,1],["Breathe out",4,.55],["Hold",4,.55]]},
@@ -388,6 +436,9 @@ const MILESTONES=[
  {id:"reframe-5",t:"Second Opinion",d:"Reframed 5 difficult thoughts",i:"🔁",f:s=>s.reframes>=5},
  {id:"checkins-10",t:"Honest Ledger",d:"10 check-ins recorded",i:"🧾",f:s=>s.checkIns.length>=10},
  {id:"course-heat",t:"Cooler Head",d:"Finished the Heat course",i:"🔥",f:s=>COURSES.find(c=>c.id==="heat").lessons.every(l=>s.done.includes(l.id))},
+ {id:"prepare-1",t:"Walks In Ready",d:"Primed before a high-stakes moment",i:"🎯",f:s=>s.journal.some(j=>j.kind==="Prepare")},
+ {id:"script-1",t:"Said It Cleanly",d:"Built a difficult-conversation script",i:"🗣️",f:s=>s.journal.some(j=>j.kind==="Script")},
+ {id:"worry-5",t:"Calibrated",d:"Reviewed 5 parked worries",i:"⚖️",f:s=>(s.worries||[]).filter(w=>w.status!=="open").length>=5},
  {id:"course-all",t:"Samatva",d:"Completed every course",i:"🏛️",f:s=>COURSES.every(c=>c.lessons.every(l=>s.done.includes(l.id)))}];
 
 /* ================= State ================= */
@@ -396,6 +447,8 @@ function load(){
   try{ S=JSON.parse(localStorage.getItem("samatva"))||null; }catch(e){ S=null; }
   if(!S) S={name:"",onboarded:false,checkIns:[],journal:[],done:[],calmSec:0,reframes:0,resets:0};
   if(!S.theme) S.theme="auto";
+  if(!S.worries) S.worries=[];
+  if(!S.resetLog) S.resetLog=[];
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 function effectiveTheme(){
@@ -444,6 +497,9 @@ function render(){
   else if(nav.page==="breathe") html=viewBreathe(nav.p.pat||"box");
   else if(nav.page==="ground") html=viewGround();
   else if(nav.page==="reframe") html=viewReframe();
+  else if(nav.page==="prepare") html=viewPrepare();
+  else if(nav.page==="script") html=viewScript();
+  else if(nav.page==="worries") html=viewWorries();
   else if(nav.page==="decompress") html=viewDecompress();
   else if(nav.page==="settings") html=viewSettings();
   else if(nav.tab==="today") html=viewToday();
@@ -488,6 +544,32 @@ function greeting(){
   if(h>=18&&h<23) return "Good evening"+n;
   return "Still up"+n+"?";
 }
+// A quiet, contextual nudge: reads the most recent difficult check-in (last 18h)
+// and points to the one or two tools built for that exact state.
+function suggestionCard(){
+  const cutoff=Date.now()-18*3600000;
+  const recent=[...S.checkIns].reverse().find(c=>new Date(c.date).getTime()>cutoff&&c.emotions.some(e=>DIFFICULT.has(e)));
+  if(!recent) return "";
+  const e=recent.emotions.find(x=>DIFFICULT.has(x));
+  const M={
+    Angry:["That anger you logged — don't carry it into the next meeting.","⏮️ 60-second Reset","openReset()","🔁 Put it on trial","goPage('reframe')"],
+    Frustrated:["Frustration on the books. Turn it into information before it turns into an email.","⏮️ 60-second Reset","openReset()","🔁 Thought record","goPage('reframe')"],
+    Anxious:["You logged anxiety. Two moves: slow the body, then park what you can't act on.","🌬️ Physiological sigh","goPage('breathe',{pat:'sigh'})","🅿️ Park the worry","goPage('worries')"],
+    Overwhelmed:["Overwhelm logged. Stop adding; start triaging.","⏮️ Reset: overwhelm","openReset()","✋ Ground yourself","goPage('ground')"],
+    Helpless:["Helplessness is a control problem. Map what's actually yours to move.","📖 The control map","goPage('lesson',{cid:'ground',lid:'g2'})","🔁 Thought record","goPage('reframe')"],
+    Drained:["Running on empty changes every reading. Protect the evening.","🌙 Decompress","goPage('decompress')","📖 Rest is a skill","goPage('lesson',{cid:'roots',lid:'r4'})"],
+    Low:["A low day deserves gentleness, not analysis.","🪞 Self-compassion reset","openReset()","🌙 Decompress","goPage('decompress')"]
+  };
+  const m=M[e]||M.Frustrated;
+  return `<div class="card">
+    <div class="eyebrow" style="color:var(--ember); margin-bottom:6px">For right now</div>
+    <p style="font-size:14.5px; margin:0 0 10px">${m[0]}</p>
+    <div class="chips">
+      <button class="chip on" onclick="${m[2]}">${m[1]}</button>
+      <button class="chip" onclick="${m[4]}">${m[3]}</button>
+    </div></div>`;
+}
+
 function viewToday(){
   const day=Math.floor(Date.now()/86400000);
   const q=QUOTES[day%QUOTES.length];
@@ -520,6 +602,7 @@ function viewToday(){
     <div class="grow"><h3>Check in</h3><div class="sub">Fifteen seconds. What's the weather in there?</div></div>
     <span class="chev">›</span>
   </div></button>`}
+  ${suggestionCard()}
   ${nl?`
   <button class="tap card" onclick="goPage('lesson',{cid:'${nl[0].id}',lid:'${nl[1].id}'})"><div class="row">
     <span class="icon">${nl[0].icon}</span>
@@ -616,7 +699,7 @@ function rsAdvance(){
   if(rs.i<2){ rs.i++; rs.left=RESETS[rs.k].steps[rs.i][0]; rsTick(true); }
   else{
     clearInterval(rs.timer); rs.timer=null;
-    S.resets++; S.calmSec+=RESETS[rs.k].steps.reduce((a,s)=>a+s[0],0); save();
+    S.resets++; S.resetLog.push(rs.k); S.calmSec+=RESETS[rs.k].steps.reduce((a,s)=>a+s[0],0); save();
     document.getElementById("rs-inner").innerHTML=`
       <div class="sheetbar"><button onclick="rsClose()">Close</button><span></span><span></span></div>
       <div class="center" style="padding-top:16vh">
@@ -735,11 +818,15 @@ function viewTools(){
     <span class="icon">${icon}</span><div class="grow"><h3>${title}</h3><div class="sub">${sub}</div></div>
     <span class="chev">›</span></div></button>`;
   return `<h1>Toolkit</h1>
-  <div class="eyebrow" style="margin:2px 2px 10px">In the moment</div>
+  <div class="eyebrow" style="margin:2px 2px 10px">Before the moment</div>
+  ${row("🎯","var(--indigo)","Prepare","90 seconds before a high-stakes meeting","goPage('prepare')")}
+  <div class="eyebrow" style="margin:14px 2px 10px">In the moment</div>
   ${row("🌬️","var(--teal)","Breathe","Box, physiological sigh, 4-7-8, coherent","goPage('breathe',{pat:'box'})")}
   ${row("✋","var(--indigo)","Ground: 5-4-3-2-1","Out of your head, back into the room","goPage('ground')")}
   <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
   ${row("🔁","var(--ember)","Thought record","Guided CBT: catch, test and rewrite one thought","goPage('reframe')")}
+  ${row("🗣️","var(--moss)","Say it cleanly","Build the difficult-conversation script","goPage('script')")}
+  ${row("🅿️","var(--steel)","Worry parking","Park it now; let the facts settle it later","goPage('worries')")}
   ${row("🌙","var(--plum)","Decompress","Close the day so it doesn't follow you home","goPage('decompress')")}`;
 }
 
@@ -882,6 +969,7 @@ function saveReframe(){
   const evFor=document.getElementById("rf-for").value.trim();
   const evAg=document.getElementById("rf-against").value.trim();
   S.journal.unshift({date:new Date().toISOString(),kind:"Reframe",title:"Thought record",
+    meta:{emo:rf.emo,before:rf.before,after:after,patterns:rf.sel.map(i=>DISTORTIONS[i][0])},
     body:`Situation: ${sit||"—"}\nFeeling: ${rf.emo||"—"} ${rf.before}% → ${after}%`
       +`\nThought: ${t}\nPatterns: ${pats||"—"}\nFor: ${evFor||"—"}\nAgainst: ${evAg||"—"}\nBalanced: ${b}`});
   S.reframes++; save();
@@ -922,26 +1010,174 @@ function saveDecompress(){
   save(); goTab("today");
 }
 
+/* ---------- Prepare (pre-meeting primer) ---------- */
+let ppTimer=null;
+function viewPrepare(){
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Prepare</h1>
+  <p class="sub" style="margin:-6px 2px 4px">Ninety seconds before the meeting that matters. Walk in already regulated.</p>
+  <label class="q">The outcome</label>
+  <div class="hint">One sentence: what does a good result from this meeting look like?</div>
+  <textarea id="pp-1" rows="2"></textarea>
+  <label class="q">The spike</label>
+  <div class="hint">What's most likely to trigger you in there — and what's your body's tell?</div>
+  <textarea id="pp-2" rows="2"></textarea>
+  <label class="q">The pre-decision</label>
+  <div class="hint">Decide now: "If that happens, I will…" — pause and sip water, ask a question, write it down.</div>
+  <textarea id="pp-3" rows="2"></textarea>
+  <button class="btn indigo" id="pp-btn" style="margin-top:16px" onclick="finishPrepare()">Seal it with one slow breath</button>`;
+}
+function finishPrepare(){
+  const a=document.getElementById("pp-1").value.trim(),
+        b=document.getElementById("pp-2").value.trim(),
+        c=document.getElementById("pp-3").value.trim();
+  if(!a&&!b&&!c) return;
+  const btn=document.getElementById("pp-btn");
+  btn.disabled=true;
+  let n=8;
+  clearInterval(ppTimer);
+  ppTimer=setInterval(()=>{
+    const el=document.getElementById("pp-btn");
+    if(!el){ clearInterval(ppTimer); return; }
+    el.textContent=n>4?`Breathe in… ${n}`:`Breathe out… ${n}`;
+    if(--n<0){
+      clearInterval(ppTimer);
+      S.journal.unshift({date:new Date().toISOString(),kind:"Prepare",title:"Prepared",
+        body:`Outcome: ${a||"—"}\nLikely spike: ${b||"—"}\nIf it happens: ${c||"—"}`});
+      S.calmSec+=10; save(); goTab("today");
+    }
+  },1000);
+}
+
+/* ---------- Say it cleanly (conversation script) ---------- */
+function viewScript(){
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Say it cleanly</h1>
+  <p class="sub" style="margin:-6px 2px 4px">Turn a charged message into one you'll be glad you delivered: situation → feeling → value → request.</p>
+  <label class="q">When…</label>
+  <div class="hint">The specific, factual situation — what a camera would have recorded.</div>
+  <textarea id="sc-1" rows="2" placeholder="the deck came back at 11pm with the numbers unchecked"></textarea>
+  <label class="q">I was…</label>
+  <div class="hint">One feeling word, owned. Not "you made me".</div>
+  <textarea id="sc-2" rows="1" placeholder="frustrated"></textarea>
+  <label class="q">Because I care about…</label>
+  <div class="hint">The value or standard underneath the heat.</div>
+  <textarea id="sc-3" rows="1" placeholder="being accurate in front of the client"></textarea>
+  <label class="q">Next time…</label>
+  <div class="hint">One clear, doable request.</div>
+  <textarea id="sc-4" rows="2" placeholder="flag it by 6pm if you're stuck"></textarea>
+  <button class="btn moss" style="margin-top:16px" onclick="buildScript()">Compose it</button>
+  <div id="sc-out"></div>`;
+}
+function buildScript(){
+  const w=document.getElementById("sc-1").value.trim(), f=document.getElementById("sc-2").value.trim(),
+        v=document.getElementById("sc-3").value.trim(), r=document.getElementById("sc-4").value.trim();
+  if(!w||!f||!v||!r) return;
+  const script=`When ${w}, I was ${f} — because I care about ${v}. Next time, ${r}.`;
+  S.journal.unshift({date:new Date().toISOString(),kind:"Script",title:"Clean words",body:script});
+  save();
+  document.getElementById("sc-out").innerHTML=`<div class="card" style="margin-top:14px">
+    <div class="eyebrow" style="color:var(--moss); margin-bottom:6px">Your script — deliver after the wave, in private, once</div>
+    <p class="quote" style="margin:0 0 10px">“${esc(script)}”</p>
+    <button class="chip" onclick="copyScript(this)" data-s="${esc(script)}">Copy</button>
+  </div>`;
+}
+function copyScript(el){
+  try{ navigator.clipboard.writeText(el.dataset.s); el.textContent="Copied ✓"; }catch(e){}
+}
+
+/* ---------- Worry parking ---------- */
+function viewWorries(){
+  const open=S.worries.filter(w=>w.status==="open");
+  const reviewed=S.worries.filter(w=>w.status!=="open");
+  const never=reviewed.filter(w=>w.status==="didnt").length;
+  const handled=reviewed.filter(w=>w.status==="handled").length;
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Worry parking</h1>
+  <p class="sub" style="margin:-6px 2px 8px">Write it down, park it, and come back when the facts are in. Over time the ledger teaches your brain how often its forecasts actually land.</p>
+  <textarea id="wp-text" rows="2" placeholder='e.g. "The MD will hate the revised model"'></textarea>
+  <button class="btn steel" style="margin:10px 0 18px" onclick="parkWorry()">Park it</button>
+  ${open.length?`<div class="eyebrow" style="margin-bottom:8px">Parked (${open.length})</div>`+open.map(w=>`
+    <div class="card"><p style="font-size:14.5px; margin:0 0 3px">${esc(w.text)}</p>
+      <div class="tiny" style="margin-bottom:9px">parked ${new Date(w.date).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div>
+      <div class="chips">
+        <button class="chip" onclick="resolveWorry('${w.id}','didnt')">Never happened</button>
+        <button class="chip" onclick="resolveWorry('${w.id}','handled')">Happened — I handled it</button>
+        <button class="chip" onclick="resolveWorry('${w.id}','happened')">Happened — still live</button>
+      </div></div>`).join(""):""}
+  ${reviewed.length>=3?`<div class="card"><b style="font-size:14px">Your ledger</b>
+    <p class="sub" style="font-size:14px; margin:6px 0 0">Of <b>${reviewed.length}</b> worries reviewed, <b>${Math.round(never/reviewed.length*100)}%</b> never happened${handled?` — and you handled ${handled} of the ones that did`:""}.</p></div>`:""}`;
+}
+function parkWorry(){
+  const t=document.getElementById("wp-text").value.trim(); if(!t) return;
+  S.worries.unshift({id:String(Date.now()),date:new Date().toISOString(),text:t,status:"open"});
+  save(); render();
+}
+function resolveWorry(id,st){
+  const w=S.worries.find(x=>x.id===id); if(w) w.status=st;
+  save(); render();
+}
+
 /* ---------- Reflect ---------- */
+// Cross-tool pattern engine: mirrors what your check-ins, thought records,
+// resets and worry ledger say about you — observations, never verdicts.
 function insights(){
   const out=[];
   const cutoff=Date.now()-14*86400000;
   const recent=S.checkIns.filter(c=>new Date(c.date).getTime()>cutoff);
-  if(recent.length<3) return out;
-  const diff=recent.filter(c=>c.emotions.some(e=>DIFFICULT.has(e)));
-  if(diff.length){
-    const ev=diff.filter(c=>new Date(c.date).getHours()>=18).length;
-    if(ev/diff.length>0.6) out.push("Most of your harder moments land in the evening. A short decompress before you leave the desk may change how the night goes.");
+
+  // Thought-record analytics (all time)
+  const trs=S.journal.filter(j=>j.kind==="Reframe"&&j.meta);
+  if(trs.length>=2){
+    const avg=Math.round(trs.reduce((a,t)=>a+(t.meta.before-t.meta.after),0)/trs.length);
+    if(avg>0) out.push(`Across ${trs.length} thought records, putting the thought on trial has dropped the feeling by ${avg} points on average. The tool works for you — reach for it early.`);
+    const dc={};
+    trs.forEach(t=>(t.meta.patterns||[]).forEach(p=>dc[p]=(dc[p]||0)+1));
+    const topD=Object.entries(dc).sort((a,b)=>b[1]-a[1])[0];
+    const DL={"Mind reading":"Regulate before you respond","Catastrophising":"You are not your thoughts","All-or-nothing":"Micro-moves","Personalising":"The control map","Should-storms":"The inner critic","Discounting wins":"The inner critic"};
+    if(topD&&topD[1]>=2&&DL[topD[0]]) out.push(`“${topD[0]}” is your mind's favourite pattern — it appears in ${topD[1]} of ${trs.length} thought records. The lesson “${DL[topD[0]]}” is aimed straight at it.`);
   }
-  const ctx={};
-  recent.forEach(c=>c.contexts.forEach(x=>ctx[x]=(ctx[x]||0)+1));
-  const top=Object.entries(ctx).sort((a,b)=>b[1]-a[1])[0];
-  if(top&&top[1]>=3) out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
-  const fr=recent.filter(c=>c.emotions.includes("Frustrated")||c.emotions.includes("Angry")).length;
-  if(fr>=3) out.push(`Frustration has come up ${fr} times in two weeks. The Heat course and the 60-second Reset are built exactly for this.`);
-  const avg=recent.reduce((a,c)=>a+c.mood,0)/recent.length;
-  if(avg>=3.6) out.push("Your average mood over the last two weeks has been on the brighter side. Notice what's working — that's data too.");
-  return out;
+
+  // Worry ledger calibration
+  const reviewed=(S.worries||[]).filter(w=>w.status!=="open");
+  if(reviewed.length>=3){
+    const never=reviewed.filter(w=>w.status==="didnt").length;
+    out.push(`Of ${reviewed.length} worries you've parked and reviewed, ${Math.round(never/reviewed.length*100)}% never happened. Worth remembering at the next 2am forecast.`);
+  }
+
+  // Reset pattern
+  if((S.resetLog||[]).length>=2){
+    const rc={}; S.resetLog.forEach(k=>rc[k]=(rc[k]||0)+1);
+    const topR=Object.entries(rc).sort((a,b)=>b[1]-a[1])[0];
+    if(topR[1]>=2) out.push(`${topR[0]} is what most often sends you to Reset (${topR[1]} of ${S.resetLog.length} times). That's a pattern the courses are built for — not a failing.`);
+  }
+
+  if(recent.length>=3){
+    const diff=recent.filter(c=>c.emotions.some(e=>DIFFICULT.has(e)));
+    if(diff.length){
+      const ev=diff.filter(c=>new Date(c.date).getHours()>=18).length;
+      if(ev/diff.length>0.6) out.push("Most of your harder moments land in the evening. A short decompress before you leave the desk may change how the night goes.");
+    }
+    // Which emotion travels with which trigger
+    const pairs={};
+    diff.forEach(c=>c.emotions.filter(e=>DIFFICULT.has(e)).forEach(e=>c.contexts.forEach(x=>{
+      const k=e+"|"+x; pairs[k]=(pairs[k]||0)+1;
+    })));
+    const topP=Object.entries(pairs).sort((a,b)=>b[1]-a[1])[0];
+    if(topP&&topP[1]>=3){
+      const [e,x]=topP[0].split("|");
+      out.push(`“${e}” and “${x}” travel together in your check-ins — ${topP[1]} times in two weeks. That exact pairing is worth one thought record.`);
+    }
+    const ctx={};
+    recent.forEach(c=>c.contexts.forEach(x=>ctx[x]=(ctx[x]||0)+1));
+    const top=Object.entries(ctx).sort((a,b)=>b[1]-a[1])[0];
+    if(top&&top[1]>=3) out.push(`“${top[0]}” shows up most often in your check-ins. Worth a look at the Control Map lesson if you haven't yet.`);
+    const fr=recent.filter(c=>c.emotions.includes("Frustrated")||c.emotions.includes("Angry")).length;
+    if(fr>=3) out.push(`Frustration has come up ${fr} times in two weeks. The Heat course and the 60-second Reset are built exactly for this.`);
+    const avg=recent.reduce((a,c)=>a+c.mood,0)/recent.length;
+    if(avg>=3.6) out.push("Your average mood over the last two weeks has been on the brighter side. Notice what's working — that's data too.");
+  }
+  return out.slice(0,5);
 }
 function moodChartSVG(){
   const cutoff=Date.now()-14*86400000;
@@ -1013,6 +1249,9 @@ function viewSettings(){
 }
 
 render();
+if("serviceWorker" in navigator && location.protocol==="https:"){
+  try{ navigator.serviceWorker.register("sw.js").catch(()=>{}); }catch(e){}
+}
 </script>
 </body>
 </html>

@@ -10,7 +10,9 @@ A private, native iPhone app for building emotional intelligence under real pres
 
 **Reset** — the app's signature move: a 60-second guided circuit-breaker for hard moments. Pick what's here right now — anger, frustration, helplessness, overwhelm, anxiety — and get three timed steps tuned to that exact state (ride the 90-second wave, name the boundary, choose the next move).
 
-**Learn** — five courses, 22 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience:
+**For right now** — after a difficult check-in, Today quietly surfaces the one or two tools built for that exact state (anger → Reset or thought record; anxiety → physiological sigh + worry parking; helplessness → the control map).
+
+**Learn** — six courses, 27 short lessons (2–4 minutes each), written for your actual life, not a generic wellness audience:
 
 | Course | What it covers |
 |---|---|
@@ -19,12 +21,13 @@ A private, native iPhone app for building emotional intelligence under real pres
 | **Ground** | Helplessness → agency: the control map, micro-moves, asking for help without losing face |
 | **Presence** | Leading with EQ: emotional contagion, regulating in meetings, SBI feedback, stepping pressure down instead of passing it through |
 | **Roots** | Code-switching between cultures, the Sunday call home, friendship on a banker's calendar, rest as a skill |
+| **Steel** | Endurance for the long game: stress-recovery cycles, sleep as an edge, the inner critic, defusion, values |
 
 Many lessons end with an interactive scenario — a realistic moment (an MD dismissing your team's work, an analyst quietly slipping, restructuring rumours) where you choose a response and get honest feedback on it.
 
-**Toolkit** — breathing exercises with a live animation (box, physiological sigh, 4-7-8, coherent 5.5), 5-4-3-2-1 grounding, a guided CBT thought record (situation → feeling + intensity → automatic thought → distortions → evidence for and against → balanced verdict → re-rate), and an end-of-day decompress ritual.
+**Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided CBT thought record with intensity ratings and evidence weighing; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
 
-**Reflect** — your mood over the last 14 days, gentle pattern insights ("most of your harder moments land in the evening"), a private journal, and quiet milestones.
+**Reflect** — your mood over the last 14 days, a cross-tool insight engine (your most frequent cognitive distortion with the lesson aimed at it, average intensity drop across thought records, what percentage of parked worries never happened, which emotion travels with which trigger), a private journal, and quiet milestones.
 
 ## Design principles
 
