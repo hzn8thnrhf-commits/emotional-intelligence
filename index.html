@@ -545,6 +545,7 @@ function load(){
   if(!S.resetLog) S.resetLog=[];
   if(!S.profile) S.profile=[];
   if(S.voice===undefined) S.voice=true;
+  if(!S.doneAt) S.doneAt={};
 }
 function save(){ try{ localStorage.setItem("samatva",JSON.stringify(S)); }catch(e){} }
 function effectiveTheme(){
@@ -655,6 +656,7 @@ function render(){
   else if(nav.page==="reframe") html=viewReframe();
   else if(nav.page==="prepare") html=viewPrepare();
   else if(nav.page==="med") html=viewMed(nav.p.id);
+  else if(nav.page==="review") html=viewReview();
   else if(nav.page==="script") html=viewScript();
   else if(nav.page==="worries") html=viewWorries();
   else if(nav.page==="decompress") html=viewDecompress();
@@ -1074,7 +1076,7 @@ function saveReflection(lid){
   document.getElementById("refl-save").style.display="none";
 }
 function completeLesson(cid,lid){
-  if(!S.done.includes(lid)) S.done.push(lid);
+  if(!S.done.includes(lid)){ S.done.push(lid); S.doneAt[lid]=new Date().toISOString(); }
   save(); goPage("course",{id:cid});
 }
 
@@ -1528,6 +1530,11 @@ function viewReflect(){
   const ins=insights();
   const earned=MILESTONES.filter(m=>m.f(S)).length;
   return `<h1>Reflect</h1>
+  <button class="tap card" onclick="goPage('review')"><div class="row">
+    <span class="icon">📅</span>
+    <div class="grow"><h3>Weekly review</h3>
+      <div class="sub">Five minutes on how the week actually went — built from your own data.</div></div>
+    <span class="chev">›</span></div></button>
   <div class="stats">
     <div class="card"><div style="font-size:17px">🌬️</div><div class="v">${Math.floor(S.calmSec/60)}</div><div class="tiny">calm minutes</div></div>
     <div class="card"><div style="font-size:17px">📖</div><div class="v">${S.done.length}</div><div class="tiny">lessons done</div></div>
@@ -1553,6 +1560,65 @@ function viewReflect(){
         </div>${esc(j.body)}</div>`).join("")
     :`<p class="sub" style="margin:8px 0 0">Reflections, reframes and decompress notes will collect here — private, in this browser only.</p>`}
   </div>`;
+}
+
+/* ---------- Weekly review ---------- */
+function weekStats(){
+  const now=Date.now(), wk=7*86400000;
+  const inWin=(d,start,end)=>{ const t=new Date(d).getTime(); return t>start&&t<=end; };
+  const thisCI=S.checkIns.filter(c=>inWin(c.date,now-wk,now));
+  const lastCI=S.checkIns.filter(c=>inWin(c.date,now-2*wk,now-wk));
+  const avg=a=>a.length?a.reduce((x,c)=>x+c.mood,0)/a.length:null;
+  const moodNow=avg(thisCI), moodPrev=avg(lastCI);
+  const counts=(arr,fn)=>{ const m={}; arr.forEach(c=>fn(c).forEach(x=>m[x]=(m[x]||0)+1)); return Object.entries(m).sort((a,b)=>b[1]-a[1]); };
+  const topEmo=counts(thisCI,c=>c.emotions.filter(e=>DIFFICULT.has(e)))[0];
+  const topCtx=counts(thisCI,c=>c.contexts)[0];
+  const trs=S.journal.filter(j=>j.kind==="Reframe"&&j.meta&&inWin(j.date,now-wk,now));
+  const drop=trs.length?Math.round(trs.reduce((a,t)=>a+(t.meta.before-t.meta.after),0)/trs.length):null;
+  const reviewed=S.worries.filter(w=>w.status!=="open").length;
+  const lessons=Object.entries(S.doneAt).filter(([,d])=>inWin(d,now-wk,now)).length;
+  return {thisCI,moodNow,moodPrev,topEmo,topCtx,trs,drop,reviewed,lessons};
+}
+function viewReview(){
+  const w=weekStats();
+  const line=(icon,text)=>`<div class="take"><b>${icon}</b><span>${text}</span></div>`;
+  let digest="";
+  if(!w.thisCI.length&&!w.trs.length&&!w.lessons){
+    digest=`<p class="sub">Not much logged this week — that's information too. A few 15-second check-ins next week and this review starts working for you.</p>`;
+  }else{
+    if(w.moodNow!=null){
+      const label=MOODS[Math.round(w.moodNow)]?.toLowerCase()||"steady";
+      const trend=w.moodPrev==null?"":(w.moodNow-w.moodPrev>0.3?" — brighter than the week before":(w.moodPrev-w.moodNow>0.3?" — heavier than the week before":" — level with the week before"));
+      digest+=line("🌤️",`Average mood: <b>${label}</b> across ${w.thisCI.length} check-in${w.thisCI.length===1?"":"s"}${trend}.`);
+    }
+    if(w.topEmo) digest+=line("🌡️",`Most frequent difficult feeling: <b>${w.topEmo[0]}</b> (${w.topEmo[1]}×)${w.topCtx?`, most often around <b>${w.topCtx[0]}</b>`:""}.`);
+    if(w.trs.length) digest+=line("🔁",`${w.trs.length} thought record${w.trs.length===1?"":"s"}${w.drop>0?`, dropping the feeling by <b>${w.drop} points</b> on average`:""}.`);
+    if(w.reviewed>=3){
+      const never=S.worries.filter(x=>x.status==="didnt").length;
+      digest+=line("🅿️",`Worry ledger to date: <b>${Math.round(never/w.reviewed*100)}%</b> of reviewed worries never happened.`);
+    }
+    if(w.lessons) digest+=line("📖",`${w.lessons} lesson${w.lessons===1?"":"s"} completed this week.`);
+    digest+=line("🌬️",`${Math.floor(S.calmSec/60)} calm minutes banked in total.`);
+  }
+  return `<button class="back" onclick="goTab('reflect')">‹ Reflect</button>
+  <h1 style="margin-top:2px">Weekly review</h1>
+  <p class="sub" style="margin:-6px 2px 8px">Your week, from your own data — then two questions to close it.</p>
+  <div class="card">${digest}</div>
+  <label class="q">What did you handle better this week than you would have a month ago?</label>
+  <div class="hint">Progress hides unless you name it. There's always one thing.</div>
+  <textarea id="rv-1" rows="2"></textarea>
+  <label class="q">One intention for next week</label>
+  <div class="hint">Not a to-do list — one behaviour. "Reset before replying hot." "One real lunch break."</div>
+  <textarea id="rv-2" rows="2"></textarea>
+  <button class="btn" style="margin-top:16px" onclick="saveReview()">Close the week</button>`;
+}
+function saveReview(){
+  const a=document.getElementById("rv-1").value.trim();
+  const b=document.getElementById("rv-2").value.trim();
+  if(!a&&!b) return;
+  S.journal.unshift({date:new Date().toISOString(),kind:"Review",title:"Week closed",
+    body:`Handled better: ${a||"—"}\nIntention: ${b||"—"}`});
+  save(); goTab("reflect");
 }
 
 /* ---------- Settings ---------- */
