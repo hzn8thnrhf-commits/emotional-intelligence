@@ -807,7 +807,7 @@ if(TTS.enabled){ TTS.pick(); speechSynthesis.onvoiceschanged=()=>TTS.pick(); }
 
 let reading=false;
 function stopAllAudio(){
-  stopBreath(); stopMed(); TTS.stop(); reading=false;
+  stopBreath(); stopMed(); stopUnwind(); TTS.stop(); reading=false;
 }
 
 // Read a full lesson aloud: sections, takeaways, reflection prompt.
@@ -872,6 +872,7 @@ function render(){
   else if(nav.page==="gym") html=viewGym();
   else if(nav.page==="gymrun") html=viewGymRun(nav.p.id);
   else if(nav.page==="quiz") html=viewQuiz(nav.p.id);
+  else if(nav.page==="unwind") html=viewUnwind();
   else if(nav.page==="script") html=viewScript();
   else if(nav.page==="worries") html=viewWorries();
   else if(nav.page==="decompress") html=viewDecompress();
@@ -882,6 +883,7 @@ function render(){
   else if(nav.tab==="reflect") html=viewReflect();
   app.innerHTML=`<div class="fade">${html}</div>`;
   if(nav.page==="breathe") initBreath();
+  if(nav.page==="unwind") initUnwind();
 }
 
 /* ---------- Onboarding ---------- */
@@ -1499,6 +1501,8 @@ function viewTools(){
   ${row("✋","var(--indigo)","Ground: 5-4-3-2-1","Out of your head, back into the room","goPage('ground')")}
   <div class="eyebrow" style="margin:14px 2px 10px">Guided meditations</div>
   ${MEDITATIONS.map(m=>row(m.icon,"var(--teal)",m.title,`${m.sub} · ${m.min} min`,`goPage('med',{id:'${m.id}'})`)).join("")}
+  <div class="eyebrow" style="margin:14px 2px 10px">Unwind</div>
+  ${row("🫧","var(--teal)","Ripples","A mindless minute — tap the water, pop the bubbles","goPage('unwind')")}
   <div class="eyebrow" style="margin:14px 2px 10px">Work it through</div>
   ${row("🔁","var(--ember)","Thought record","Guided CBT engine — detects your thinking patterns and challenges them","goPage('reframe')")}
   ${row("🗣️","var(--moss)","Say it cleanly","Build the difficult-conversation script","goPage('script')")}
@@ -1616,6 +1620,129 @@ function stopMed(){
   clearTimeout(med.timer); clearInterval(med.clock);
   if(med.elapsed>=30){ S.calmSec+=med.elapsed; save(); }
   med.elapsed=0;
+}
+
+/* ---------- Ripples (mindless unwind game) ---------- */
+let uw={on:false};
+function viewUnwind(){
+  return `<button class="back" onclick="goTab('tools')">‹ Toolkit</button>
+  <h1 style="margin-top:2px">Ripples</h1>
+  <p class="sub" style="margin:-6px 2px 10px">Nothing to win, nothing to lose. Tap the water, pop the bubbles, let the mind idle.</p>
+  <canvas id="uw-canvas" style="width:100%; height:60vh; display:block; border-radius:20px; touch-action:none"></canvas>
+  <div class="center tiny" id="uw-time" style="margin-top:10px"></div>`;
+}
+function initUnwind(){
+  const cv=document.getElementById("uw-canvas");
+  if(!cv) return;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const w=cv.clientWidth, h=cv.clientHeight;
+  cv.width=w*dpr; cv.height=h*dpr;
+  const ctx=cv.getContext("2d");
+  ctx.scale(dpr,dpr);
+  const dark=effectiveTheme()==="dark";
+  uw={on:true, ctx, w, h, dark, ripples:[], bubbles:[], parts:[],
+      last:performance.now(), spawn:0.9, elapsed:0, raf:null, clock:null};
+  uw.clock=setInterval(()=>{
+    uw.elapsed++;
+    const el=document.getElementById("uw-time");
+    if(el) el.textContent=`${Math.floor(uw.elapsed/60)}:${String(uw.elapsed%60).padStart(2,"0")} adrift`;
+  },1000);
+  cv.addEventListener("pointerdown",uwTap);
+  uw.raf=requestAnimationFrame(uwFrame);
+}
+const UW_HUES=[[95,179,196],[147,160,216],[132,165,126],[176,139,171]];
+function uwSpawnBubble(){
+  const hue=UW_HUES[Math.floor(Math.random()*UW_HUES.length)];
+  uw.bubbles.push({
+    x:20+Math.random()*(uw.w-40), y:uw.h+20,
+    r:9+Math.random()*17, vy:14+Math.random()*18,
+    phase:Math.random()*6.28, sway:6+Math.random()*14, hue
+  });
+}
+function uwTap(ev){
+  if(!uw.on) return;
+  const rect=ev.target.getBoundingClientRect();
+  const x=ev.clientX-rect.left, y=ev.clientY-rect.top;
+  let popped=false;
+  for(let i=uw.bubbles.length-1;i>=0;i--){
+    const b=uw.bubbles[i];
+    if(Math.hypot(b.x-x,b.y-y)<b.r+14){
+      for(let k=0;k<9;k++){
+        const a=Math.random()*6.28, sp=30+Math.random()*70;
+        uw.parts.push({x:b.x,y:b.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:0.7,hue:b.hue,r:1.5+Math.random()*2.5});
+      }
+      uw.bubbles.splice(i,1);
+      popped=true;
+      if(navigator.vibrate) navigator.vibrate(8);
+      break;
+    }
+  }
+  if(!popped) uw.ripples.push({x,y,t:0});
+}
+function uwFrame(now){
+  if(!uw.on) return;
+  const dt=Math.min((now-uw.last)/1000,0.05);
+  uw.last=now;
+  const c=uw.ctx;
+  // water
+  const g=c.createLinearGradient(0,0,0,uw.h);
+  if(uw.dark){ g.addColorStop(0,"#0d1c22"); g.addColorStop(1,"#0a141c"); }
+  else{ g.addColorStop(0,"#e3f0f2"); g.addColorStop(1,"#d3e6ea"); }
+  c.fillStyle=g;
+  c.fillRect(0,0,uw.w,uw.h);
+  // spawn
+  uw.spawn+=dt;
+  if(uw.spawn>1.15&&uw.bubbles.length<12){ uw.spawn=0; uwSpawnBubble(); }
+  // ripples
+  for(let i=uw.ripples.length-1;i>=0;i--){
+    const r=uw.ripples[i];
+    r.t+=dt;
+    for(let ring=0;ring<3;ring++){
+      const rad=r.t*90+ring*16;
+      const alpha=Math.max(0,(1.5-r.t)/1.5)*0.35*(1-ring*0.25);
+      if(alpha<=0) continue;
+      c.beginPath();
+      c.arc(r.x,r.y,rad,0,6.29);
+      c.strokeStyle=uw.dark?`rgba(120,200,215,${alpha})`:`rgba(31,122,140,${alpha})`;
+      c.lineWidth=1.6;
+      c.stroke();
+    }
+    if(r.t>1.5) uw.ripples.splice(i,1);
+  }
+  // bubbles
+  for(let i=uw.bubbles.length-1;i>=0;i--){
+    const b=uw.bubbles[i];
+    b.y-=b.vy*dt;
+    b.phase+=dt;
+    const x=b.x+Math.sin(b.phase)*b.sway*0.15;
+    if(b.y<-30){ uw.bubbles.splice(i,1); continue; }
+    const [R,G,B]=b.hue;
+    const grad=c.createRadialGradient(x-b.r*0.3,b.y-b.r*0.35,b.r*0.15,x,b.y,b.r);
+    grad.addColorStop(0,`rgba(255,255,255,${uw.dark?0.30:0.75})`);
+    grad.addColorStop(1,`rgba(${R},${G},${B},${uw.dark?0.34:0.42})`);
+    c.beginPath(); c.arc(x,b.y,b.r,0,6.29);
+    c.fillStyle=grad; c.fill();
+    c.strokeStyle=`rgba(${R},${G},${B},${uw.dark?0.5:0.55})`;
+    c.lineWidth=1; c.stroke();
+  }
+  // pop particles
+  for(let i=uw.parts.length-1;i>=0;i--){
+    const pa=uw.parts[i];
+    pa.life-=dt;
+    if(pa.life<=0){ uw.parts.splice(i,1); continue; }
+    pa.x+=pa.vx*dt; pa.y+=pa.vy*dt; pa.vy+=40*dt;
+    const [R,G,B]=pa.hue;
+    c.beginPath(); c.arc(pa.x,pa.y,pa.r*pa.life,0,6.29);
+    c.fillStyle=`rgba(${R},${G},${B},${pa.life})`;
+    c.fill();
+  }
+  uw.raf=requestAnimationFrame(uwFrame);
+}
+function stopUnwind(){
+  if(!uw.on) return;
+  uw.on=false;
+  cancelAnimationFrame(uw.raf); clearInterval(uw.clock);
+  if(uw.elapsed>=30){ S.calmSec+=uw.elapsed; save(); }
 }
 
 /* ---------- Grounding ---------- */

@@ -28,6 +28,8 @@ Many lessons end with an interactive scenario — a realistic moment (an MD dism
 
 **Audio & voice** — spoken guidance throughout, using the device's built-in speech engine (free, on-device, private — no downloads, nothing sent anywhere): breathing exercises and Resets speak their cues, every lesson has a "Listen" button that reads it aloud, and four guided meditations (Arrive · Before the storm · Leaves on a stream · The evening line) play as timed, spoken scripts. Toggle in Settings → Voice guidance.
 
+**Ripples** — a mindless unwind game: an ambient water canvas where taps send out ripple rings and softly drifting bubbles pop under your finger. No score, no fail state — deliberately idle; the minutes count toward your calm total.
+
 **Worth keeping** — light spaced repetition: one takeaway from your completed lessons resurfaces on Today each day, so lessons compound instead of fading.
 
 **Toolkit** — organised around the moment: *before* (Prepare — a 90-second pre-meeting primer: outcome, likely spike, pre-decided response, one breath), *during* (animated breathing — box, physiological sigh, 4-7-8, coherent 5.5 — and 5-4-3-2-1 grounding), and *after* (a guided **CBT engine** — a seven-step thought-record wizard that detects likely cognitive distortions from your wording, asks targeted Socratic questions per distortion, and offers balanced-thought starters; Say it cleanly — a difficult-conversation script builder; Worry parking — park a worry, review it when the facts land, and let the ledger recalibrate your forecasting; and an end-of-day decompress).
